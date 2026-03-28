@@ -4,58 +4,68 @@
    top: 0;
    left: 0;
    height: 100vh;
-   width: 56px;
-   background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0) 100%);
+   width: 64px;
+   background: linear-gradient(180deg, rgba(10, 15, 25, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
    border-right: 1px solid var(--border-color);
    display: flex;
    flex-direction: column;
    align-items: center;
-   padding: 16px 0;
+   padding: 20px 0;
    z-index: 1000;
-   backdrop-filter: blur(10px);
+   backdrop-filter: blur(20px);
+   transition: var(--transition-premium);
 }
 
-.sidebar-top {
-   margin-bottom: auto;
+.f-nav:hover {
+   background: linear-gradient(180deg, rgba(15, 20, 35, 0.6) 0%, rgba(5, 5, 10, 0.4) 100%);
+   width: 68px;
 }
 
 .sidebar-logo {
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 36px;
-   height: 36px;
-   border-radius: 8px;
-   color: var(--primary);
-   font-size: 20px;
+   width: 40px;
+   height: 40px;
+   border-radius: 12px;
+   background: var(--primary);
+   color: #fff;
+   font-size: 22px;
    text-decoration: none;
-   margin-bottom: 24px;
-   transition: all 0.2s;
+   margin-bottom: 32px;
+   transition: var(--transition-premium);
+   box-shadow: 0 0 15px var(--primary-glow);
 }
 
-.sidebar-menu {
-   display: flex;
-   flex-direction: column;
-   gap: 12px;
-   align-items: center;
+.sidebar-logo:hover {
+   transform: rotate(15deg) scale(1.1);
+   box-shadow: 0 0 25px var(--primary-glow);
 }
 
 .sidebar-link {
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 40px;
-   height: 40px;
+   width: 44px;
+   height: 44px;
    color: var(--text-secondary);
-   font-size: 18px;
-   border-radius: 10px;
-   transition: all 0.2s;
+   font-size: 20px;
+   border-radius: 14px;
+   transition: var(--transition-premium);
    text-decoration: none;
+   margin-bottom: 8px;
 }
 
 .sidebar-link:hover {
-   color: var(--foreground);
-   background: var(--glass-border);
+   color: #fff;
+   background: rgba(255, 255, 255, 0.08);
+   transform: translateX(5px);
+}
+
+.sidebar-link.active {
+   color: var(--primary);
+   background: rgba(99, 102, 241, 0.1);
+   box-shadow: inset 0 0 10px rgba(99, 102, 241, 0.05);
 }
 
 /* Bottom elements of the sidebar */
@@ -63,7 +73,7 @@
    margin-top: auto;
    display: flex;
    flex-direction: column;
-   gap: 12px;
+   gap: 16px;
 }
 
 /* Top bar matching PeteZah */
