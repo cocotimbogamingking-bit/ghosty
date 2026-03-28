@@ -1,21 +1,43 @@
 .column {
    width: 145px;
-   transition: all 0.2s ease;
+   transition: all 0.35s var(--transition-smooth);
    cursor: pointer;
    background: var(--background-column);
-   border-radius: 5px;
+   border-radius: 14px;
    padding-left: 10px;
    padding-right: 10px;
    padding-top: 5px;
    margin: 0;
+   border: 1px solid rgba(168, 85, 247, 0.06);
+   position: relative;
+   overflow: hidden;
+}
+
+.column::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(135deg, rgba(168, 85, 247, 0.08), rgba(244, 114, 182, 0.05));
+   opacity: 0;
+   transition: opacity 0.35s var(--transition-smooth);
+   border-radius: 14px;
+   z-index: 0;
+}
+
+.column:hover::before {
+   opacity: 1;
 }
 
 .column img {
    position: absolute;
    width: 145px;
    height: 145px;
-   transition: all 0.2s ease;
+   transition: all 0.35s var(--transition-smooth);
    border-radius: 10px;
+   z-index: 1;
 }
 
 .column p {
@@ -30,10 +52,14 @@
    text-shadow: 0px 0px 30px rgba(0, 0, 0, 0.5);
    padding-top: 136px;
    padding-bottom: 12px;
+   position: relative;
+   z-index: 1;
 }
 
 .column:hover {
-   transform: scale(1.2);
+   transform: scale(1.12) translateY(-6px);
+   box-shadow: 0 12px 40px rgba(168, 85, 247, 0.2), 0 4px 15px rgba(0, 0, 0, 0.3);
+   border-color: rgba(168, 85, 247, 0.2);
 }
 
 .column:hover .label {
@@ -47,6 +73,19 @@
    gap: 2.3em;
    flex-direction: row;
    margin-top: 30px;
+   animation: gridFadeIn 0.6s var(--transition-smooth);
+}
+
+@keyframes gridFadeIn {
+   from {
+      opacity: 0;
+      transform: translateY(20px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
 }
 
 .pinned {
@@ -60,25 +99,35 @@
 input {
    padding: 20px;
    width: 550px;
-   border-radius: 5px;
+   border-radius: 12px;
    background: var(--background-column);
    text-align: center;
    font-size: 20px;
-   border: none;
+   border: 1px solid rgba(168, 85, 247, 0.08);
    outline: none;
    color: var(--text-primary);
-   transition: 0.4s;
+   transition: all 0.4s var(--transition-smooth);
+}
+
+input:focus {
+   border-color: rgba(168, 85, 247, 0.25);
+   box-shadow: 0 0 25px rgba(168, 85, 247, 0.12);
 }
 
 select {
    padding: 20px;
-   border-radius: 5px;
+   border-radius: 12px;
    background: var(--background-column);
    color: var(--text-primary);
    font-size: 20px;
-   border: 0px;
+   border: 1px solid rgba(168, 85, 247, 0.08);
    outline: none;
    cursor: pointer;
+   transition: all 0.3s var(--transition-smooth);
+}
+
+select:hover {
+   border-color: rgba(168, 85, 247, 0.2);
 }
 
 .input-c {

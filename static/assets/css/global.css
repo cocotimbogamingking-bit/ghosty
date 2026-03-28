@@ -1,71 +1,55 @@
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap");
 
 :root {
    /* Background Variables */
    --background-image: linear-gradient(135deg, #0a0a1a 0%, #1a0e2e 30%, #12082a 60%, #0d0d1f 100%);
-   /* Premium dark gradient */
    --backdrop-filter: blur(16px) brightness(75%) saturate(150%);
-   /* Nav Backdrop filter */
    --background-nav: rgba(120, 60, 200, 0.06);
-   /* Nav Background */
    --background-color: #0a0a1a;
-   /* Main Background Color */
    --background-input: rgba(100, 60, 180, 0.15);
-   /* Input Field Background Color */
    --background-column: rgba(30, 20, 55, 0.8);
-   /* Background for Apps Container */
    --background-settings: rgba(20, 14, 40, 0.9);
-   /* Settings Card Background */
    --background-buttons: rgba(80, 45, 160, 0.2);
-   /* Button Background Color */
    --tab-active-background: rgba(120, 60, 220, 0.35);
-   /* Accent Color for Tabs */
    --tab-inactive-background: ;
-   /* Background Color for Tabs Not In Use */
    --slider-active-background: #a855f7;
-   /* Active Slider Background Color */
    --slider-inactive-background: rgba(255, 255, 255, 0.15);
-   /*  Slider Background Color */
    --nav-image: url("/./assets/media/favicon/main.png");
-   /* Nav Logo */
    /* Text Variables */
    --text-primary: #f0e6ff;
-   /* Primary Text Color */
    --text-dark: rgba(192, 132, 252, 0.6);
-   /* Dark Text Color for Error Page, Scrollbar, and Particles */
    --text-placeholder: rgba(192, 132, 252, 0.4);
-   /* Placeholder Text Color */
    /* Other Variables */
    --save-button: #a855f7;
-   /* Save Button */
    --reset-button: #f472b6;
-   /* Reset Button */
    --import-button: #38bdf8;
-   /* Import Button */
    --export-button: #fb923c;
-   /* Export Button */
+   /* Animation Variables */
+   --transition-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+   --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+* {
+   -webkit-tap-highlight-color: transparent;
 }
 
 ::-webkit-scrollbar {
-   width: 6px;
-   background-color: var(--background-color);
+   width: 5px;
+   background-color: transparent;
 }
 
 ::-webkit-scrollbar-track {
-   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-   border-radius: 10px;
-   background-color: var(--background-color);
+   background: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-   border-radius: 10px;
-   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-   background-color: var(--text-primary);
+   border-radius: 20px;
+   background: linear-gradient(180deg, rgba(168, 85, 247, 0.4), rgba(244, 114, 182, 0.3));
 }
 
 ::-webkit-scrollbar-thumb:hover {
-   background-color: var(--text-dark);
+   background: linear-gradient(180deg, rgba(168, 85, 247, 0.7), rgba(244, 114, 182, 0.5));
 }
 
 body {
@@ -77,6 +61,8 @@ body {
    background-repeat: no-repeat;
    background-size: cover;
    background-attachment: fixed;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
 }
 
 ::placeholder {
@@ -95,4 +81,9 @@ body {
    top: 0%;
    position: absolute;
    z-index: 99;
+}
+
+::selection {
+   background: rgba(168, 85, 247, 0.35);
+   color: #fff;
 }
