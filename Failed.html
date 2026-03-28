@@ -1,32 +1,163 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Welcome to nginx!</title>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HypeStudy — Secure Study Platform for Students!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
-      html {
-        color-scheme: light dark;
-      }
-      body {
-        width: 35em;
-        margin: 0 auto;
-        font-family: Tahoma, Verdana, Arial, sans-serif;
-      }
+        :root {
+            --primary: #0078d4;
+            --bg: #f3f2f1;
+            --text: #323130;
+            --white: #ffffff;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+        }
+        .navbar {
+            background: var(--white);
+            height: 60px;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            font-size: 14px;
+        }
+        .hero {
+            padding: 80px 40px;
+            text-align: center;
+            background: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+            color: white;
+        }
+        .hero h1 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+        .hero p {
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto 40px;
+            opacity: 0.9;
+        }
+        .search-box {
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 8px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .search-box input {
+            flex: 1;
+            border: none;
+            outline: none;
+            padding: 10px;
+            font-size: 16px;
+        }
+        .search-box i {
+            color: #8a8886;
+        }
+        .content-grid {
+            max-width: 1200px;
+            margin: 60px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 0 20px;
+        }
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid #edebe9;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+        }
+        .card i {
+            font-size: 32px;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            margin-bottom: 12px;
+        }
+        .card p {
+            font-size: 14px;
+            color: #605e5c;
+            line-height: 1.5;
+        }
     </style>
-  </head>
-  <body>
-    <h1>Welcome to nginx!</h1>
-    <p>
-      If you see this page, the nginx web server is successfully installed and working. Further
-      configuration is required.
-    </p>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo"><i class="fa-solid fa-graduation-cap"></i> HypeStudy</div>
+        <div class="nav-links">
+            <a href="#">Resources</a>
+            <a href="#">Flashcards</a>
+            <a href="#">Quizzes</a>
+            <a href="#">Analytics</a>
+        </div>
+        <div class="user">Login / Register</div>
+    </nav>
 
-    <p>
-      For online documentation and support please refer to
-      <a href="http://nginx.org/">nginx.org</a>.<br />
-      Commercial support is available at
-      <a href="http://nginx.com/">nginx.com</a>.
-    </p>
+    <header class="hero">
+        <h1>Master Your Subjects with HypeStudy</h1>
+        <p>The all-in-one platform for secure student collaboration and academic excellence.</p>
+        <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input type="text" placeholder="Search for study materials, courses, and more...">
+        </div>
+    </header>
 
-    <p><em>Thank you for using nginx.</em></p>
-  </body>
+    <main class="content-grid">
+        <div class="card">
+            <i class="fa-solid fa-book-open"></i>
+            <h3>Digital Library</h3>
+            <p>Access thousands of textbooks, papers, and lecture notes curated by top educators worldwide.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-bolt"></i>
+            <h3>Quick Quizzes</h3>
+            <p>Test your knowledge with our adaptive quiz engine designed to identify your learning gaps.</p>
+        </div>
+        <div class="card">
+            <i class="fa-solid fa-chart-line"></i>
+            <h3>Study Analytics</h3>
+            <p>Track your progress across all subjects with detailed performance reports and goal setting.</p>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; color: #605e5c; font-size: 12px;">
+        &copy; 2026 HypeStudy Education Platforms Inc. All rights reserved. 
+        <br><br>
+        <span style="opacity: 0.5;">ToS | Privacy | DMCA</span>
+    </footer>
+</body>
 </html>

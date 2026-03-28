@@ -16,65 +16,76 @@
 </head>
 
 <body onload="SplashT">
+  <div class="az-header">
+    <div class="az-header-left">
+      <button class="az-menu-btn"><i class="fa-solid fa-bars"></i></button>
+      <div class="az-brand">Microsoft Azure</div>
+    </div>
+    <div class="az-header-center">
+      <div class="az-search-wrapper">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="text" placeholder="Search resources, services, and docs (G+/)" class="az-search-input">
+      </div>
+    </div>
+    <div class="az-header-right">
+      <i class="fa-solid fa-terminal"></i>
+      <i class="fa-solid fa-circle-question"></i>
+      <i class="fa-solid fa-gear"></i>
+      <div class="az-user-icon">JS</div>
+    </div>
+  </div>
+
   <div class="glow-wrapper">
     <div class="glow-orb glow-1"></div>
     <div class="glow-orb glow-2"></div>
-    <div class="glow-orb glow-3"></div>
   </div>
 
   <!-- Sidebar injected by m1.js -->
   <div class="f-nav"></div>
 
   <div class="main-wrapper">
-    <!-- Top right Discord button like PeteZah -->
-    <a href="#" class="top-discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
-
     <div class="main">
-      <h1 class="title">Ghosty</h1>
-      <p id="splash">Your all-in-one hub</p>
+      <div class="az-welcome">
+        <h1>Welcome to Ghosty Portal</h1>
+        <p>Azure Cost Estimator Hub</p>
+      </div>
 
       <div class="search-container">
         <form id="fv" method="POST" class="search-form-home">
-          <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input id="input" autocomplete="off" placeholder="Search or enter URL..." type="text" />
+          <i class="fa-solid fa-globe search-icon"></i>
+          <input id="input" autocomplete="off" placeholder="Enter URL or search term..." type="text" />
           <span class="search-shortcut">CTRL+K</span>
         </form>
       </div>
 
-      <div class="home-apps-row">
-        <a href="/./a" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-gamepad"></i></div>
-          <span>Games</span>
-        </a>
-        <a href="#" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-robot"></i></div>
-          <span>AI</span>
-        </a>
-        <a href="#" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-music"></i></div>
-          <span>Music</span>
-        </a>
-        <a href="#" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-film"></i></div>
-          <span>Movies</span>
-        </a>
-        <a href="/./b" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-mobile-screen"></i></div>
-          <span>Apps</span>
-        </a>
-        <a href="#" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-regular fa-message"></i></div>
-          <span>Chat</span>
-        </a>
-        <a href="#" class="home-app-btn add-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-plus"></i></div>
-          <span>Add</span>
-        </a>
-      </div>
-
-      <div class="domain-selector">
-        <button class="domain-btn"><i class="fa-solid fa-globe"></i> Default <i
-            class="fa-solid fa-caret-down"></i></button>
+      <div class="az-dashboard-grid">
+        <div class="az-section-title">Navigation Resources</div>
+        <div class="home-apps-row">
+          <a href="/./a" class="home-app-btn">
+            <div class="home-app-icon"><i class="fa-solid fa-gamepad"></i></div>
+            <span>Games</span>
+          </a>
+          <a href="/./b" class="home-app-btn">
+            <div class="home-app-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+            <span>Apps</span>
+          </a>
+          <a href="#" class="home-app-btn">
+            <div class="home-app-icon"><i class="fa-solid fa-robot"></i></div>
+            <span>AI Tools</span>
+          </a>
+          <a href="#" class="home-app-btn">
+            <div class="home-app-icon"><i class="fa-solid fa-music"></i></div>
+            <span>Media</span>
+          </a>
+          <a href="/./d" class="home-app-btn">
+            <div class="home-app-icon"><i class="fa-solid fa-layer-group"></i></div>
+            <span>Tabs</span>
+          </a>
+          <a href="/./c" class="home-app-btn">
+            <div class="home-app-icon"><i class="fa-solid fa-sliders"></i></div>
+            <span>Settings</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

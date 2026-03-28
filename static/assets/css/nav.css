@@ -1,65 +1,47 @@
 ﻿/* Sidebar completely matching PeteZah */
 .f-nav {
    position: fixed;
-   top: 0;
+   top: 48px;
    left: 0;
-   height: 100vh;
+   height: calc(100vh - 48px);
    width: 64px;
-   background: linear-gradient(180deg, rgba(10, 15, 25, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%);
+   background: #002444;
    border-right: 1px solid var(--border-color);
    display: flex;
    flex-direction: column;
    align-items: center;
-   padding: 20px 0;
+   padding: 12px 0;
    z-index: 1000;
-   backdrop-filter: blur(20px);
    transition: var(--transition-premium);
 }
 
 .f-nav:hover {
-   background: linear-gradient(180deg, rgba(15, 20, 35, 0.6) 0%, rgba(5, 5, 10, 0.4) 100%);
-   width: 68px;
-}
-
-.sidebar-logo {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   width: 40px;
-   height: 40px;
-   border-radius: 12px;
-   background: var(--primary);
-   color: #fff;
-   font-size: 22px;
-   text-decoration: none;
-   margin-bottom: 32px;
-   transition: var(--transition-premium);
-   box-shadow: 0 0 15px var(--primary-glow);
-}
-
-.sidebar-logo:hover {
-   transform: rotate(15deg) scale(1.1);
-   box-shadow: 0 0 25px var(--primary-glow);
+   width: 64px;
 }
 
 .sidebar-link {
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 44px;
-   height: 44px;
-   color: var(--text-secondary);
-   font-size: 20px;
-   border-radius: 14px;
-   transition: var(--transition-premium);
+   width: 48px;
+   height: 48px;
+   color: #fff;
+   font-size: 18px;
+   border-radius: 4px;
+   transition: all 0.2s;
    text-decoration: none;
-   margin-bottom: 8px;
+   margin-bottom: 4px;
+   border-left: 2px solid transparent;
 }
 
 .sidebar-link:hover {
+   background: rgba(255, 255, 255, 0.1);
    color: #fff;
-   background: rgba(255, 255, 255, 0.08);
-   transform: translateX(5px);
+   border-left-color: #0078d4;
+}
+
+.sidebar-logo {
+   display: none;
 }
 
 .sidebar-link.active {

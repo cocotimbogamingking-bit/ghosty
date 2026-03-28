@@ -1,31 +1,31 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-   --background: #030508;
-   --foreground: #f8fafc;
-   --accent: #111824;
-   --border: rgba(255, 255, 255, 0.08);
-   --glass: rgba(255, 255, 255, 0.03);
-   --glass-border: rgba(255, 255, 255, 0.1);
+   --background: #001b33;
+   --foreground: #ffffff;
+   --accent: #0078d4;
+   --border: rgba(255, 255, 255, 0.1);
+   --glass: rgba(0, 0, 0, 0.2);
+   --glass-border: rgba(255, 255, 255, 0.15);
 
-   --primary: #6366f1;
-   --primary-glow: rgba(99, 102, 241, 0.5);
+   --primary: #0078d4;
+   --primary-glow: rgba(0, 120, 212, 0.4);
    
-   --bg-primary: #030508;
-   --bg-secondary: #080b11;
-   --text-primary: #f8fafc;
-   --text-secondary: rgba(240, 242, 245, 0.6);
-   --border-color: rgba(255, 255, 255, 0.08);
-   --background-color: #030508;
-   --background-image: #030508;
-   --background-settings: rgba(15, 20, 30, 0.6);
+   --bg-primary: #001b33;
+   --bg-secondary: #002444;
+   --text-primary: #ffffff;
+   --text-secondary: #a19f9d;
+   --border-color: rgba(255, 255, 255, 0.1);
+   --background-color: #001b33;
+   --background-image: #001b33;
+   --background-settings: rgba(0, 36, 68, 0.8);
    --background-buttons: rgba(255, 255, 255, 0.05);
-   --background-input: rgba(0, 0, 0, 0.4);
-   --tab-active-background: rgba(255, 255, 255, 0.12);
-   --slider-active-background: #6366f1;
-   --slider-inactive-background: rgba(255, 255, 255, 0.08);
+   --background-input: rgba(0, 0, 0, 0.3);
+   --tab-active-background: #0078d4;
+   --slider-active-background: #0078d4;
+   --slider-inactive-background: rgba(255, 255, 255, 0.1);
 
-   --transition-premium: 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+   --transition-premium: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 * {
