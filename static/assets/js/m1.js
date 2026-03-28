@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(themeEle);
   } else {
     const customThemeEle = document.createElement("style");
-    customThemeEle.textContent = localStorage.getItem(`theme - ${themeid} `);
+    customThemeEle.textContent = localStorage.getItem(`theme-${themeid}`);
     document.head.appendChild(customThemeEle);
   }
 
