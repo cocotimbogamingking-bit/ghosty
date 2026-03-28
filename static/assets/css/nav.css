@@ -1,61 +1,51 @@
-﻿/* Sidebar completely matching PeteZah */
+/* Sidebar matching PeteZah */
 .f-nav {
    position: fixed;
-   top: 48px;
+   top: 0;
    left: 0;
-   height: calc(100vh - 48px);
-   width: 64px;
-   background: #002444;
+   height: 100vh;
+   width: 56px;
+   background: rgba(0, 0, 0, 0.2);
    border-right: 1px solid var(--border-color);
    display: flex;
    flex-direction: column;
    align-items: center;
-   padding: 12px 0;
+   padding: 16px 0;
    z-index: 1000;
-   transition: var(--transition-premium);
-}
-
-.f-nav:hover {
-   width: 64px;
+   backdrop-filter: blur(10px);
 }
 
 .sidebar-link {
    display: flex;
    justify-content: center;
    align-items: center;
-   width: 48px;
-   height: 48px;
-   color: #fff;
+   width: 40px;
+   height: 40px;
+   color: var(--text-secondary);
    font-size: 18px;
-   border-radius: 4px;
+   border-radius: 10px;
    transition: all 0.2s;
    text-decoration: none;
-   margin-bottom: 4px;
-   border-left: 2px solid transparent;
+   margin-bottom: 8px;
 }
 
 .sidebar-link:hover {
-   background: rgba(255, 255, 255, 0.1);
    color: #fff;
-   border-left-color: #0078d4;
+   background: rgba(255, 255, 255, 0.08);
 }
 
 .sidebar-logo {
-   display: none;
+   margin-bottom: 24px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
 }
 
-.sidebar-link.active {
-   color: var(--primary);
-   background: rgba(99, 102, 241, 0.1);
-   box-shadow: inset 0 0 10px rgba(99, 102, 241, 0.05);
-}
-
-/* Bottom elements of the sidebar */
 .sidebar-bottom {
    margin-top: auto;
    display: flex;
    flex-direction: column;
-   gap: 16px;
+   gap: 12px;
 }
 
 /* Top bar matching PeteZah */
@@ -64,7 +54,7 @@
    top: 0;
    left: 56px;
    right: 0;
-   height: 52px;
+   height: 48px;
    display: flex;
    align-items: center;
    padding: 0 16px;
@@ -86,7 +76,7 @@
 }
 
 .nav-actions i:hover {
-   color: var(--foreground);
+   color: #fff;
 }
 
 .url-bar-container {
@@ -100,7 +90,7 @@
    background: rgba(0, 0, 0, 0.4);
    border: 1px solid var(--glass-border);
    border-radius: 8px;
-   height: 32px;
+   height: 30px;
    width: 100%;
    max-width: 600px;
    display: flex;
@@ -117,12 +107,12 @@
 }
 
 .url-bar .path {
-   color: var(--foreground);
+   color: #fff;
 }
 
 .right-actions {
    display: flex;
-   gap: 20px;
+   gap: 16px;
    color: var(--text-secondary);
    font-size: 16px;
 }
@@ -133,5 +123,5 @@
 }
 
 .right-actions i:hover {
-   color: var(--foreground);
+   color: #fff;
 }
