@@ -14,10 +14,12 @@
    --text-primary: #f0f2f5;
    --text-secondary: rgba(240, 242, 245, 0.6);
    --border-color: rgba(201, 217, 232, 0.1);
+   --background-color: #0c1017;
    --background-image: #0c1017;
    --background-settings: rgba(255, 255, 255, 0.04);
    --background-buttons: rgba(255, 255, 255, 0.05);
    --background-input: rgba(0, 0, 0, 0.2);
+   --tab-active-background: rgba(255, 255, 255, 0.1);
    --slider-active-background: #3498db;
    --slider-inactive-background: rgba(255, 255, 255, 0.1);
 }
