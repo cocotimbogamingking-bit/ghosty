@@ -1,35 +1,80 @@
-﻿/* PeteZah Main Grid and Content */
-.main {
+﻿/* Centered Home Layout */
+.main-wrapper {
    margin-left: 56px;
-   /* for sidebar */
-   margin-top: 52px;
-   /* for topnav */
-   padding: 32px 48px;
-   min-height: calc(100vh - 52px);
+   /* offset sidebar */
+   width: calc(100vw - 56px);
+   min-height: 100vh;
    display: flex;
-   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   position: relative;
 }
 
-/* Secondary search bar inside main */
-.search-container {
-   margin-bottom: 32px;
-   width: 100%;
-}
-
-.search-form {
+.top-discord-btn {
+   position: absolute;
+   top: 16px;
+   right: 24px;
+   background: rgba(255, 255, 255, 0.03);
+   border: 1px solid var(--border-color);
+   color: var(--text-secondary);
+   padding: 8px 16px;
+   border-radius: 8px;
+   text-decoration: none;
+   font-size: 13px;
    display: flex;
    align-items: center;
-   background: rgba(0, 0, 0, 0.3);
-   border: 1px solid var(--border-color);
-   border-radius: 12px;
-   padding: 0 16px;
-   height: 44px;
+   gap: 8px;
    transition: all 0.2s;
 }
 
-.search-form:focus-within {
+.top-discord-btn:hover {
+   background: rgba(255, 255, 255, 0.08);
+   color: #fff;
+}
+
+.main {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   width: 100%;
+   max-width: 600px;
+   margin-top: -10vh;
+   /* slightly above center */
+}
+
+.title {
+   font-size: 36px;
+   font-weight: 700;
+   color: #fff;
+   margin-bottom: 4px;
+}
+
+#splash {
+   font-size: 14px;
+   color: var(--text-secondary);
+   margin-bottom: 32px;
+}
+
+.search-container {
+   width: 100%;
+   margin-bottom: 32px;
+}
+
+.search-form-home {
+   display: flex;
+   align-items: center;
+   background: rgba(10, 15, 20, 0.4);
+   border: 1px solid var(--border-color);
+   border-radius: 12px;
+   padding: 0 16px;
+   height: 48px;
+   transition: all 0.2s;
+   backdrop-filter: blur(12px);
+}
+
+.search-form-home:focus-within {
    border-color: rgba(255, 255, 255, 0.2);
-   background: rgba(0, 0, 0, 0.5);
+   background: rgba(10, 15, 20, 0.6);
 }
 
 .search-icon {
@@ -44,119 +89,86 @@
    border: none;
    outline: none;
    color: #fff;
-   font-size: 15px;
+   font-size: 14px;
    font-family: inherit;
 }
 
-.search-add-btn {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   width: 28px;
-   height: 28px;
-   border-radius: 8px;
-   background: var(--glass);
+.search-shortcut {
+   background: rgba(255, 255, 255, 0.05);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   padding: 4px 8px;
+   border-radius: 6px;
+   font-size: 10px;
    color: var(--text-secondary);
-   border: 1px solid var(--border-color);
-   cursor: pointer;
-   transition: all 0.2s;
+   user-select: none;
 }
 
-.search-add-btn:hover {
-   background: var(--glass-border);
-   color: #fff;
+.home-apps-row {
+   display: flex;
+   gap: 12px;
+   justify-content: center;
+   margin-bottom: 40px;
+   flex-wrap: wrap;
 }
 
-.app-grid {
-   display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-   gap: 16px;
-   width: 100%;
-   padding-bottom: 60px;
-}
-
-.app-btn {
+.home-app-btn {
    display: flex;
    flex-direction: column;
-   text-decoration: none;
-   background: var(--glass);
-   border: 2px solid rgba(255, 255, 255, 0.02);
-   border-radius: 12px;
-   padding: 0;
-   transition: all 0.2s;
-   position: relative;
-   overflow: hidden;
-   aspect-ratio: 1.2;
    align-items: center;
    justify-content: center;
+   width: 68px;
+   height: 68px;
+   background: rgba(10, 15, 20, 0.4);
+   border: 1px solid var(--border-color);
+   border-radius: 16px;
+   color: var(--text-secondary);
+   text-decoration: none;
+   transition: all 0.2s;
+   backdrop-filter: blur(12px);
 }
 
-.app-btn:hover {
-   background: var(--glass-border);
-   border-color: rgba(255, 255, 255, 0.08);
-   /* 40% matching */
+.home-app-btn.add-btn {
+   border-style: dashed;
+   border-color: rgba(255, 255, 255, 0.15);
+}
+
+.home-app-btn:hover {
+   background: rgba(255, 255, 255, 0.05);
+   color: #fff;
+   border-color: rgba(255, 255, 255, 0.2);
    transform: translateY(-2px);
 }
 
-.app-btn-options {
-   position: absolute;
-   top: 8px;
-   right: 8px;
-   color: rgba(255, 255, 255, 0.6);
-   opacity: 0.6;
-   /* Petezah had 0, user wants it visible */
-   transition: opacity 0.2s;
-   background: rgba(0, 0, 0, 0.4);
-   width: 20px;
-   height: 20px;
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   border-radius: 50%;
-   font-size: 10px;
-   z-index: 5;
+.home-app-icon i {
+   font-size: 18px;
+   margin-bottom: 8px;
 }
 
-.app-btn:hover .app-btn-options {
-   opacity: 1;
+.home-app-btn span {
+   font-size: 11px;
+   font-weight: 500;
 }
 
-.app-btn-icon {
-   width: 100%;
-   height: 100%;
+.domain-selector {
    display: flex;
-   align-items: center;
    justify-content: center;
 }
 
-.app-btn-icon i {
-   font-size: 40px;
-   color: #fff;
-}
-
-.app-btn span {
-   position: absolute;
-   bottom: 8px;
-   left: 8px;
-   font-size: 11px;
-   font-weight: 500;
-   color: #fff;
-   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
-}
-
-.bottom-bar {
-   position: fixed;
-   bottom: 0;
-   left: 56px;
-   right: 0;
-   height: 28px;
-   background: transparent;
+.domain-btn {
+   background: rgba(10, 15, 20, 0.4);
+   border: 1px solid var(--border-color);
+   border-radius: 20px;
+   padding: 6px 16px;
+   color: var(--text-secondary);
+   font-size: 12px;
+   cursor: pointer;
    display: flex;
-   justify-content: space-between;
    align-items: center;
-   padding: 0 16px;
-   font-size: 11px;
-   font-weight: 500;
-   color: rgba(255, 255, 255, 0.4);
-   z-index: 998;
+   gap: 8px;
+   transition: all 0.2s;
+}
+
+.domain-btn:hover {
+   background: rgba(255, 255, 255, 0.08);
+   color: #fff;
 }

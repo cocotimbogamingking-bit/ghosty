@@ -69,15 +69,37 @@ document.addEventListener("DOMContentLoaded", () => {
       document.body.insertBefore(wrapper, document.body.firstChild);
     }
 
-    // Inject Top Nav
-    if (!document.querySelector('.top-nav')) {
-      const pathName = window.location.pathname.replace(".html", "").replace("/", "") || "home";
+    // Inject Top Nav ONLY if not on Home page
+    const pathName = window.location.pathname.replace(".html", "").replace("/", "");
+    const isHome = pathName === "" || pathName === "index" || pathName === "home";
+
+    if (!document.querySelector('.top-nav') && !isHome) {
+      const displayPath = pathName === "a" ? "games" : pathName === "b" ? "apps" : pathName === "c" ? "settings" : pathName || "home";
       const topnavStr = `
          <div class="nav-actions">
             <i class="fa-solid fa-arrow-left"></i>
             <i class="fa-solid fa-arrow-right"></i>
             <i class="fa-solid fa-rotate-right"></i>
          </div>
+         <div class="url-bar-container">
+           <div class="url-bar">
+              <i class="fa-solid fa-lock" style="font-size:10px; margin-right:8px; color:rgba(255,255,255,0.4);"></i>
+              <span class="prefix">petezah://</span><span class="path">${displayPath}</span>
+           </div>
+         </div>
+         <div class="right-actions">
+            <i class="fa-solid fa-gamepad" title="Games"></i>
+            <i class="fa-solid fa-robot" title="AI"></i>
+            <i class="fa-regular fa-user" title="Account"></i>
+            <i class="fa-regular fa-file-lines" title="Changelog"></i>
+            <i class="fa-regular fa-message" title="Chat"></i>
+            <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
+         </div>
+      `;
+            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-arrow-right"></i>
+            <i class="fa-solid fa-rotate-right"></i>
+         </div >
          <div class="url-bar-container">
            <div class="url-bar">
               <i class="fa-solid fa-lock" style="font-size:10px; margin-right:8px; color:rgba(255,255,255,0.4);"></i>
@@ -123,7 +145,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(themeEle);
   } else {
     const customThemeEle = document.createElement("style");
-    customThemeEle.textContent = localStorage.getItem(`theme-${themeid}`);
+    customThemeEle.textContent = localStorage.getItem(`theme - ${ themeid } `);
     document.head.appendChild(customThemeEle);
   }
 
