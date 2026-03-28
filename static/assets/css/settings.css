@@ -13,8 +13,10 @@ body {
    flex-wrap: wrap;
    justify-content: center;
    gap: 20px;
-   padding: 20% 20px 20px 20px;
-   animation: settingsFadeIn 0.5s var(--transition-smooth);
+   padding: 40px;
+   margin-left: 56px;
+   margin-top: 52px;
+   animation: settingsFadeIn 0.3s var(--transition-smooth);
 }
 
 @keyframes settingsFadeIn {
@@ -243,7 +245,7 @@ select:hover {
 
 @media screen and (max-width: 768px) {
    .settings-container {
-      padding: 25% 20px 20px 20px;
+      padding: 20px;
    }
 
    .settings-card {
@@ -269,13 +271,13 @@ select:hover {
 
 @media screen and (max-width: 500px) {
    .settings-container {
-      padding-top: 35%;
+      padding-top: 20px;
    }
 }
 
 @media screen and (min-width: 1000px) {
    .settings-container {
-      padding-top: 10%;
+      padding-top: 40px;
    }
 }
 
