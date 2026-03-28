@@ -23,14 +23,22 @@ document.addEventListener("DOMContentLoaded", () => {
       LogoUrl = "/assets/media/favicon/main-inverted.png";
     }
     const html = `
-      <div id="icon-container">
-        <a class="icon" href="/./"><span style="font-size:28px;margin-right:4px;">👻</span> Ghosty</a>
+      <div class="sidebar-top">
+        <a class="sidebar-logo" href="/./" title="Home">
+           <img src="${LogoUrl}" alt="Logo">
+        </a>
       </div>
-      <div class="f-nav-right">
-        <a class="navbar-link" href="/./a"><i class="fa-solid fa-gamepad navbar-icon"></i><an>&#71;&#97;</an><an>&#109;&#101;&#115;</an></a>
-        <a class="navbar-link" href="/./b"><i class="fa-solid fa-phone navbar-icon"></i><an>&#65;&#112;</an><an>&#112;&#115;</an></a>
-        ${qp ? "" : '<a class="navbar-link" href="/./d"><i class="fa-solid fa-laptop navbar-icon"></i><an>&#84;&#97;</an><an>&#98;&#115;</an></a>'}
-        <a class="navbar-link" href="/./c"><i class="fa-solid fa-gear navbar-icon settings-icon"></i><an>&#83;&#101;&#116;</an><an>&#116;&#105;&#110;&#103;</an></a>
+      <div class="sidebar-menu">
+        <a class="sidebar-link" href="/./a" title="Games">
+           <i class="fa-solid fa-gamepad"></i>
+        </a>
+        <a class="sidebar-link" href="/./b" title="Apps">
+           <i class="fa-solid fa-phone"></i>
+        </a>
+        ${qp ? "" : '<a class="sidebar-link" href="/./d" title="Tabs"><i class="fa-solid fa-laptop"></i></a>'}
+        <a class="sidebar-link" href="/./c" title="Settings">
+           <i class="fa-solid fa-gear"></i>
+        </a>
       </div>`;
     nav.innerHTML = html;
   }

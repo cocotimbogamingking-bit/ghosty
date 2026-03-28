@@ -15,40 +15,79 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body class="center" onload="SplashT">
+<body onload="SplashT">
+  <!-- Sidebar Nav injected by m1.js -->
   <div class="f-nav"></div>
-  <div id="particles-js">
-    <script rel="preload" src="https://cdn.jsdelivr.net/particles.js/2.0.0/"></script>
+
+  <!-- Glowing Background Orbs -->
+  <div class="glow-orb glow-1"></div>
+  <div class="glow-orb glow-2"></div>
+  <div class="glow-orb glow-3"></div>
+
+  <div class="main-wrapper">
     <div class="main">
       <h1 class="title">Ghosty</h1>
-      <p id="splash"></p>
+      <p id="splash">Your all-in-one hub</p>
+
       <div class="search-container">
-        <form id="fv" method="POST">
-          <input id="input" class="truncate" placeholder="Search or enter a URL" type="text" />
+        <form id="fv" method="POST" class="search-form">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input id="input" autocomplete="off" placeholder="Search or enter URL..." type="text" />
+          <span class="search-shortcut">CTRL+K</span>
         </form>
       </div>
-    </div>
-  </div>
 
-  <!-- ═══ Premium Credits Footer ═══ -->
-  <div class="credits-footer" id="credits-footer">
-    <div class="credits-left">
-      <span class="credits-badge">
-        <i class="fa-solid fa-ghost badge-icon"></i>
-        CREATED BY
-      </span>
-      <span class="credits-creator">
-        <span class="creator-name">Marlon</span><span class="creator-emoji">😛</span>
-        <span class="creator-title">the Hispanic GOAT 🐐</span>
-      </span>
+      <div class="app-grid">
+        <a href="/./a" class="app-btn">
+          <div class="app-btn-icon"><i class="fa-solid fa-gamepad"></i></div>
+          <span>Games</span>
+        </a>
+        <a href="#" class="app-btn">
+          <div class="app-btn-icon"><i class="fa-solid fa-robot"></i></div>
+          <span>AI</span>
+        </a>
+        <a href="#" class="app-btn">
+          <div class="app-btn-icon"><i class="fa-solid fa-music"></i></div>
+          <span>Music</span>
+        </a>
+        <a href="#" class="app-btn">
+          <div class="app-btn-icon"><i class="fa-solid fa-film"></i></div>
+          <span>Movies</span>
+        </a>
+        <a href="/./b" class="app-btn">
+          <div class="app-btn-icon"><i class="fa-solid fa-phone"></i></div>
+          <span>Apps</span>
+        </a>
+        <a href="#" class="app-btn">
+          <div class="app-btn-icon"><i class="fa-solid fa-message"></i></div>
+          <span>Chat</span>
+        </a>
+        <a href="#" class="app-btn">
+          <div class="app-btn-icon"><i class="fa-solid fa-plus"
+              style="opacity:0.5; border: 1px dashed rgba(255,255,255,0.2); border-radius: 50%; padding: 4px;"></i>
+          </div>
+          <span>Add</span>
+        </a>
+      </div>
+
+      <div class="domain-selector">
+        <button class="domain-btn"><i class="fa-solid fa-globe"></i> Default <i
+            class="fa-solid fa-caret-down"></i></button>
+      </div>
     </div>
-    <div class="credits-right">
-      <span class="credits-year">
-        <span class="year-dot"></span>
-        In development since 2022
-      </span>
-      <span class="credits-divider"></span>
-      <span class="credits-version">v5.2.6</span>
+
+    <div class="bottom-bar">
+      <div class="bb-left">
+        1 tabs • 1 spaces | <i class="fa-solid fa-download"></i> 0
+        <div class="bb-links">
+          <span>ToS</span>
+          <span>Privacy</span>
+          <span>DMCA</span>
+        </div>
+      </div>
+      <div class="bb-right">
+        <i class="fa-solid fa-rotate-right"></i> Secure | <i class="fa-solid fa-wifi"></i> 10:28 PM
+      </div>
     </div>
   </div>
 
@@ -57,7 +96,6 @@
   <script src="./assets/mathematics/bundle.js?v=2025-04-15"></script>
   <script src="./assets/mathematics/config.js?v=2025-04-15"></script>
   <script src="/assets/js/m1.js"></script>
-  <!-- Scripts -->
 </body>
 
 </html>
