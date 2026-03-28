@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const html = `
       <div class="sidebar-top">
         <a class="sidebar-logo" href="/./" title="Home">
-           <img src="${LogoUrl}" alt="Logo">
+           <img src="${LogoUrl}" alt="Logo" style="width:24px;height:24px;">
         </a>
       </div>
       <div class="sidebar-menu">
@@ -33,14 +33,71 @@ document.addEventListener("DOMContentLoaded", () => {
            <i class="fa-solid fa-gamepad"></i>
         </a>
         <a class="sidebar-link" href="/./b" title="Apps">
-           <i class="fa-solid fa-phone"></i>
+           <i class="fa-solid fa-mobile-screen"></i>
         </a>
-        ${qp ? "" : '<a class="sidebar-link" href="/./d" title="Tabs"><i class="fa-solid fa-laptop"></i></a>'}
+        <a class="sidebar-link" href="#" title="AI">
+           <i class="fa-solid fa-robot"></i>
+        </a>
+        <a class="sidebar-link" href="#" title="Music">
+           <i class="fa-solid fa-music"></i>
+        </a>
+        <a class="sidebar-link" href="#" title="Movies">
+           <i class="fa-solid fa-film"></i>
+        </a>
+        <a class="sidebar-link" href="#" title="Chat">
+           <i class="fa-regular fa-message"></i>
+        </a>
+      </div>
+      <div class="sidebar-bottom">
+        ${qp ? "" : '<a class="sidebar-link" href="/./d" title="Tabs"><i class="fa-solid fa-plus"></i></a>'}
         <a class="sidebar-link" href="/./c" title="Settings">
-           <i class="fa-solid fa-gear"></i>
+           <i class="fa-regular fa-user"></i>
         </a>
       </div>`;
     nav.innerHTML = html;
+
+    // Inject Glow Background
+    if (!document.querySelector('.glow-wrapper')) {
+      const glowStr = `
+        <div class="glow-orb glow-1"></div>
+        <div class="glow-orb glow-2"></div>
+        <div class="glow-orb glow-3"></div>
+      `;
+      const wrapper = document.createElement('div');
+      wrapper.className = 'glow-wrapper';
+      wrapper.innerHTML = glowStr;
+      document.body.insertBefore(wrapper, document.body.firstChild);
+    }
+
+    // Inject Top Nav
+    if (!document.querySelector('.top-nav')) {
+      const pathName = window.location.pathname.replace(".html", "").replace("/", "") || "home";
+      const topnavStr = `
+         <div class="nav-actions">
+            <i class="fa-solid fa-arrow-left"></i>
+            <i class="fa-solid fa-arrow-right"></i>
+            <i class="fa-solid fa-rotate-right"></i>
+         </div>
+         <div class="url-bar-container">
+           <div class="url-bar">
+              <i class="fa-solid fa-lock" style="font-size:10px; margin-right:8px; color:rgba(255,255,255,0.4);"></i>
+              <span class="prefix">petezah://</span><span class="path">${pathName === "a" ? "games" : pathName === "b" ? "apps" : pathName === "c" ? "settings" : "home"}</span>
+           </div>
+         </div>
+         <div class="right-actions">
+            <i class="fa-solid fa-gamepad" title="Games"></i>
+            <i class="fa-solid fa-robot" title="AI"></i>
+            <i class="fa-regular fa-user" title="Account"></i>
+            <i class="fa-regular fa-file-lines" title="Changelog"></i>
+            <i class="fa-regular fa-message" title="Chat"></i>
+            <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
+         </div>
+      `;
+      const tnav = document.createElement('div');
+      tnav.className = 'top-nav';
+      tnav.innerHTML = topnavStr;
+      document.body.insertBefore(tnav, nav.nextSibling);
+    }
   }
 
   // LocalStorage Setup for 'dy'

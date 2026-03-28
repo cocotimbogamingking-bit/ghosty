@@ -8,86 +8,91 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
   <title id="t">Home</title>
-  <link rel="stylesheet" href="/assets/css/global.css?v=6" />
-  <link rel="stylesheet" href="/assets/css/h.css?v=01" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
-  <link rel="stylesheet" href="/assets/css/credits.css?v=1" />
+  <link rel="stylesheet" href="/assets/css/global.css?v=7" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=02" />
+  <link rel="stylesheet" href="/assets/css/h.css?v=02" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body onload="SplashT">
+  <!-- Glowing Background Orbs -->
+  <div class="glow-wrapper">
+    <div class="glow-orb glow-1"></div>
+    <div class="glow-orb glow-2"></div>
+    <div class="glow-orb glow-3"></div>
+  </div>
+
   <!-- Sidebar Nav injected by m1.js -->
   <div class="f-nav"></div>
 
-  <!-- Glowing Background Orbs -->
-  <div class="glow-orb glow-1"></div>
-  <div class="glow-orb glow-2"></div>
-  <div class="glow-orb glow-3"></div>
-
-  <div class="main-wrapper">
-    <div class="main">
-      <h1 class="title">Ghosty</h1>
-      <p id="splash">Your all-in-one hub</p>
-
-      <div class="search-container">
-        <form id="fv" method="POST" class="search-form">
-          <i class="fa-solid fa-magnifying-glass search-icon"></i>
-          <input id="input" autocomplete="off" placeholder="Search or enter URL..." type="text" />
-          <span class="search-shortcut">CTRL+K</span>
-        </form>
-      </div>
-
-      <div class="app-grid">
-        <a href="/./a" class="app-btn">
-          <div class="app-btn-icon"><i class="fa-solid fa-gamepad"></i></div>
-          <span>Games</span>
-        </a>
-        <a href="#" class="app-btn">
-          <div class="app-btn-icon"><i class="fa-solid fa-robot"></i></div>
-          <span>AI</span>
-        </a>
-        <a href="#" class="app-btn">
-          <div class="app-btn-icon"><i class="fa-solid fa-music"></i></div>
-          <span>Music</span>
-        </a>
-        <a href="#" class="app-btn">
-          <div class="app-btn-icon"><i class="fa-solid fa-film"></i></div>
-          <span>Movies</span>
-        </a>
-        <a href="/./b" class="app-btn">
-          <div class="app-btn-icon"><i class="fa-solid fa-phone"></i></div>
-          <span>Apps</span>
-        </a>
-        <a href="#" class="app-btn">
-          <div class="app-btn-icon"><i class="fa-solid fa-message"></i></div>
-          <span>Chat</span>
-        </a>
-        <a href="#" class="app-btn">
-          <div class="app-btn-icon"><i class="fa-solid fa-plus"
-              style="opacity:0.5; border: 1px dashed rgba(255,255,255,0.2); border-radius: 50%; padding: 4px;"></i>
-          </div>
-          <span>Add</span>
-        </a>
-      </div>
-
-      <div class="domain-selector">
-        <button class="domain-btn"><i class="fa-solid fa-globe"></i> Default <i
-            class="fa-solid fa-caret-down"></i></button>
+  <!-- Top Bar -->
+  <div class="top-nav">
+    <div class="nav-actions">
+      <i class="fa-solid fa-arrow-left"></i>
+      <i class="fa-solid fa-arrow-right"></i>
+      <i class="fa-solid fa-rotate-right"></i>
+    </div>
+    <div class="url-bar-container">
+      <div class="url-bar">
+        <i class="fa-solid fa-lock" style="font-size:10px; margin-right:8px; color:rgba(255,255,255,0.4);"></i>
+        <span class="prefix">petezah://</span><span class="path">apps</span>
       </div>
     </div>
+    <div class="right-actions">
+      <i class="fa-solid fa-gamepad" title="Games"></i>
+      <i class="fa-solid fa-robot" title="AI"></i>
+      <i class="fa-regular fa-user" title="Account"></i>
+      <i class="fa-regular fa-file-lines" title="Changelog"></i>
+      <i class="fa-regular fa-message" title="Chat"></i>
+      <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
+    </div>
+  </div>
 
-    <div class="bottom-bar">
-      <div class="bb-left">
-        1 tabs • 1 spaces | <i class="fa-solid fa-download"></i> 0
-        <div class="bb-links">
-          <span>ToS</span>
-          <span>Privacy</span>
-          <span>DMCA</span>
-        </div>
-      </div>
-      <div class="bb-right">
-        <i class="fa-solid fa-rotate-right"></i> Secure | <i class="fa-solid fa-wifi"></i> 10:28 PM
-      </div>
+  <div class="main">
+    <div class="search-container">
+      <form id="fv" method="POST" class="search-form">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input id="input" autocomplete="off" placeholder="Search apps..." type="text" />
+        <div class="search-add-btn"><i class="fa-solid fa-plus"></i></div>
+      </form>
+    </div>
+
+    <!-- The actual petezah UI shows big images for apps, let's just make functional links -->
+    <div class="app-grid">
+      <a href="/./a" class="app-btn" style="background-color: #5865F2;">
+        <i class="fa-solid fa-ellipsis-vertical app-btn-options"></i>
+        <div class="app-btn-icon"><i class="fa-brands fa-discord"></i></div>
+        <span>Discord</span>
+      </a>
+      <a href="/./a" class="app-btn" style="background-color: #FF0000;">
+        <i class="fa-solid fa-ellipsis-vertical app-btn-options"></i>
+        <div class="app-btn-icon"><i class="fa-brands fa-youtube"></i></div>
+        <span>YouTube</span>
+      </a>
+      <a href="/./a" class="app-btn" style="background-color: #10B981;">
+        <i class="fa-solid fa-ellipsis-vertical app-btn-options"></i>
+        <div class="app-btn-icon"><i class="fa-solid fa-gamepad"></i></div>
+        <span>Games</span>
+      </a>
+      <a href="/./b" class="app-btn" style="background-color: #8B5CF6;">
+        <i class="fa-solid fa-ellipsis-vertical app-btn-options"></i>
+        <div class="app-btn-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+        <span>Apps</span>
+      </a>
+      <a href="/./c" class="app-btn" style="background-color: #3B82F6;">
+        <i class="fa-solid fa-ellipsis-vertical app-btn-options"></i>
+        <div class="app-btn-icon"><i class="fa-solid fa-gear"></i></div>
+        <span>Settings</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="bottom-bar">
+    <div class="bb-left">
+      1 tabs • 1 spaces | <i class="fa-solid fa-download"></i> 0 &nbsp;&nbsp;&nbsp; ToS &nbsp; Privacy &nbsp; DMCA
+    </div>
+    <div class="bb-right">
+      <i class="fa-solid fa-shield-halved"></i> Secure &nbsp;&nbsp; <i class="fa-solid fa-wifi"></i> 11:01 PM
     </div>
   </div>
 

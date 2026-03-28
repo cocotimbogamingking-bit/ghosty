@@ -1,44 +1,97 @@
 ﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 :root {
-   /* PeteZah specific variables */
-   --bg-primary: #0a0c10;
-   --bg-secondary: #13161c;
-   --bg-tertiary: rgba(255, 255, 255, 0.05);
-   --bg-hover: rgba(255, 255, 255, 0.08);
-   --border-color: rgba(255, 255, 255, 0.08);
-   --accent: #2c68ff;
-   --transition-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-   
-   /* Legacy variables required by container.css and settings.css to prevent white rendering */
-   --background-image: #0a0c10;
-   --backdrop-filter: blur(16px) brightness(75%) saturate(150%);
-   --background-nav: #13161c;
-   --background-color: #0a0c10;
-   --background-input: rgba(40, 44, 52, 0.6);
-   --background-column: rgba(255, 255, 255, 0.03); /* for app cards */
-   --background-settings: rgba(255, 255, 255, 0.03); /* for settings cards box */
+   --background: #0c1017;
+   --foreground: #f0f2f5;
+   --accent: #161c27;
+   --border: rgba(201, 217, 232, 0.1);
+   --glass: rgba(255, 255, 255, 0.05);
+   --glass-border: rgba(255, 255, 255, 0.08);
+
+   /* Legacy compatibility overrides */
+   --bg-primary: #0c1017;
+   --bg-secondary: #0c1017;
+   --text-primary: #f0f2f5;
+   --text-secondary: rgba(240, 242, 245, 0.6);
+   --border-color: rgba(201, 217, 232, 0.1);
+   --background-image: #0c1017;
+   --background-settings: rgba(255, 255, 255, 0.04);
    --background-buttons: rgba(255, 255, 255, 0.05);
-   --tab-active-background: rgba(255, 255, 255, 0.1);
-   --tab-inactive-background: transparent;
-   --slider-active-background: #2c68ff;
-   --slider-inactive-background: rgba(255, 255, 255, 0.15);
-   --text-primary: #ffffff;
-   --text-secondary: rgba(255, 255, 255, 0.6);
-   --text-dark: rgba(255, 255, 255, 0.6);
-   --text-placeholder: rgba(255, 255, 255, 0.4);
+   --background-input: rgba(0, 0, 0, 0.2);
+   --slider-active-background: #3498db;
+   --slider-inactive-background: rgba(255, 255, 255, 0.1);
 }
 
 * {
    margin: 0;
    padding: 0;
    box-sizing: border-box;
-   -webkit-tap-highlight-color: transparent;
+}
+
+body {
+   font-family: "Inter", sans-serif;
+   background-color: var(--background);
+   color: var(--foreground);
+   overflow-x: hidden;
+   min-height: 100vh;
+}
+
+/* Background Glowing Orbs */
+.glow-wrapper {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: -1;
+   overflow: hidden;
+   pointer-events: none;
+}
+
+.glow-orb {
+   position: absolute;
+   border-radius: 50%;
+   filter: blur(80px);
+   opacity: 0.5;
+   animation: nebula-drift 20s infinite alternate ease-in-out;
+}
+
+.glow-1 {
+   top: -10%;
+   left: 10%;
+   width: 600px;
+   height: 600px;
+   background: rgba(0, 150, 200, 0.3);
+}
+
+.glow-2 {
+   top: 40%;
+   right: -10%;
+   width: 700px;
+   height: 700px;
+   background: rgba(50, 50, 180, 0.3);
+}
+
+.glow-3 {
+   bottom: -20%;
+   left: 30%;
+   width: 500px;
+   height: 500px;
+   background: rgba(120, 40, 180, 0.25);
+}
+
+@keyframes nebula-drift {
+   0% {
+      transform: scale(1) rotate(0deg) translate(0, 0);
+   }
+
+   100% {
+      transform: scale(1.05) rotate(3deg) translate(20px, 20px);
+   }
 }
 
 ::-webkit-scrollbar {
    width: 6px;
-   background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -50,58 +103,11 @@
    background: rgba(255, 255, 255, 0.2);
 }
 
-body {
-   font-family: "Inter", sans-serif;
-   background-color: var(--bg-primary);
-   color: var(--text-primary);
-   overflow-x: hidden;
-   min-height: 100vh;
-   padding-left: 64px; /* Space for the fixed left sidebar */
-}
-
-/* Background Glowing Orbs */
-.glow-orb {
-   position: fixed;
-   border-radius: 50%;
-   filter: blur(120px);
-   z-index: -1;
-   opacity: 0.6;
-}
-
-.glow-1 {
-   top: -10%;
-   left: 10%;
-   width: 600px;
-   height: 600px;
-   background: rgba(30, 90, 160, 0.4);
-}
-
-.glow-2 {
-   top: 20%;
-   right: -10%;
-   width: 700px;
-   height: 700px;
-   background: rgba(20, 60, 180, 0.3);
-}
-
-.glow-3 {
-   bottom: -20%;
-   left: 30%;
-   width: 500px;
-   height: 500px;
-   background: rgba(90, 40, 180, 0.3);
-}
-
-/* Utility to center everything in main */
-.main-wrapper {
-   flex: 1;
-   display: flex;
-   flex-direction: column;
-   height: 100vh;
-   position: relative;
+option {
+   background-color: #0c1017;
+   color: #f0f2f5;
 }
 
 ::selection {
    background: rgba(255, 255, 255, 0.2);
-   color: #fff;
 }
