@@ -31,10 +31,9 @@ document.addEventListener("DOMContentLoaded", () => {
         <a class="sidebar-link" href="/./b" title="Apps">
            <i class="fa-solid fa-rocket"></i>
         </a>
-        <a class="sidebar-link" href="#" title="AI">
+        <a class="sidebar-link" href="/./ai" title="AI">
            <i class="fa-solid fa-brain"></i>
-        </a>
-        <a class="sidebar-link" href="#" title="Music">
+        </a>        <a class="sidebar-link" href="#" title="Music">
            <i class="fa-solid fa-music"></i>
         </a>
         <a class="sidebar-link" href="#" title="Movies">

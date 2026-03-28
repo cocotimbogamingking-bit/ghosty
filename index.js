@@ -20,7 +20,36 @@ const PORT = process.env.PORT || 8080;
 const cache = new Map();
 const CACHE_TTL = 30 * 24 * 60 * 60 * 1000; // Cache for 30 Days
 
+const GROQ_API_KEY = "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";
 
+app.use(cookieParser());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// AI Proxy Endpoint
+app.post("/api/ai", async (req, res) => {
+  try {
+    const { messages, model = "llama-3.3-70b-versatile" } = req.body;
+    
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${GROQ_API_KEY}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        model,
+        messages
+      })
+    });
+
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("AI Proxy Error:", error);
+    res.status(500).json({ error: "Failed to communicate with AI provider" });
+  }
+});
 
 app.get("/e/*", async (req, res, next) => {
   try {
@@ -72,11 +101,6 @@ app.get("/e/*", async (req, res, next) => {
   }
 });
 
-app.use(cookieParser());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-
 app.use(express.static(path.join(__dirname, "static")));
 app.use("/ca", cors({ origin: true }));
 
@@ -86,6 +110,7 @@ const routes = [
   { path: "/play.html", file: "games.html" },
   { path: "/c", file: "settings.html" },
   { path: "/d", file: "tabs.html" },
+  { path: "/ai", file: "ai.html" },
   { path: "/", file: "index.html" },
 ];
 
