@@ -44,10 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
         </a>
       </div>
       <div class="sidebar-bottom">
-        <div class="ad-sidebar-container" id="ad-sidebar-slot">
-           <script async="async" data-cfasync="false" src="https://pl28997855.profitablecpmratenetwork.com/607f7fe469dfb9e951a43ad0a64aadde/invoke.js"></script>
-           <div id="container-607f7fe469dfb9e951a43ad0a64aadde"></div>
-        </div>
         ${qp ? "" : '<a class="sidebar-link" href="/./d" title="Tabs"><i class="fa-solid fa-plus"></i></a>'}        <a class="sidebar-link" href="/./c" title="Settings">
            <i class="fa-solid fa-gear"></i>
         </a>
