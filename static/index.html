@@ -22,12 +22,12 @@
     <a href="#" class="top-discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
 
     <div class="main">
-      <h1 class="title">PeteZah</h1>
+      <h1 class="title">Ghosty</h1>
       <p id="splash">Your all-in-one hub</p>
 
       <div class="search-container">
         <form id="fv" method="POST" class="search-form-home">
-          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <i class="fa-solid fa-ghost search-icon"></i>
           <input id="input" autocomplete="off" placeholder="Search or enter URL..." type="text" />
           <span class="search-shortcut">CTRL+K</span>
         </form>
@@ -39,7 +39,7 @@
           <span>Games</span>
         </a>
         <a href="#" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-robot"></i></div>
+          <div class="home-app-icon"><i class="fa-solid fa-brain"></i></div>
           <span>AI</span>
         </a>
         <a href="#" class="home-app-btn">
@@ -51,35 +51,51 @@
           <span>Movies</span>
         </a>
         <a href="/./b" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+          <div class="home-app-icon"><i class="fa-solid fa-rocket"></i></div>
           <span>Apps</span>
         </a>
         <a href="#" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-regular fa-message"></i></div>
+          <div class="home-app-icon"><i class="fa-solid fa-comments"></i></div>
           <span>Chat</span>
         </a>
         <a href="#" class="home-app-btn add-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-plus"></i></div>
+          <div class="home-app-icon"><i class="fa-solid fa-plus-circle"></i></div>
           <span>Add</span>
         </a>
       </div>
 
       <div class="domain-selector">
-        <button class="domain-btn"><i class="fa-solid fa-globe"></i> Default <i
+        <button class="domain-btn"><i class="fa-solid fa-network-wired"></i> Ghosty Node <i
             class="fa-solid fa-caret-down"></i></button>
       </div>
     </div>
   </div>
 
+  <div id="discord-toast" class="toast-hidden">
+     Discord no creado esperen por update 👻
+  </div>
+
   <div class="bottom-bar">
     <div class="bb-left">
-      1 tabs • 1 spaces | <i class="fa-solid fa-download"></i> 0 | <span class="dim">ToS &nbsp; Privacy &nbsp; DMCA</span>
+      1 tabs • 1 spaces | <i class="fa-solid fa-ghost"></i> Ghosty v2 | <span class="dim">ToS &nbsp; Privacy &nbsp; DMCA</span>
     </div>
     <div class="bb-right">
-      <span><i class="fa-solid fa-rotate-right"></i> Secure</span>
-      <span><i class="fa-solid fa-wifi"></i> 01:04 AM</span>
+      <span><i class="fa-solid fa-shield-halved"></i> Secure</span>
+      <span><i class="fa-solid fa-signal"></i> Online</span>
     </div>
   </div>
+
+  <script>
+    const discordBtn = document.querySelector('.top-discord-btn');
+    const toast = document.getElementById('discord-toast');
+    discordBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      toast.className = 'toast-visible';
+      setTimeout(() => {
+        toast.className = 'toast-hidden';
+      }, 3000);
+    });
+  </script>
 
   <script src="assets/js/index-3.js"></script>
   <script src="/assets/js/h1.js"></script>
