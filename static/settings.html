@@ -9,24 +9,25 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
   <title id="t">Home</title>
-  <link rel="stylesheet" id="global" href="/assets/css/global.css?v=6" />
-  <link rel="stylesheet" href="/assets/css/container.css?v=2" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
-  <link rel="stylesheet" href="/assets/css/settings.css?v=06" />
-  <link rel="stylesheet" href="/assets/css/credits.css?v=1" />
+  <link rel="stylesheet" id="global" href="/assets/css/global.css?v=8" />
+  <link rel="stylesheet" href="/assets/css/container.css?v=3" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=03" />
+  <link rel="stylesheet" href="/assets/css/settings.css?v=08" />
+  <link rel="stylesheet" href="/assets/css/credits.css?v=2" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
 </head>
 
 <body>
   <div class="f-nav"></div>
   <div class="main">
     <div class="settings-container">
+
+      <!-- Stealth Cloak -->
       <div class="settings-card">
-        <h3>About:Blank</h3>
+        <h3>Stealth Cloak (about:blank)</h3>
         <p>
-          Cloak the site in an about:blank page and toggle about:blank on
-          startup (enabled by default)
+          Masks the platform as an innocent about:blank page. Highly recommended for avoiding detection on strict
+          networks.
         </p>
         <div id="ab-settings">
           <div id="ab-settings-container">
@@ -35,259 +36,173 @@
               <span class="slider-round"></span>
             </label>
           </div>
-          <button onclick="AB()" class="key-button">Open Popup</button>
+          <button onclick="AB()" class="key-button" style="width: auto;">Force Open</button>
         </div>
       </div>
+
+      <!-- Panic Key -->
       <div class="settings-card">
-        <h3>Set Panic Key</h3>
+        <h3>Emergency Escape (Panic Key)</h3>
         <p>
-          Quick open another site with one press. Used for redirects when
-          about:blank is opened. For multiple key strokes separate them with a
-          comma. Ex. "A,B,C"
+          Instantly deploy an emergency redirect to a safe site with one swift keystroke. Separate combos with commas
+          (e.g. "Ctrl,E").
         </p>
-        <input type="text" id="eventKeyInput" placeholder="Panic Keys (comma separated)" class="key-form" />
-        <input class="key-form" placeholder="Panic Link" type="text" id="linkInput" value />
-        <button class="key-button" value="Save" onclick="saveEventKey()">
-          Save
-        </button>
+        <input type="text" id="eventKeyInput" placeholder="Panic Keys (e.g. Ctrl,E)" class="key-form" />
+        <input class="key-form" placeholder="Redirect Link (e.g. https://classroom.google.com/)" type="text"
+          id="linkInput" value />
+        <button class="key-button" value="Save" onclick="saveEventKey()">Save Configuration</button>
       </div>
+
+      <!-- Tab Cloaker -->
       <div class="settings-card">
-        <h3>&#84;&#97;&#98;&#32;&#67;&#108;&#111;&#97;&#107;&#101;&#114;</h3>
-        <p>Change the title and icon of the page.</p>
+        <h3>Domain Cloaker</h3>
+        <p>Camouflage the tab title and favicon to mimic an educational or generic utility site.</p>
         <select id="dropdown" onchange="handleDropdownChange(this)">
-          <option value="Classroom">Default</option>
+          <option value="Classroom">Google Classroom (Default)</option>
           <option value="Clever">Clever</option>
           <option value="Canvas">Canvas</option>
-          <option value="CodeHS">CodeHS</option>
-          <option value="Edpuzzle">Edpuzzle</option>
           <option value="Google">Google</option>
-          <option value="Google Meet">Google Meet</option>
-          <option value="Classroom">Google Classroom</option>
           <option value="Drive">Google Drive</option>
-          <option value="Google Docs">Google Docs</option>
-          <option value="Google Slides">Google Slides</option>
-          <option value="Gmail">Gmail</option>
           <option value="Khan">Khan Academy</option>
-          <option value="Campus">Infinite Campus</option>
           <option value="IXL">IXL</option>
-          <option value="LinkIt">LinkIt!</option>
-          <option value="Schoology">Schoology</option>
-          <option value="i-Ready Math">i-Ready Math</option>
-          <option value="i-Ready Reading">i-Ready Reading</option>
-          <option value="ClassLink Login">ClassLink Login</option>
           <option value="Wikipedia">Wikipedia</option>
-          <option value="Britannica">Britannica</option>
-          <option value="Ducksters">Ducksters</option>
-          <option value="Minga">Minga</option>
-          <option value="i-Ready Learning Games">
-            i-Ready Learning Games
-          </option>
-          <option value="NoRedInk Home">NoRedInk Home</option>
-          <option value="Newsela Binder">Newsela Binder</option>
-          <option value="Newsela Assignments">Newsela Assignments</option>
-          <option value="Newsela Home">Newsela Home</option>
-          <option value="PowerSchool Sign In">PowerSchool Sign In</option>
-          <option value="PowerSchool Grades and Attendance">
-            PowerSchool Grades and Attendance
-          </option>
-          <option value="PowerSchool Teacher Comments">
-            PowerSchool Teacher Comments
-          </option>
-          <option value="PowerSchool Standards Grades">
-            PowerSchool Standards Grades
-          </option>
-          <option value="PowerSchool Attendance">
-            PowerSchool Attendance
-          </option>
-          <option value="Nearpod">Nearpod</option>
-          <option value="StudentVUE">StudentVUE</option>
-          <option value="Quizlet Home">Quizlet Home</option>
-          <option value="Google Forms Locked Mode">
-            Google Forms - Locked Mode
-          </option>
-          <option value="DeltaMath">DeltaMath</option>
-          <option value="Kami">Kami</option>
-          <option value="GoGuardian Admin Restricted">
-            GoGuardian Admin Block
-          </option>
-          <option value="GoGuardian Teacher Block">
-            GoGuardian Teacher Block
-          </option>
-          <option value="World History Encyclopedia">
-            World History Encyclopedia
-          </option>
-          <option value="Big Ideas Math">Big Ideas Math</option>
-          <option value="Big Ideas Math Assignment Player">
-            Big Ideas Math Assignment Player
-          </option>
-          <option value="Savvas Realize">Savvas Realize</option>
-          <option value="SmartPass">SmartPass</option>
-          <option value="World Book Online - Super Home">
-            World Book Online (Super Home)
-          </option>
-          <option value="World Book Online - Student">
-            World Book Online (Student)
-          </option>
-          <option value="World Book Online - Timelines">
-            World Book Online (Timelines)
-          </option>
-          <option value="Naviance">Naviance Student</option>
-          <option value="PBS Learning Media">PBS Learning Media</option>
-          <option value="PBS Learning Media Student Home">
-            PBS Learning Media Student Home
-          </option>
+          <option value="Desmos">Desmos Calculator</option>
           <option value="Dictionary">Dictionary.com</option>
-          <option value="Thesaurus">Thesaurus.com</option>
         </select>
         <div id="buttonLayer">
           <button class="key-button" value="Save" onclick="CustomIcon(); CustomName(); redirectToMainDomain();">
-            Save
+            Apply Camouflage
           </button>
           <button class="key-button" value="Reset" onclick="ResetCustomCloak(); redirectToMainDomain();">
-            Reset Cloak
+            Reset
           </button>
         </div>
       </div>
+
+      <!-- Background Image -->
       <div class="settings-card">
-        <h3>Set Background Image</h3>
-        <p>Change the site's background image.</p>
-        <input class="key-form" type="text" id="background-input" placeholder="Enter image URL" />
-        <button class="key-button" id="save-button">Save</button>
-        <button class="key-button" id="reset-button">Reset</button>
+        <h3>Custom Background</h3>
+        <p>Inject a custom background image URL to personalize your Ghosty experience.</p>
+        <input class="key-form" type="text" id="background-input" placeholder="https://example.com/image.png" />
+        <div id="buttonLayer">
+          <button class="key-button" id="save-button">Apply Image</button>
+          <button class="key-button" id="reset-button">Remove</button>
+        </div>
       </div>
+
+      <!-- Search Engine -->
       <div class="settings-card">
-        <h3>Search Engine</h3>
-        <p>Change the search engine when searching.</p>
+        <h3>Default Search Engine</h3>
+        <p>Select your preferred engine for built-in queries.</p>
         <select title="engine" id="engine" onchange="EngineChange(this)">
           <option value="Brave">Brave (Default)</option>
           <option value="Google">Google</option>
           <option value="Bing">Bing</option>
-          <option value="Qwant">Qwant</option>
           <option value="Startpage">Startpage</option>
-          <option value="SearchEncrypt">SearchEncrypt</option>
-          <option value="Ecosia">Ecosia</option>
+          <option value="DuckDuckGo">DuckDuckGo</option>
         </select>
-        <input class="key-form" type="text" id="engine-form" placeholder="Change Search Engine" name="engine" />
-        <button class="key-button" value="Save" onclick="SaveEngine();">
-          Save
-        </button>
+        <input class="key-form" style="margin-top:12px;" type="text" id="engine-form"
+          placeholder="Or enter a custom URL format..." name="engine" />
+        <button class="key-button" value="Save" onclick="SaveEngine();">Apply Engine</button>
       </div>
+
+      <!-- Proxy Engine Core -->
       <div class="settings-card">
-        <h3>Choose your <an>Pro</an>xy</h3>
+        <h3>Proxy Engine Core</h3>
         <p>
-          Ultra<an>vio</an>let is the main <an>pro</an>xy, but Dynamic is
-          faster and supports more sites. (Dynamic is still in beta, so expect
-          some bugs.)
+          Select your routing core. UltraViolet offers maximum stability, while Dynamic (Beta) pushes boundaries for
+          compatibility.
         </p>
-        <select id="pChange">
-          <option value="uv">Ultra<an>vio</an>let (Default)</option>
-          <option value="dy">Dynamic (Doesn't work in about:blank)</option>
+        <select id="pChange" style="margin-top:12px;">
+          <option value="uv">UltraViolet Node (Stable)</option>
+          <option value="dy">Dynamic Node (Experimental)</option>
         </select>
       </div>
+
+      <!-- Legacy Particles -->
       <div class="settings-card">
-        <h3>Particles</h3>
-        <p>
-          Add the particles that are from the previous version to the new
-          site.
-        </p>
+        <h3>Legacy Particles</h3>
+        <p>Enable the classic floating particle physics from the V4 architecture.</p>
         <label class="switch">
           <input type="checkbox" class="slider-checkbox" id="2" />
           <span class="slider-round"></span>
         </label>
       </div>
+
+      <!-- Themes -->
       <div class="settings-card">
-        <h3>Themes!</h3>
-        <p>Pick from a variety of themes to customize your experience.</p>
+        <h3>Interface Customization</h3>
+        <p>Inject new styling matrices into the environment.</p>
         <select placeholder="Solid Color Themes" id="dropdown" class="td" onchange="themeChange(this)">
-          <option disabled selected>Solid Color Themes</option>
-          <option value="d">Default</option>
-          <option value="Inverted">Inverted</option>
-          <option value="sky">Sky</option>
-          <option disabled selected>Catppuccin Themes</option>
+          <option disabled selected>--- Premium Palettes ---</option>
+          <option value="d">Ghosty Obsidian (Default)</option>
+          <option value="Inverted">Snow Blind</option>
+          <option value="sky">Atmosphere</option>
+          <option disabled selected>--- Catppuccin Accents ---</option>
           <option value="catppuccinMocha">Mocha</option>
           <option value="catppuccinMacchiato">Macchiato</option>
           <option value="catppuccinFrappe">Frappe</option>
-          <option value="catppuccinLatte">Latte</option>
-          <option disabled selected>Custom Themes</option>
         </select>
       </div>
+
+      <!-- Save Data Management -->
       <div class="settings-card">
-        <h3>Save Data Management</h3>
-        <p>Export your Ghosty data on this site and import it on another site.
-          This is useful because this site might be blocked in the future,
-          but you don't want to lose your save data.
-        </p>
-        <p id="warning">Importing a save file will overwrite your current saves!</p>
-        <button class="key-button" value="Export" onclick="exportSaveData();">Export Save</button>
-        <button class="key-button" value="Import" onclick="importSaveData();">Import Save</button>
+        <h3>Save Data Vault</h3>
+        <p>Export your encrypted Ghosty data to a secure local file, ensuring you never lose progress if the site
+          migrates.</p>
+        <p id="warning"><i class="fa-solid fa-triangle-exclamation"></i> Warning: Importing a vault will overwrite your
+          current state.</p>
+        <div id="buttonLayer">
+          <button class="key-button" value="Export" onclick="exportSaveData();">Export Vault</button>
+          <button class="key-button" value="Import" onclick="importSaveData();"
+            style="border-color:#f472b6; color:#f472b6;">Import Vault</button>
+        </div>
       </div>
+
+      <!-- Premium Credits -->
       <div class="settings-card credits-card-premium">
         <div class="credits-header">
-          <div class="credits-header-icon">
-            <i class="fa-solid fa-ghost"></i>
+          <div class="credits-header-icon" style="margin-bottom:12px;">
+            <i class="fa-solid fa-ghost" style="font-size:24px; color:#a5b4fc;"></i>
           </div>
           <div class="credits-header-text">
-            <h3>Ghosty</h3>
-            <div class="credits-subtitle">Project Credits & Info</div>
+            <h3>Ghosty Platform</h3>
+            <div class="credits-subtitle" style="color:var(--text-secondary); font-size:12px;">Architectural Overview &
+              Credits</div>
           </div>
         </div>
 
-        <div class="credits-body">
-          <!-- Creator Block -->
-          <div class="credits-creator-block">
-            <div class="creator-avatar">👻</div>
+        <div class="credits-body" style="margin-top:16px;">
+          <div class="credits-creator-block" style="display:flex; gap:12px; align-items:center; margin-bottom:16px;">
+            <div class="creator-avatar" style="font-size:32px;">👻</div>
             <div class="creator-info">
-              <div class="name">Marlon 😛</div>
-              <span class="title-tag">
-                <i class="fa-solid fa-crown"></i>
-                the Hispanic GOAT 🐐
+              <div class="name" style="font-weight:700; font-size:16px;">Marlon 😛</div>
+              <span class="title-tag"
+                style="background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:6px; font-size:11px; font-weight:600;">
+                <i class="fa-solid fa-crown" style="color:#fbbf24;"></i> the Hispanic GOAT 🐐
               </span>
             </div>
           </div>
 
-          <!-- Project Description -->
-          <p class="credits-description">
+          <p style="font-size:13px; line-height:1.6; margin-bottom:16px;">
             <strong>Ghosty</strong> is a high-performance web proxy platform built from the ground up to deliver
             unrestricted access to the internet. Featuring tab cloaking, custom themes, panic keys, and a
-            lightning-fast proxy engine — this project has been continuously refined and perfected over the years
-            to push the boundaries of what's possible.
+            lightning-fast proxy engine.
           </p>
 
-          <!-- Timeline -->
-          <div class="credits-timeline">
-            <i class="fa-solid fa-clock-rotate-left timeline-icon"></i>
-            <span class="timeline-text">
-              In active development since <span class="highlight">2022</span> — years of dedication and passion
-            </span>
+          <div
+            style="font-size:12px; color:var(--text-secondary); border-top:1px solid rgba(255,255,255,0.1); padding-top:16px;">
+            <i class="fa-solid fa-clock-rotate-left"></i> In active development since 2022<br>
+            <i class="fa-solid fa-code-commit" style="margin-top:8px;"></i> Version 5.2.6 (Premium UI Mod)
           </div>
-
-          <!-- Stats -->
-          <div class="credits-stats">
-            <div class="stat-item">
-              <div class="stat-value">2022</div>
-              <div class="stat-label">Started</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">v5.2.6</div>
-              <div class="stat-label">Version</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-value">∞</div>
-              <div class="stat-label">Commitment</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="credits-footer-card">
-          <span class="version-tag">Last Updated: October 2nd, 2024</span>
-          <span class="made-with">Made with <span class="heart">❤</span> by Marlon</span>
         </div>
       </div>
+
     </div>
   </div>
+
   <script src="/assets/js/m1.js"></script>
   <script src="/assets/js/s1.js"></script>
-  <!-- Scripts -->
 </body>
 
 </html>

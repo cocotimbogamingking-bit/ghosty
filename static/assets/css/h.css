@@ -1,13 +1,13 @@
 ﻿/* Centered Home Layout */
 .main-wrapper {
    margin-left: 56px;
-   /* offset sidebar */
    width: calc(100vw - 56px);
    min-height: 100vh;
    display: flex;
    justify-content: center;
    align-items: center;
    position: relative;
+   perspective: 1500px;
 }
 
 .top-discord-btn {
@@ -17,19 +17,23 @@
    background: rgba(255, 255, 255, 0.03);
    border: 1px solid var(--border-color);
    color: var(--text-secondary);
-   padding: 8px 16px;
-   border-radius: 8px;
+   padding: 10px 20px;
+   border-radius: 12px;
    text-decoration: none;
    font-size: 13px;
+   font-weight: 600;
    display: flex;
    align-items: center;
    gap: 8px;
-   transition: all 0.2s;
+   transition: var(--transition-premium);
 }
 
 .top-discord-btn:hover {
-   background: rgba(255, 255, 255, 0.08);
+   background: rgba(255, 255, 255, 0.1);
    color: #fff;
+   border-color: rgba(255, 255, 255, 0.2);
+   transform: translateY(-2px);
+   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
 .main {
@@ -37,50 +41,61 @@
    flex-direction: column;
    align-items: center;
    width: 100%;
-   max-width: 600px;
+   max-width: 650px;
    margin-top: -10vh;
-   /* slightly above center */
+   animation: popIn3D 1s var(--transition-premium) forwards;
 }
 
 .title {
-   font-size: 36px;
-   font-weight: 700;
-   color: #fff;
-   margin-bottom: 4px;
+   font-size: 64px;
+   letter-spacing: -2px;
+   font-weight: 800;
+   background: linear-gradient(135deg, #ffffff 0%, #a5b4fc 100%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   margin-bottom: 2px;
+   filter: drop-shadow(0px 4px 16px rgba(165, 180, 252, 0.2));
 }
 
 #splash {
-   font-size: 14px;
+   font-size: 16px;
+   font-weight: 500;
    color: var(--text-secondary);
-   margin-bottom: 32px;
+   margin-bottom: 40px;
+   letter-spacing: 0.5px;
 }
 
 .search-container {
    width: 100%;
-   margin-bottom: 32px;
+   margin-bottom: 48px;
+   perspective: 1200px;
 }
 
 .search-form-home {
    display: flex;
    align-items: center;
-   background: rgba(10, 15, 20, 0.4);
-   border: 1px solid var(--border-color);
-   border-radius: 12px;
-   padding: 0 16px;
-   height: 48px;
-   transition: all 0.2s;
-   backdrop-filter: blur(12px);
+   background: rgba(20, 25, 35, 0.5);
+   border: 1px solid rgba(255, 255, 255, 0.06);
+   border-radius: 18px;
+   padding: 0 24px;
+   height: 60px;
+   transition: var(--transition-premium);
+   backdrop-filter: blur(20px);
+   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+   transform-style: preserve-3d;
 }
 
 .search-form-home:focus-within {
-   border-color: rgba(255, 255, 255, 0.2);
-   background: rgba(10, 15, 20, 0.6);
+   border-color: rgba(165, 180, 252, 0.4);
+   background: rgba(30, 35, 50, 0.7);
+   transform: translateZ(15px) translateY(-3px);
+   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 24px rgba(165, 180, 252, 0.15);
 }
 
 .search-icon {
    color: var(--text-secondary);
-   font-size: 16px;
-   margin-right: 12px;
+   font-size: 20px;
+   margin-right: 16px;
 }
 
 #input {
@@ -89,26 +104,30 @@
    border: none;
    outline: none;
    color: #fff;
-   font-size: 14px;
+   font-size: 16px;
+   font-weight: 400;
    font-family: inherit;
 }
 
 .search-shortcut {
    background: rgba(255, 255, 255, 0.05);
    border: 1px solid rgba(255, 255, 255, 0.1);
-   padding: 4px 8px;
-   border-radius: 6px;
-   font-size: 10px;
+   padding: 6px 10px;
+   border-radius: 8px;
+   font-size: 11px;
+   font-weight: 600;
    color: var(--text-secondary);
    user-select: none;
+   transition: var(--transition-premium);
 }
 
 .home-apps-row {
    display: flex;
-   gap: 12px;
+   gap: 16px;
    justify-content: center;
-   margin-bottom: 40px;
+   margin-bottom: 48px;
    flex-wrap: wrap;
+   perspective: 1500px;
 }
 
 .home-app-btn {
@@ -116,15 +135,30 @@
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   width: 68px;
-   height: 68px;
-   background: rgba(10, 15, 20, 0.4);
-   border: 1px solid var(--border-color);
-   border-radius: 16px;
+   width: 76px;
+   height: 76px;
+   background: rgba(20, 25, 35, 0.4);
+   border: 1px solid rgba(255, 255, 255, 0.06);
+   border-radius: 20px;
    color: var(--text-secondary);
    text-decoration: none;
-   transition: all 0.2s;
+   transition: var(--transition-premium);
    backdrop-filter: blur(12px);
+   position: relative;
+   overflow: hidden;
+   transform-style: preserve-3d;
+}
+
+.home-app-btn::after {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 100%);
+   opacity: 0;
+   transition: var(--transition-premium);
 }
 
 .home-app-btn.add-btn {
@@ -133,20 +167,32 @@
 }
 
 .home-app-btn:hover {
-   background: rgba(255, 255, 255, 0.05);
+   background: rgba(255, 255, 255, 0.08);
    color: #fff;
-   border-color: rgba(255, 255, 255, 0.2);
-   transform: translateY(-2px);
+   border-color: rgba(255, 255, 255, 0.25);
+   transform: translateZ(25px) translateY(-5px) rotateX(8deg);
+   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 255, 255, 0.05);
+   z-index: 10;
+}
+
+.home-app-btn:hover::after {
+   opacity: 1;
+}
+
+.home-app-btn:hover .home-app-icon {
+   transform: translateZ(10px) scale(1.1);
 }
 
 .home-app-icon i {
-   font-size: 18px;
+   font-size: 20px;
    margin-bottom: 8px;
+   transition: var(--transition-premium);
 }
 
 .home-app-btn span {
    font-size: 11px;
    font-weight: 500;
+   transition: var(--transition-premium);
 }
 
 .domain-selector {
@@ -155,20 +201,26 @@
 }
 
 .domain-btn {
-   background: rgba(10, 15, 20, 0.4);
+   background: rgba(20, 25, 35, 0.4);
    border: 1px solid var(--border-color);
-   border-radius: 20px;
-   padding: 6px 16px;
+   border-radius: 24px;
+   padding: 10px 24px;
    color: var(--text-secondary);
-   font-size: 12px;
+   font-size: 13px;
+   font-weight: 600;
    cursor: pointer;
    display: flex;
    align-items: center;
-   gap: 8px;
-   transition: all 0.2s;
+   gap: 10px;
+   transition: var(--transition-premium);
+   backdrop-filter: blur(12px);
+   transform-style: preserve-3d;
 }
 
 .domain-btn:hover {
-   background: rgba(255, 255, 255, 0.08);
+   background: rgba(255, 255, 255, 0.1);
    color: #fff;
+   border-color: rgba(255, 255, 255, 0.2);
+   transform: translateZ(15px) translateY(-2px);
+   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }

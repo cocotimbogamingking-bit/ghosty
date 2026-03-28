@@ -1,75 +1,99 @@
 .column {
    width: 140px;
    cursor: pointer;
-   background: var(--glass);
-   border-radius: 12px;
+   background: rgba(20, 25, 35, 0.4);
+   border-radius: 18px;
    padding: 16px;
    margin: 0;
-   border: 2px solid rgba(255, 255, 255, 0.02);
+   border: 1px solid rgba(255, 255, 255, 0.06);
    position: relative;
    overflow: hidden;
-   transition: all 0.2s;
+   transition: var(--transition-premium);
    display: flex;
    flex-direction: column;
    align-items: center;
    justify-content: center;
-   aspect-ratio: 1.2;
+   aspect-ratio: 1.15;
+   transform-style: preserve-3d;
+   backdrop-filter: blur(12px);
+}
+
+.column::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
+   opacity: 0;
+   transition: var(--transition-premium);
+   z-index: 0;
+   pointer-events: none;
 }
 
 .column img {
    width: 60px;
    height: 60px;
-   border-radius: 12px;
-   transition: all 0.2s;
+   border-radius: 14px;
+   transition: var(--transition-premium);
    z-index: 1;
    object-fit: contain;
    pointer-events: none;
+   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .column p {
-   font-weight: 500;
-   font-size: 11px;
+   font-weight: 600;
+   font-size: 11.5px;
    line-height: normal;
    text-align: center;
    color: #fff;
    position: absolute;
-   bottom: 8px;
-   left: 8px;
-   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+   bottom: 10px;
+   left: 10px;
+   right: 10px;
+   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
    z-index: 1;
    margin: 0;
    pointer-events: none;
+   transition: var(--transition-premium);
 }
 
 .column:hover {
-   background: var(--glass-border);
-   border-color: rgba(255, 255, 255, 0.08);
-   transform: translateY(-2px);
+   background: rgba(255, 255, 255, 0.05);
+   border-color: rgba(255, 255, 255, 0.25);
+   transform: perspective(1000px) translateZ(30px) translateY(-6px) rotateX(8deg);
+   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.05);
+   z-index: 10;
+}
+
+.column:hover::before {
+   opacity: 1;
+}
+
+.column:hover img {
+   transform: translateZ(15px) scale(1.08);
+}
+
+.column:hover p {
+   transform: translateZ(10px);
+   color: #fff;
 }
 
 .apps,
 .pinned {
    display: grid;
    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-   gap: 16px;
+   gap: 20px;
    width: calc(100% - 56px);
    margin-left: 56px;
    padding: 0 48px;
    margin-top: 30px;
    padding-bottom: 60px;
-   animation: gridFadeIn 0.3s;
-}
-
-@keyframes gridFadeIn {
-   from {
-      opacity: 0;
-      transform: translateY(10px);
-   }
-
-   to {
-      opacity: 1;
-      transform: translateY(0);
-   }
+   perspective: 1500px;
+   transform-style: preserve-3d;
+   animation: popIn3D 0.8s var(--transition-premium) forwards;
 }
 
 .input-c {
@@ -81,40 +105,47 @@
    flex-wrap: wrap;
    gap: 16px;
    width: calc(100% - 56px);
+   perspective: 1000px;
 }
 
 input {
    flex: 1;
-   padding: 0 16px;
-   height: 44px;
-   border-radius: 12px;
-   background: rgba(0, 0, 0, 0.3);
+   padding: 0 20px;
+   height: 52px;
+   border-radius: 16px;
+   background: rgba(20, 25, 35, 0.5);
    text-align: left;
    font-size: 15px;
    border: 1px solid var(--border-color);
    outline: none;
    color: var(--text-primary);
-   transition: all 0.2s;
+   transition: var(--transition-premium);
+   backdrop-filter: blur(12px);
 }
 
 input:focus {
-   border-color: rgba(255, 255, 255, 0.2);
-   background: rgba(0, 0, 0, 0.5);
+   border-color: rgba(165, 180, 252, 0.4);
+   background: rgba(30, 35, 50, 0.7);
+   transform: translateZ(10px) translateY(-2px);
+   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 select {
-   padding: 0 16px;
-   height: 44px;
-   border-radius: 12px;
-   background: rgba(0, 0, 0, 0.3);
+   padding: 0 20px;
+   height: 52px;
+   border-radius: 16px;
+   background: rgba(20, 25, 35, 0.5);
    color: var(--text-primary);
-   font-size: 15px;
+   font-size: 14px;
+   font-weight: 500;
    border: 1px solid var(--border-color);
    outline: none;
    cursor: pointer;
-   transition: all 0.2s;
+   transition: var(--transition-premium);
+   backdrop-filter: blur(12px);
 }
 
 select:hover {
    border-color: rgba(255, 255, 255, 0.2);
+   background: rgba(255, 255, 255, 0.05);
 }
