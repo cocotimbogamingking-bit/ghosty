@@ -5,14 +5,25 @@
    left: 0;
    height: 100vh;
    width: 56px;
-   background: rgba(0, 0, 0, 0.2);
+   background: rgba(10, 15, 25, 0.6);
    border-right: 1px solid var(--border-color);
    display: flex;
    flex-direction: column;
    align-items: center;
-   padding: 16px 0;
+   padding: 20px 0;
    z-index: 1000;
-   backdrop-filter: blur(10px);
+   backdrop-filter: blur(20px);
+}
+
+.sidebar-top {
+   margin-bottom: 24px;
+}
+
+.sidebar-menu {
+   display: flex;
+   flex-direction: column;
+   gap: 12px;
+   align-items: center;
 }
 
 .sidebar-link {
@@ -21,31 +32,36 @@
    align-items: center;
    width: 40px;
    height: 40px;
-   color: var(--text-secondary);
+   color: rgba(255, 255, 255, 0.6);
    font-size: 18px;
-   border-radius: 10px;
+   border-radius: 12px;
    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
    text-decoration: none;
-   margin-bottom: 8px;
    transform-style: preserve-3d;
 }
 
 .sidebar-link:hover {
    color: #fff;
-   background: rgba(59, 130, 246, 0.2);
+   background: rgba(255, 255, 255, 0.1);
    transform: scale(1.1) translateZ(20px) rotateY(10deg);
    box-shadow: 0 0 15px var(--primary-glow);
 }
 
-.sidebar-logo i {
-   animation: pulse-neon 2s infinite alternate;
-}
-
 .sidebar-logo {
-   margin-bottom: 24px;
    display: flex;
    justify-content: center;
    align-items: center;
+   width: 40px;
+   height: 40px;
+   border-radius: 12px;
+   color: var(--primary);
+   font-size: 22px;
+   text-decoration: none;
+   transition: var(--transition-premium);
+}
+
+.sidebar-logo i {
+   animation: pulse-neon 2s infinite alternate;
 }
 
 .sidebar-bottom {
@@ -65,9 +81,10 @@
    display: flex;
    align-items: center;
    padding: 0 16px;
-   background: var(--background);
+   background: rgba(8, 12, 20, 0.8);
    border-bottom: 1px solid var(--border-color);
    z-index: 999;
+   backdrop-filter: blur(15px);
 }
 
 .nav-actions {
@@ -79,7 +96,7 @@
 
 .nav-actions i {
    cursor: pointer;
-   transition: color 0.15s;
+   transition: color 0.2s;
 }
 
 .nav-actions i:hover {
@@ -96,13 +113,13 @@
 .url-bar {
    background: rgba(0, 0, 0, 0.4);
    border: 1px solid var(--glass-border);
-   border-radius: 8px;
-   height: 30px;
+   border-radius: 10px;
+   height: 32px;
    width: 100%;
    max-width: 600px;
    display: flex;
    align-items: center;
-   padding: 0 12px;
+   padding: 0 14px;
    font-size: 13px;
    color: var(--text-secondary);
 }
@@ -119,7 +136,7 @@
 
 .right-actions {
    display: flex;
-   gap: 16px;
+   gap: 18px;
    color: var(--text-secondary);
    font-size: 16px;
 }
@@ -131,4 +148,5 @@
 
 .right-actions i:hover {
    color: #fff;
+   transform: scale(1.1);
 }

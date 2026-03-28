@@ -16,50 +16,60 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const nav = document.querySelector(".f-nav");
 
-    if (nav) {
-      const themeId = localStorage.getItem("theme");
-      const html = `
-        <div class="sidebar-top">
-          <a class="sidebar-logo" href="/./" title="Home" style="color:var(--primary); font-size:24px; display:flex; justify-content:center; align-items:center; margin-bottom:24px;">
-             <i class="fa-solid fa-ghost"></i>
-          </a>
-        </div>
-        <div class="sidebar-menu">
-          <a class="sidebar-link" href="/./a" title="Games">
-             <i class="fa-solid fa-gamepad"></i>
-          </a>
-          <a class="sidebar-link" href="/./b" title="Apps">
-             <i class="fa-solid fa-rocket"></i>
-          </a>
-          <a class="sidebar-link" href="#" title="AI">
-             <i class="fa-solid fa-brain"></i>
-          </a>
-          <a class="sidebar-link" href="#" title="Music">
-             <i class="fa-solid fa-music"></i>
-          </a>
-          <a class="sidebar-link" href="#" title="Movies">
-             <i class="fa-solid fa-film"></i>
-          </a>
-          <a class="sidebar-link" href="#" title="Chat">
-             <i class="fa-solid fa-comments"></i>
-          </a>
-        </div>
-        <div class="sidebar-bottom">
-          ${qp ? "" : '<a class="sidebar-link" href="/./d" title="Tabs"><i class="fa-solid fa-plus"></i></a>'}
-          <a class="sidebar-link" href="/./c" title="Settings">
-             <i class="fa-solid fa-gear"></i>
-          </a>
-        </div>`;
-      nav.innerHTML = html;
+  if (nav) {
+    const themeId = localStorage.getItem("theme");
+    const html = `
+      <div class="sidebar-top">
+        <a class="sidebar-logo" href="/./" title="Home" style="color:var(--primary); font-size:24px; display:flex; justify-content:center; align-items:center; margin-bottom:24px;">
+           <i class="fa-solid fa-ghost"></i>
+        </a>
+      </div>
+      <div class="sidebar-menu">
+        <a class="sidebar-link" href="/./a" title="Games">
+           <i class="fa-solid fa-gamepad"></i>
+        </a>
+        <a class="sidebar-link" href="/./b" title="Apps">
+           <i class="fa-solid fa-rocket"></i>
+        </a>
+        <a class="sidebar-link" href="#" title="AI">
+           <i class="fa-solid fa-brain"></i>
+        </a>
+        <a class="sidebar-link" href="#" title="Music">
+           <i class="fa-solid fa-music"></i>
+        </a>
+        <a class="sidebar-link" href="#" title="Movies">
+           <i class="fa-solid fa-film"></i>
+        </a>
+        <a class="sidebar-link" href="#" title="Chat">
+           <i class="fa-solid fa-comments"></i>
+        </a>
+      </div>
+      <div class="sidebar-bottom">
+        ${qp ? "" : '<a class="sidebar-link" href="/./d" title="Tabs"><i class="fa-solid fa-plus"></i></a>'}
+        <a class="sidebar-link" href="/./c" title="Settings">
+           <i class="fa-solid fa-gear"></i>
+        </a>
+      </div>`;
+    nav.innerHTML = html;
 
-      // ... rest of injection logic
+    // Inject Glow Background
+    if (!document.querySelector(".glow-wrapper")) {
+      const glowStr = `
+        <div class="glow-orb glow-1"></div>
+        <div class="glow-orb glow-2"></div>
+        <div class="glow-orb glow-3"></div>
+      `;
+      const wrapper = document.createElement("div");
+      wrapper.className = "glow-wrapper";
+      wrapper.innerHTML = glowStr;
+      document.body.insertBefore(wrapper, document.body.firstChild);
     }
 
     // Inject Top Nav ONLY if not on Home page
     const pathName = window.location.pathname.replace(".html", "").replace("/", "");
     const isHome = pathName === "" || pathName === "index" || pathName === "home";
 
-    if (!document.querySelector('.top-nav') && !isHome) {
+    if (!document.querySelector(".top-nav") && !isHome) {
       const displayPath = pathName === "a" ? "games" : pathName === "b" ? "apps" : pathName === "c" ? "settings" : pathName || "home";
       const topnavStr = `
          <div class="nav-actions">
@@ -82,8 +92,8 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
          </div>
       `;
-      const tnav = document.createElement('div');
-      tnav.className = 'top-nav';
+      const tnav = document.createElement("div");
+      tnav.className = "top-nav";
       tnav.innerHTML = topnavStr;
       document.body.insertBefore(tnav, nav.nextSibling);
     }
