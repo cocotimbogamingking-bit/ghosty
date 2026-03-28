@@ -96,25 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
          </div>
       `;
-            <i class="fa-solid fa-arrow-left"></i>
-            <i class="fa-solid fa-arrow-right"></i>
-            <i class="fa-solid fa-rotate-right"></i>
-         </div >
-         <div class="url-bar-container">
-           <div class="url-bar">
-              <i class="fa-solid fa-lock" style="font-size:10px; margin-right:8px; color:rgba(255,255,255,0.4);"></i>
-              <span class="prefix">petezah://</span><span class="path">${pathName === "a" ? "games" : pathName === "b" ? "apps" : pathName === "c" ? "settings" : "home"}</span>
-           </div>
-         </div>
-         <div class="right-actions">
-            <i class="fa-solid fa-gamepad" title="Games"></i>
-            <i class="fa-solid fa-robot" title="AI"></i>
-            <i class="fa-regular fa-user" title="Account"></i>
-            <i class="fa-regular fa-file-lines" title="Changelog"></i>
-            <i class="fa-regular fa-message" title="Chat"></i>
-            <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
-         </div>
-      `;
       const tnav = document.createElement('div');
       tnav.className = 'top-nav';
       tnav.innerHTML = topnavStr;
@@ -145,7 +126,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.appendChild(themeEle);
   } else {
     const customThemeEle = document.createElement("style");
-    customThemeEle.textContent = localStorage.getItem(`theme - ${ themeid } `);
+    customThemeEle.textContent = localStorage.getItem(`theme - ${themeid} `);
     document.head.appendChild(customThemeEle);
   }
 
