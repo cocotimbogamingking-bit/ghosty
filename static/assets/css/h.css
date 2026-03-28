@@ -208,10 +208,32 @@
    backdrop-filter: blur(12px);
 }
 
-.domain-btn:hover {
-   background: rgba(255, 255, 255, 0.1);
-   color: #fff;
-   border-color: rgba(255, 255, 255, 0.2);
-   transform: translateY(-2px);
-   box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+.home-app-btn.sponsor-card {
+   border-color: rgba(255, 215, 0, 0.2);
+}
+
+.home-app-btn.sponsor-card .home-app-icon i {
+   color: #ffd700;
+}
+
+.home-app-btn.sponsor-card:hover {
+   background: rgba(255, 215, 0, 0.05);
+   border-color: #ffd700;
+   box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+}
+
+/* Ad Container for Sidebar/Bottom */
+.ad-sidebar-container {
+   width: 40px;
+   height: 40px;
+   margin-top: 16px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   opacity: 0.6;
+   transition: 0.3s;
+}
+
+.ad-sidebar-container:hover {
+   opacity: 1;
 }
