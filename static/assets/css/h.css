@@ -1,100 +1,129 @@
-.center {
+.main {
    display: flex;
-   justify-content: center;
+   flex-direction: column;
    align-items: center;
+   justify-content: center;
+   min-height: 100vh;
+   width: 100%;
+   padding-top: 80px;
+   z-index: 10;
+   position: relative;
 }
 
 .title {
-   font-size: 10vh;
-   color: var(--text-primary);
-   font-family: "Inter", sans-serif;
-   text-align: center;
-   text-transform: uppercase;
-   border-radius: 0px 0px 5px 5px;
-   margin-top: 30vh;
-   margin-bottom: 5vh;
-   transition: 0.35s ease;
-   text-shadow: 2px 4px 6px rgb(0, 0, 0, 0.2);
+   font-family: 'Space Grotesk', sans-serif;
+   font-size: clamp(3rem, 10vw, 6.5rem);
+   font-weight: 700;
+   letter-spacing: -1px;
+   background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+   -webkit-background-clip: text;
+   -webkit-text-fill-color: transparent;
+   margin-bottom: 8px;
+   filter: drop-shadow(0 4px 12px rgba(255, 255, 255, 0.05));
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 16px;
+   transition: transform 0.4s ease;
+}
+
+.title-icon {
+   font-size: 0.8em;
+   color: #e2e8f0;
+   filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.1));
+   transition: color 0.3s ease;
 }
 
 .title:hover {
-   transform: translateY(-5%) scale(1.03);
-   font-weight: 800;
+   transform: translateY(-2px);
 }
 
-@media (orientation: portrait) {
-   .title {
-      position: relative;
-      top: -10vw;
-      font-size: 10vw;
-      color: var(--text-primary);
-      font-family: "Inter", sans-serif;
-      text-align: center;
-      text-transform: uppercase;
-      border-radius: 0px 0px 5px 5px;
-   }
-}
-
-.search-container {
-   display: flex;
-   width: 100%;
-   text-align: center;
-   justify-content: center;
-   align-items: center;
-}
-
-.truncate {
-   width: 50vw;
-   height: 5vh;
-   font-family: "Poppins", sans-serif;
-   font-size: 16px;
-   box-shadow: 0 0 25px 2px rgba(120, 60, 220, 0.12);
-   border: 1px solid rgba(168, 85, 247, 0.12);
-   background: var(--background-input);
-   -webkit-backdrop-filter: var(--backdrop-filter);
-   backdrop-filter: var(--backdrop-filter);
-   border-radius: 12px;
-}
-
-input {
-   padding: 20px;
-   width: 550px;
-   border-radius: 5px;
-   background: var(--background-column);
-   text-align: center;
-   font-size: 24px;
-   border: none;
-   outline: none;
-   color: var(--text-primary);
-   transition: 0.4s;
-}
-
-#particles-js {
-   position: absolute;
-   width: 100%;
-   height: 100%;
-   top: 0vw;
-   background-color: var(--bg-c);
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-position: 50% 50%;
-   overflow: hidden;
-}
-
-.particles-js-canvas-el {
-   z-index: 0;
-   top: 0;
-   left: 0;
-   position: absolute;
-   width: 100%;
-   height: 100%;
-   pointer-events: none;
+.title:hover .title-icon {
+   color: var(--accent-primary);
 }
 
 #splash {
-   color: var(--text-dark);
-   margin-bottom: 1em;
-   margin-top: -2em;
-   padding: 0;
-   font-family: "Poppins", sans-serif;
+   font-family: 'Outfit', sans-serif;
+   font-size: 14px;
+   color: var(--text-muted);
+   margin-bottom: 45px;
+   font-weight: 400;
+   letter-spacing: 4px;
+   text-transform: uppercase;
+   opacity: 0.85;
+}
+
+.search-container {
+   width: 100%;
+   max-width: 650px;
+   padding: 0 20px;
+   animation: slideUpFade 0.8s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.search-container form {
+   position: relative;
+   width: 100%;
+}
+
+.truncate {
+   width: 100%;
+   height: 56px;
+   background: var(--background-input);
+   border: 1px solid var(--glass-border);
+   backdrop-filter: var(--glass-blur);
+   border-radius: 16px;
+   padding: 0 24px;
+   color: var(--text-primary);
+   font-size: 16px;
+   font-family: 'Outfit', sans-serif;
+   transition: all 0.3s ease;
+   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.truncate:focus {
+   outline: none;
+   border-color: rgba(255, 255, 255, 0.15);
+   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+   background: rgba(255, 255, 255, 0.04);
+}
+
+.truncate::placeholder {
+   color: var(--text-muted);
+   font-weight: 300;
+}
+
+/* Inside Tabs scaling */
+.in-iframe .main {
+   padding-top: 150px;
+   justify-content: flex-start;
+}
+
+.in-iframe .title {
+   font-size: clamp(2rem, 5vw, 4rem);
+   margin-bottom: 20px;
+   letter-spacing: -1px;
+}
+
+.in-iframe #splash {
+   font-size: 13px;
+   margin-bottom: 24px;
+}
+
+.in-iframe .search-container {
+   max-width: 500px;
+}
+
+.in-iframe .truncate {
+   height: 48px;
+   font-size: 14px;
+}
+
+#particles-js {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 1;
+   opacity: 0.5;
 }

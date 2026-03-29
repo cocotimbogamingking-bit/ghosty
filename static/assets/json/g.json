@@ -6,18 +6,6 @@
     "custom": "true"
   },
   {
-    "name": "! Interstellar FAQ/Docs",
-    "image": "/assets/media/icons/help_center_googlefonts.png",
-    "link": "https://docs.gointerstellar.app",
-    "categories": ["all"]
-  },
-  {
-    "name": "! [NEW] Request A Game",
-    "link": "https://forms.gle/vwdHN3iPz5cLaHaMA",
-    "image": "/assets/media/icons/request.webp",
-    "categories": ["all"]
-  },
-  {
     "name": "Fancade",
     "link": "https://play.fancade.com",
     "image": "/assets/media/icon/fancade.jpg",

@@ -168,7 +168,6 @@ document.addEventListener("DOMContentLoaded", event => {
 // Splash texts
 const SplashT = [
   "Created by Marlon 😛 the Hispanic GOAT 🐐",
-  "In development since 2022 💪",
   "Thanks for using Ghosty! 👻",
   "Built different. Built better.",
   "Check out the settings page ⚙️",

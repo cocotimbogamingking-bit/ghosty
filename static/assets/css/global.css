@@ -1,98 +1,152 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 
 :root {
-   /* Background Variables */
-   --background-image: linear-gradient(135deg, #0a0a1a 0%, #1a0e2e 30%, #12082a 60%, #0d0d1f 100%);
-   /* Premium dark gradient */
-   --backdrop-filter: blur(16px) brightness(75%) saturate(150%);
-   /* Nav Backdrop filter */
-   --background-nav: rgba(120, 60, 200, 0.06);
-   /* Nav Background */
-   --background-color: #0a0a1a;
-   /* Main Background Color */
-   --background-input: rgba(100, 60, 180, 0.15);
-   /* Input Field Background Color */
-   --background-column: rgba(30, 20, 55, 0.8);
-   /* Background for Apps Container */
-   --background-settings: rgba(20, 14, 40, 0.9);
-   /* Settings Card Background */
-   --background-buttons: rgba(80, 45, 160, 0.2);
-   /* Button Background Color */
-   --tab-active-background: rgba(120, 60, 220, 0.35);
-   /* Accent Color for Tabs */
-   --tab-inactive-background: ;
-   /* Background Color for Tabs Not In Use */
-   --slider-active-background: #a855f7;
-   /* Active Slider Background Color */
-   --slider-inactive-background: rgba(255, 255, 255, 0.15);
-   /*  Slider Background Color */
-   --nav-image: url("/./assets/media/favicon/main.png");
-   /* Nav Logo */
-   /* Text Variables */
-   --text-primary: #f0e6ff;
-   /* Primary Text Color */
-   --text-dark: rgba(192, 132, 252, 0.6);
-   /* Dark Text Color for Error Page, Scrollbar, and Particles */
-   --text-placeholder: rgba(192, 132, 252, 0.4);
-   /* Placeholder Text Color */
-   /* Other Variables */
-   --save-button: #a855f7;
-   /* Save Button */
-   --reset-button: #f472b6;
-   /* Reset Button */
-   --import-button: #38bdf8;
-   /* Import Button */
-   --export-button: #fb923c;
-   /* Export Button */
+   /* Surface & Background */
+   --bg-primary: #09090b;
+   --bg-secondary: #0f0f12;
+   --bg-elevated: #18181b;
+   --bg-card: rgba(255, 255, 255, 0.03);
+   --bg-card-hover: rgba(255, 255, 255, 0.06);
+
+   /* Text */
+   --text-primary: #fafafa;
+   --text-secondary: #a1a1aa;
+   --text-muted: #52525b;
+   --text-dark: #71717a;
+
+   /* Borders */
+   --border-default: rgba(255, 255, 255, 0.06);
+   --border-hover: rgba(255, 255, 255, 0.12);
+   --border-active: rgba(255, 255, 255, 0.18);
+
+   /* Accent — neutral white/gray */
+   --accent: #ffffff;
+   --accent-hover: #e4e4e7;
+   --accent-muted: rgba(255, 255, 255, 0.12);
+   --accent-glow: rgba(255, 255, 255, 0.08);
+
+   /* Semantic */
+   --success: #34d399;
+   --danger: #f87171;
+   --warning: #fbbf24;
+
+   /* Shadows */
+   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.4);
+   --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+   --shadow-xl: 0 16px 64px rgba(0, 0, 0, 0.6);
+
+   /* Layout */
+   --radius-sm: 8px;
+   --radius-md: 12px;
+   --radius-lg: 16px;
+   --radius-xl: 20px;
+   --radius-full: 9999px;
+
+   /* Transitions */
+   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+   --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+   --duration-fast: 150ms;
+   --duration-normal: 250ms;
+   --duration-slow: 400ms;
+
+   /* Old variable compatibility */
+   --background-dark: #09090b;
+   --background-nav: rgba(15, 15, 18, 0.85);
+   --background-buttons: #27272a;
+   --glass-blur: blur(20px);
+   --glass-border: rgba(255, 255, 255, 0.06);
+}
+
+* {
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 ::-webkit-scrollbar {
    width: 6px;
-   background-color: var(--background-color);
+   background-color: var(--bg-primary);
 }
 
 ::-webkit-scrollbar-track {
-   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-   border-radius: 10px;
-   background-color: var(--background-color);
+   background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
-   border-radius: 10px;
-   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
-   background-color: var(--text-primary);
+   border-radius: var(--radius-full);
+   background: rgba(255, 255, 255, 0.08);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-   background-color: var(--text-dark);
+   background: rgba(255, 255, 255, 0.15);
 }
 
 body {
-   font-family: "Inter", sans-serif;
-   text-decoration: none;
-   background: var(--background-image);
-   height: 100%;
-   background-position: center;
-   background-repeat: no-repeat;
-   background-size: cover;
-   background-attachment: fixed;
+   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+   background-color: var(--bg-primary);
+   color: var(--text-primary);
+   min-height: 100vh;
+   overflow-x: hidden;
+   line-height: 1.6;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   letter-spacing: -0.01em;
 }
 
-::placeholder {
-   color: var(--text-placeholder);
-   opacity: 1;
+/* Global Animations */
+@keyframes slideUpFade {
+   from {
+      opacity: 0;
+      transform: translateY(20px);
+   }
+
+   to {
+      opacity: 1;
+      transform: translateY(0);
+   }
 }
 
-.main {
-   letter-spacing: 0px;
-   font-family: "Inter", sans-serif;
-   width: 99%;
+@keyframes fadeIn {
+   from {
+      opacity: 0;
+   }
+
+   to {
+      opacity: 1;
+   }
+}
+
+@keyframes scaleIn {
+   from {
+      opacity: 0;
+      transform: scale(0.95);
+   }
+
+   to {
+      opacity: 1;
+      transform: scale(1);
+   }
+}
+
+.animate-fade-up {
+   animation: slideUpFade 0.6s var(--ease-out) forwards;
+}
+
+/* Premium Layout Wrappers */
+.ghosty-container {
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 40px 24px;
+   position: relative;
+   z-index: 10;
+}
+
+.ghosty-header {
    display: flex;
-   flex-direction: column;
-   justify-content: center;
+   justify-content: space-between;
    align-items: center;
-   top: 0%;
-   position: absolute;
-   z-index: 99;
+   margin-bottom: 40px;
+   padding-bottom: 20px;
+   border-bottom: 1px solid var(--border-default);
 }

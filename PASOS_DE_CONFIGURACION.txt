@@ -1,0 +1,97 @@
+==============================================================
+   GHOSTY V5 (Interstellar) - GUIA PASO A PASO DE INSTALACION
+      Por: Marlon 😛 (The Hispanic GOAT 🐐)
+==============================================================
+
+Hola, si quieres saber exactamente cada click y comando que hicimos
+para que este proxy pasara de mi computadora a estar subido y sin 
+bloqueo escolar en la web, aqui tienes los pasos literales que seguimos:
+
+
+========================================
+ PASO 1: ENVIAR EL CODIGO A GITHUB
+========================================
+1. En mi computadora (local), tenia la carpeta de "Interstellar-main".
+2. Abrimos la terminal (PowerShell o CMD) dentro de esa carpeta.
+3. Usamos los comandos de Git para enlazar esta carpeta a un nuevo 
+   repositorio en mi cuenta de GitHub copiando y pegando literalmente esto en la consola:
+   
+   git add .
+   git commit -m "Subiendo Ghosty inicial"
+   git push
+
+4. Ahora, en vez de estar solo en mi PC, todo el codigo fuente y mi diseño UI  
+   estaba seguro publicamente/privadamente en la nube de GitHub.
+
+
+========================================
+ PASO 2: CREAR EL SERVIDOR EN KOYEB
+========================================
+1. Entramos a la pagina web de Koyeb (koyeb.com) y nos creamos/iniciamos sesion.
+2. Le dimos click en "Create Web Service" (Crear Servicio Web).
+3. Seleccionamos "GitHub" como metodo de despliegue.
+4. Koyeb se conecto a mi cuenta y me mostro la lista de mis repositorios. 
+   Escogimos el de "Ghosty" que subi en el Paso 1.
+5. Dejamos todas las configuraciones casi por defecto (Koyeb detecta que 
+   es un archivo NodeJS/npm y sabe como arrancarlo). 
+6. Le dimos a "Deploy" (Desplegar). En un par de minutos, Koyeb instalo todo,
+   corrio el servidor Ultraviolet y nos entrego un link verde oficial 
+   ejemplo: (ghosty-marlon.koyeb.app).
+
+
+========================================
+ PASO 3: ESQUIVAR EL FILTRO CON CLOUDFLARE (EL SCRIPT MAGICO)
+========================================
+*Nota: A veces las escuelas bloquean urls con la palabra "koyeb". 
+ Aqui hicimos la magia negra de programacion para evitar eso.*
+
+1. Entramos a Cloudflare.com y creamos una cuenta.
+2. En el panel lateral izquierdo, fuimos a la seccion "Workers & Pages".
+3. Le dimos a "Create Application" -> "Create Worker" (Crear un Worker).
+4. Le pusimos un nombre cualquiera inofensivo y le dimos "Deploy" para crearlo.
+5. Luego le dimos a "Edit Code" (Editar Codigo). Borramos TODO el codigo que 
+   traia por defecto y PEGAMOS literalmente este "Script de Proxy Avanzado":
+
+// ======== COPIA LITERALMENTE EL CODIGO TRASERO DESDE AQUI ========
+export default {
+    async fetch(request, env) {
+        let url = new URL(request.url);
+        
+        // BORRA ESA URL Y REEMPLAZA ESTO ABAJO POR EL LINK QUE TE DIO KOYEB EN EL PASO 2.
+        // ES SUMAMENTE IMPORTANTE QUE LE QUITES EL "HTTPS://" A TU LINK AQUI:
+        url.hostname = 'ghosty-marlon.koyeb.app';
+        
+        url.protocol = 'https:';
+        url.port = '';
+
+        let new_request = new Request(url, request);
+        return fetch(new_request);
+    }
+};
+// ================= HASTA AQUI =================
+
+6. Solo reemplazamos la linea que dice `url.hostname = 'ghosty-marlon.koyeb.app';`
+   por el link propio que nos habia dado Koyeb en el Paso 2 (SIN el https://).
+7. Le dimos click en el boton azul arriba a la derecha "Save and Deploy" (Guardar y desplegar).
+8. Cloudflare nos regalo nuestro propio link final inofensivo que termina en ".workers.dev".
+   ¡Este link nuevo es la Capa de Invisibilidad! Cuando te conectas a el, Cloudflare 
+   lee todo desde tu Koyeb secretamente. Las escuelas jamas logran ver que vienes de Koyeb.
+
+
+========================================
+ PASO 4: REDISEÑO 3D Y ACTUALIZACIONES
+========================================
+1. A partir de ahi, cada vez que quisimos cambiar colores, textos, limpiar tags
+   o meter tarjetas flotantes tipo Apple UI 3D en la página principal, lo editaba en mi 
+   computadora (los archivos global.css, settings.html, h.css, m1.js, etc).
+2. Cuando el diseño estaba listo y Ultra Premium, nada mas abrimos la terminal en VSCode y lanzamos el comando letal:
+   
+   git add . ; git commit -m "Inyectando UX 3D y Glassmorphism" ; git push
+
+3. Al hacer eso, GitHub se dio cuenta del cambio y automaticamente le 
+   aviso a Koyeb.
+4. Koyeb descargo el nuevo codigo y se actualizo solo. En 3 minutos, los usuarios 
+   ya tenian la nueva interfaz con los botones "Stealth Cloak" y "Proxy Engine Core" 
+   al recargar la pestaña del Cloudflare Worker.
+
+¡Y ası construimos el Bypass Intocable The Hispanic GOAT 🐐 Edition!

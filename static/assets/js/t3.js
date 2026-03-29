@@ -91,7 +91,7 @@ document.addEventListener("DOMContentLoaded", event => {
     const goUrl = sessionStorage.getItem("GoUrl");
     const url = sessionStorage.getItem("URL");
 
-    if (tabCounter === 0 || tabCounter === 1) {
+    if (tabCounter === 1) {
       if (goUrl !== null) {
         if (goUrl.includes("/e/")) {
           newIframe.src = window.location.origin + goUrl;
@@ -101,16 +101,10 @@ document.addEventListener("DOMContentLoaded", event => {
       } else {
         newIframe.src = "/";
       }
-    } else if (tabCounter > 1) {
+    } else {
       if (url !== null) {
         newIframe.src = window.location.origin + url;
         sessionStorage.removeItem("URL");
-      } else if (goUrl !== null) {
-        if (goUrl.includes("/e/")) {
-          newIframe.src = window.location.origin + goUrl;
-        } else {
-          newIframe.src = `${window.location.origin}/a/${goUrl}`;
-        }
       } else {
         newIframe.src = "/";
       }

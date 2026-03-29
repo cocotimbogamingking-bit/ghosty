@@ -1,82 +1,107 @@
-.error {
-   color: var(--text-primary);
-   font-family: "Inter", sans-serif;
-   font-weight: 900;
-   top: 15%;
-   text-align: center;
+.error-page {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   min-height: 100vh;
+   padding: 24px;
 }
 
-.error h1 {
-   font-size: 10vw;
-   margin: 0 auto -2vw auto;
-   background: linear-gradient(150deg, #746eff 0%, #ff00bb 51%, #746eff 100%);
+.error-content {
+   text-align: center;
+   max-width: 480px;
+   animation: slideUpFade 0.6s var(--ease-out, cubic-bezier(0.16, 1, 0.3, 1)) forwards;
+}
+
+.error-code {
+   font-family: 'Inter', sans-serif;
+   font-size: 8rem;
+   font-weight: 800;
+   letter-spacing: -0.05em;
+   line-height: 1;
+   background: linear-gradient(135deg, #ffffff, #a1a1aa, #52525b);
    -webkit-background-clip: text;
    -moz-background-clip: text;
    background-clip: text;
    color: transparent;
+   margin-bottom: 8px;
 }
 
-.error h3 {
-   font-size: 4vw;
-   margin-bottom: auto;
-   margin-top: auto;
+.error-title {
+   font-family: 'Inter', sans-serif;
+   font-size: 1.5rem;
    font-weight: 600;
+   color: var(--text-primary, #fafafa);
+   margin-bottom: 8px;
 }
 
-.error p {
-   font-size: 2vw;
-   margin-top: 0.5%;
-   margin-bottom: 1%;
-   font-weight: 900;
-   color: var(--text-dark);
+.error-message {
+   font-size: 0.95rem;
+   color: var(--text-secondary, #a1a1aa);
+   margin-bottom: 32px;
+   line-height: 1.5;
 }
 
-.error button {
-   padding: 15px;
-   border-radius: 5px;
-   background: var(--background-buttons);
-   color: inherit;
-   font-size: 24px;
-   border: 2px solid var(--background-buttons);
-   outline: none;
-   margin-bottom: 10px;
+.error-actions {
+   display: flex;
+   gap: 12px;
+   justify-content: center;
+   flex-wrap: wrap;
+}
+
+.error-btn {
+   display: inline-flex;
+   align-items: center;
+   gap: 8px;
+   padding: 12px 24px;
+   border-radius: 10px;
+   font-family: 'Inter', sans-serif;
+   font-size: 0.9rem;
+   font-weight: 500;
    cursor: pointer;
+   transition: all 200ms ease;
+   border: 1px solid transparent;
 }
 
-.error .one:hover {
-   color: #ef6e78;
-   border: 2px solid #ef6e78;
-   background: transparent;
+.error-btn.primary {
+   background: #ffffff;
+   color: #000;
+   border-color: #ffffff;
 }
 
-.error .two:hover {
-   color: #ef996e;
-   border: 2px solid #ef996e;
-   background: transparent;
+.error-btn.primary:hover {
+   background: #e4e4e7;
+   border-color: #e4e4e7;
+   transform: translateY(-2px);
+   box-shadow: 0 4px 16px rgba(255, 255, 255, 0.2);
 }
 
-.error .three:hover {
-   color: #ef6ee4;
-   border: 2px solid #ef6ee4;
-   background: transparent;
+.error-btn.secondary {
+   background: var(--bg-elevated, #18181b);
+   color: var(--text-primary, #fafafa);
+   border-color: var(--border-default, rgba(255, 255, 255, 0.06));
+}
+
+.error-btn.secondary:hover {
+   background: var(--bg-card-hover, rgba(255, 255, 255, 0.06));
+   border-color: var(--border-hover, rgba(255, 255, 255, 0.12));
+   transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
-   .error h1 {
-      font-size: 12vw;
+   .error-code {
+      font-size: 5rem;
    }
 
-   .error h3 {
-      font-size: 5vw;
+   .error-title {
+      font-size: 1.2rem;
    }
 
-   .error p {
-      font-size: 3vw;
-      margin-top: 5px;
-      margin-bottom: 5px;
+   .error-message {
+      font-size: 0.88rem;
    }
 
-   .error button {
-      font-size: 16px;
+   .error-btn {
+      font-size: 0.85rem;
+      padding: 10px 20px;
    }
 }

@@ -28,7 +28,8 @@ function saveToLocal(path) {
   sessionStorage.setItem("GoUrl", path);
 }
 
-function handleClick(app) {
+function handleClick(app, e) {
+  if (e) e.preventDefault();
   if (typeof app.say !== "undefined") {
     alert(app.say);
   }
@@ -43,7 +44,7 @@ function handleClick(app) {
 
   if (app.local) {
     saveToLocal(Selected);
-    window.location.href = "rx";
+    window.location.href = "/d";
     if (t) {
       window.location.href = Selected;
     }
@@ -196,8 +197,9 @@ function CreateCustomApp(customApp) {
   btn.title = "Pin";
 
   const linkElem = document.createElement("a");
-  linkElem.onclick = () => {
-    handleClick(customApp);
+  linkElem.href = customApp.link;
+  linkElem.onclick = (e) => {
+    handleClick(customApp, e);
   };
 
   const image = document.createElement("img");
@@ -291,7 +293,7 @@ fetch(path)
 
       const columnDiv = document.createElement("div");
       columnDiv.classList.add("column");
-      columnDiv.setAttribute("data-category", app.categories.join(" "));
+      columnDiv.setAttribute("data-category", (app.categories || ["all"]).join(" "));
 
       const pinIcon = document.createElement("i");
       pinIcon.classList.add("fa", "fa-map-pin");
@@ -312,9 +314,10 @@ fetch(path)
       btn.title = "Pin";
 
       const link = document.createElement("a");
+      link.href = app.link || "#";
 
-      link.onclick = () => {
-        handleClick(app);
+      link.onclick = (e) => {
+        handleClick(app, e);
       };
 
       const image = document.createElement("img");

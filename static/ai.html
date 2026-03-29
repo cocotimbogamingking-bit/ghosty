@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
+  <title id="t">Ghosty AI</title>
+  <link rel="stylesheet" href="/assets/css/global.css?v=8" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=03" />
+  <link rel="stylesheet" href="/assets/css/ai.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+  <div class="f-nav"></div>
+
+  <div class="main-wrapper">
+    <div id="onboarding-modal" class="modal">
+      <div class="modal-content">
+        <i class="fa-solid fa-ghost modal-icon"></i>
+        <h2>Welcome to Ghosty AI</h2>
+        <p>Please tell me your name and preferred language.</p>
+        
+        <div class="input-group">
+          <label>Your Name</label>
+          <input type="text" id="user-name" placeholder="Enter your name..." autocomplete="off">
+        </div>
+
+        <div class="input-group">
+          <label>Preferred Language</label>
+          <div class="lang-options">
+            <button class="lang-btn active" data-lang="en">English</button>
+            <button class="lang-btn" data-lang="es">Español</button>
+          </div>
+        </div>
+
+        <button id="start-btn" class="primary-btn">Start Chatting</button>
+      </div>
+    </div>
+
+    <div class="chat-container">
+      <div class="chat-header">
+        <div class="header-info">
+          <i class="fa-solid fa-brain"></i>
+          <div>
+            <h3>Ghosty Intelligence</h3>
+            <span class="status">Llama 3.3 • Online</span>
+          </div>
+        </div>
+        <button id="clear-chat" title="Clear Chat"><i class="fa-solid fa-trash-can"></i></button>
+      </div>
+
+      <div id="chat-messages" class="chat-messages">
+        <!-- Messages will appear here -->
+      </div>
+
+      <div class="chat-input-area">
+        <form id="chat-form">
+          <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off">
+          <button type="submit" id="send-btn"><i class="fa-solid fa-paper-plane"></i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/m1.js"></script>
+  <script src="/assets/js/ai.js"></script>
+</body>
+
+</html>

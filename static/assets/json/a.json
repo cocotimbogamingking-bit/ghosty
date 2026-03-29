@@ -6,18 +6,6 @@
     "custom": "true"
   },
   {
-    "name": "! Interstellar FAQ/Docs",
-    "image": "/assets/media/icons/help_center_googlefonts.png",
-    "link": "https://docs.gointerstellar.app",
-    "categories": ["all"]
-  },
-  {
-    "name": "! [NEW] Request An App",
-    "link": "https://forms.gle/vwdHN3iPz5cLaHaMA",
-    "image": "/assets/media/icons/request.webp",
-    "categories": ["all"]
-  },
-  {
     "name": "Amazon",
     "link": "https://amazon.com/",
     "image": "/assets/media/icons/amazon.webp",

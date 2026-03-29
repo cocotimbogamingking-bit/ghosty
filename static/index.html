@@ -5,59 +5,228 @@
   <meta charset="UTF-8" />
   <meta name="referrer" content="no-referrer" />
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
-  <title id="t">Home</title>
-  <link rel="stylesheet" href="/assets/css/global.css?v=6" />
-  <link rel="stylesheet" href="/assets/css/h.css?v=01" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
-  <link rel="stylesheet" href="/assets/css/credits.css?v=1" />
+  <title id="t">Ghosty</title>
+
+  <link rel="stylesheet" href="/assets/css/global.css?v=ghosty" />
+  <link rel="stylesheet" href="/assets/css/quantum.css?v=ghosty" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body class="center" onload="SplashT">
-  <div class="f-nav"></div>
-  <div id="particles-js">
-    <script rel="preload" src="https://cdn.jsdelivr.net/particles.js/2.0.0/"></script>
-    <div class="main">
-      <h1 class="title">Ghosty</h1>
-      <p id="splash"></p>
-      <div class="search-container">
-        <form id="fv" method="POST">
-          <input id="input" class="truncate" placeholder="Search or enter a URL" type="text" />
-        </form>
+<body id="home-page">
+
+  <!-- Splash Screen Loader -->
+  <div id="loading-overlay">
+    <div class="loader-content">
+      <div class="brand-flex">
+        <i class="fa-solid fa-ghost loader-icon"></i>
+        <h1 class="loader-text">Ghosty</h1>
       </div>
     </div>
   </div>
 
-  <!-- ═══ Premium Credits Footer ═══ -->
-  <div class="credits-footer" id="credits-footer">
-    <div class="credits-left">
-      <span class="credits-badge">
-        <i class="fa-solid fa-ghost badge-icon"></i>
-        CREATED BY
-      </span>
-      <span class="credits-creator">
-        <span class="creator-name">Marlon</span><span class="creator-emoji">😛</span>
-        <span class="creator-title">the Hispanic GOAT 🐐</span>
-      </span>
-    </div>
-    <div class="credits-right">
-      <span class="credits-year">
-        <span class="year-dot"></span>
-        In development since 2022
-      </span>
-      <span class="credits-divider"></span>
-      <span class="credits-version">v5.2.6</span>
-    </div>
-  </div>
+  <style>
+    .brand-flex {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
 
-  <script src="assets/js/index-3.js"></script>
+    #loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #0a0a0a;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.8s ease, visibility 0.8s;
+    }
+
+    .loader-content {
+      text-align: center;
+      animation: revealGhosty 2s ease-in-out forwards;
+    }
+
+    .loader-icon {
+      font-size: 3.5rem;
+      color: #fff;
+      filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5));
+      margin: 0;
+    }
+
+    .loader-text {
+      font-size: 3.5rem;
+      color: #fff;
+      font-weight: 800;
+      letter-spacing: 10px;
+      margin: 0;
+      text-transform: uppercase;
+      background: linear-gradient(to bottom, #fff, #666);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    @keyframes revealGhosty {
+      0% {
+        opacity: 0;
+        transform: scale(0.8);
+        filter: blur(20px);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.05);
+        filter: blur(0px);
+      }
+      80% {
+        opacity: 1;
+        transform: scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: scale(1.1);
+        filter: blur(10px);
+      }
+    }
+
+    #loading-overlay.hidden {
+      opacity: 0;
+      visibility: hidden;
+    }
+  </style>
+
+  <script>
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        const overlay = document.getElementById('loading-overlay');
+        overlay.classList.add('hidden');
+      }, 2200); // 2.2 seconds matches the animation length
+    });
+  </script>
+
+  <!-- Ambient Background -->
+  <div id="webgl-container"></div>
+
+  <!-- Main UI -->
+  <main class="ui-layer">
+    <div class="ui-content" id="main-content">
+
+      <!-- Status Indicator -->
+      <div class="system-status-pill">
+        <span class="status-dot"></span>
+        System Online
+      </div>
+
+      <!-- Hero Identity -->
+      <div class="brand-container brand-flex">
+        <i class="fa-solid fa-ghost brand-icon"></i>
+        <h1 class="brand-text">Ghosty</h1>
+      </div>
+
+      <style>
+        .brand-container {
+          margin-bottom: 2rem;
+        }
+
+        .brand-icon {
+          font-size: 4rem;
+          color: #fff;
+          filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.4));
+          margin: 0;
+        }
+
+        .brand-text {
+          font-size: 4rem;
+          color: #fff;
+          font-weight: 800;
+          letter-spacing: 12px;
+          margin: 0;
+          text-transform: uppercase;
+          background: linear-gradient(to bottom, #fff, #888);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        }
+
+        /* Hide the old brand-title if it's still coming from external CSS */
+        .brand-title {
+          display: none;
+        }
+      </style>
+
+      <!-- Search Bar -->
+      <form id="fv" method="POST" class="search-terminal" onsubmit="return handleSecureSubmit(event)">
+        <div class="search-inner">
+          <i class="fa-solid fa-search terminal-icon"></i>
+          <input id="input" class="command-input" placeholder="Search the web or enter a URL..." type="text"
+            autocomplete="off" spellcheck="false" />
+          <div class="scanner-beam"></div>
+        </div>
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Navigation Dock -->
+  <nav class="pro-dock">
+    <div class="dock-island" id="dock">
+      <a href="/" class="dock-btn active" data-tip="Home">
+        <i class="fa-solid fa-house"></i>
+      </a>
+      <a href="/a" class="dock-btn" data-tip="Games">
+        <i class="fa-solid fa-gamepad"></i>
+      </a>
+      <a href="/b" class="dock-btn" data-tip="Apps">
+        <i class="fa-solid fa-table-cells-large"></i>
+      </a>
+      <a href="/c" class="dock-btn" data-tip="Settings">
+        <i class="fa-solid fa-sliders"></i>
+      </a>
+      <a href="/d" class="dock-btn" data-tip="Browser">
+        <i class="fa-solid fa-folder-tree"></i>
+      </a>
+    </div>
+  </nav>
+
+  <!-- Scripts -->
+  <script>
+    window.handleSecureSubmit = function (e) {
+      e.preventDefault();
+      const input = document.getElementById('input');
+      const terminal = document.querySelector('.search-inner');
+      const rawVal = input.value;
+
+      const threatPattern = /<script\b|javascript:|eval\(/gi;
+
+      if (threatPattern.test(rawVal) || rawVal.trim() === "") {
+        terminal.classList.add('input-error');
+        input.value = "";
+        setTimeout(() => {
+          terminal.classList.remove('input-error');
+          input.value = "";
+        }, 600);
+        return false;
+      }
+
+      try {
+        if (typeof window.search === 'function') { window.search(); }
+      } catch (err) { }
+      return true;
+    };
+  </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.160.0/three.min.js"></script>
+  <script src="/assets/js/3d-engine.js"></script>
+  <script src="/assets/js/index-3.js"></script>
   <script src="/assets/js/h1.js"></script>
   <script src="./assets/mathematics/bundle.js?v=2025-04-15"></script>
   <script src="./assets/mathematics/config.js?v=2025-04-15"></script>
   <script src="/assets/js/m1.js"></script>
-  <!-- Scripts -->
 </body>
 
 </html>

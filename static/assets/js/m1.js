@@ -13,6 +13,20 @@ try {
 
 document.addEventListener("DOMContentLoaded", () => {
   // Custom initialization
+  
+  // Detection for being inside an iframe (Tabs)
+  let inFrame;
+  try {
+    inFrame = window !== top;
+  } catch (e) {
+    inFrame = true;
+  }
+
+  if (inFrame) {
+    document.body.classList.add("in-iframe");
+    // We used to hide UI here, but user wants access to everything.
+    // Instead of hiding, we could just style it differently in CSS if needed.
+  }
 
   const nav = document.querySelector(".f-nav");
 
@@ -24,13 +38,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     const html = `
       <div id="icon-container">
-        <a class="icon" href="/./"><span style="font-size:28px;margin-right:4px;">👻</span> Ghosty</a>
+        <a class="icon" href="/./"><i class="fa-solid fa-ghost" style="margin-right:8px;font-size:24px;"></i><span>Ghosty</span></a>
       </div>
       <div class="f-nav-right">
-        <a class="navbar-link" href="/./a"><i class="fa-solid fa-gamepad navbar-icon"></i><an>&#71;&#97;</an><an>&#109;&#101;&#115;</an></a>
-        <a class="navbar-link" href="/./b"><i class="fa-solid fa-phone navbar-icon"></i><an>&#65;&#112;</an><an>&#112;&#115;</an></a>
-        ${qp ? "" : '<a class="navbar-link" href="/./d"><i class="fa-solid fa-laptop navbar-icon"></i><an>&#84;&#97;</an><an>&#98;&#115;</an></a>'}
-        <a class="navbar-link" href="/./c"><i class="fa-solid fa-gear navbar-icon settings-icon"></i><an>&#83;&#101;&#116;</an><an>&#116;&#105;&#110;&#103;</an></a>
+        <a class="navbar-link" href="/./a"><i class="fa-solid fa-gamepad navbar-icon"></i><span>Games</span></a>
+        <a class="navbar-link" href="/./b"><i class="fa-solid fa-phone navbar-icon"></i><span>Apps</span></a>
+        ${qp ? "" : '<a class="navbar-link" href="/./d"><i class="fa-solid fa-laptop navbar-icon"></i><span>Tabs</span></a>'}
+        <a class="navbar-link" href="/./c"><i class="fa-solid fa-gear navbar-icon"></i><span>Settings</span></a>
       </div>`;
     nav.innerHTML = html;
   }

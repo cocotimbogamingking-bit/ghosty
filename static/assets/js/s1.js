@@ -229,21 +229,47 @@ document.addEventListener("DOMContentLoaded", () => {
 // Particles
 const switches = document.getElementById("2");
 
-if (window.localStorage.getItem("particles") !== "") {
-  if (window.localStorage.getItem("particles") === "true") {
-    switches.checked = true;
-  } else {
-    switches.checked = false;
-  }
+if (switches) {
+  const particlesEnabled = window.localStorage.getItem("Particles") === "true";
+  switches.checked = particlesEnabled;
+
+  switches.addEventListener("change", event => {
+    window.localStorage.setItem("Particles", event.currentTarget.checked ? "true" : "false");
+    // Reload to apply particles changes immediately
+    window.location.reload();
+  });
 }
 
-switches.addEventListener("change", event => {
-  if (event.currentTarget.checked) {
-    window.localStorage.setItem("particles", "true");
-  } else {
-    window.localStorage.setItem("particles", "false");
+// Themes Logic
+function themeChange(select) {
+  const theme = select.value;
+  localStorage.setItem("theme", theme);
+  
+  // Apply theme immediately by adding the stylesheet if it's a known one
+  const themes = {
+    catppuccinMocha: "/assets/css/themes/catppuccin/mocha.css?v=00",
+    catppuccinMacchiato: "/assets/css/themes/catppuccin/macchiato.css?v=00",
+    catppuccinFrappe: "/assets/css/themes/catppuccin/frappe.css?v=00",
+    catppuccinLatte: "/assets/css/themes/catppuccin/latte.css?v=00",
+    Inverted: "/assets/css/themes/colors/inverted.css?v=00",
+    sky: "/assets/css/themes/colors/sky.css?v=00",
+  };
+
+  // Remove existing theme link if any
+  const existingTheme = document.getElementById("theme-style");
+  if (existingTheme) existingTheme.remove();
+
+  if (themes[theme]) {
+    const themeEle = document.createElement("link");
+    themeEle.id = "theme-style";
+    themeEle.rel = "stylesheet";
+    themeEle.href = themes[theme];
+    document.head.appendChild(themeEle);
   }
-});
+  
+  // Reloading is often safer to ensure all components react to the new theme variables
+  window.location.reload();
+}
 // AB Cloak
 function AB() {
   let inFrame;
