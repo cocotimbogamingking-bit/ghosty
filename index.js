@@ -26,28 +26,6 @@ app.use((req, res, next) => {
   }
   next();
 });
-
-// 2. Limitador básico (Evita que saturen tu Koyeb con bots)
-const peticiones = new Map();
-app.use((req, res, next) => {
-  const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
-  const ahora = Date.now();
-  const datos = peticiones.get(ip) || { cuenta: 0, tiempo: ahora };
-
-  if (ahora - datos.tiempo > 60000) { // Reinicia cada minuto
-    datos.cuenta = 1;
-    datos.tiempo = ahora;
-  } else {
-    datos.cuenta++;
-  }
-
-  peticiones.set(ip, datos);
-
-  if (datos.cuenta > 100) { // Máximo 100 clics por minuto por persona
-    return res.status(429).send("Vas muy rápido. Espera un minuto.");
-  }
-  next();
-});
 // --- FIN BLOQUE SEGURIDAD ---
 
 const PORT = process.env.PORT || 8080;
