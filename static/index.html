@@ -15,7 +15,283 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
-<body onload="SplashT">
+<body>
+  <!-- ═══ LOADING SCREEN ═══ -->
+  <div id="splash-screen">
+    <style>
+      #splash-screen {
+        position: fixed;
+        inset: 0;
+        z-index: 99999;
+        background: var(--background, #050505);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-family: 'Inter', system-ui, sans-serif;
+        overflow: hidden;
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      #splash-screen.fade-out {
+        opacity: 0;
+        transform: scale(1.08);
+        pointer-events: none;
+      }
+
+      .splash-bg-grid {
+        position: absolute;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        animation: gridPulse 4s ease-in-out infinite;
+      }
+
+      @keyframes gridPulse {
+
+        0%,
+        100% {
+          opacity: 0.3;
+        }
+
+        50% {
+          opacity: 1;
+        }
+      }
+
+      .splash-glow {
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
+        animation: splashGlowPulse 3s ease-in-out infinite;
+      }
+
+      @keyframes splashGlowPulse {
+
+        0%,
+        100% {
+          transform: scale(1);
+          opacity: 0.4;
+        }
+
+        50% {
+          transform: scale(1.3);
+          opacity: 1;
+        }
+      }
+
+      .splash-ghost {
+        font-size: 90px;
+        color: var(--foreground, #fff);
+        margin-bottom: 24px;
+        position: relative;
+        z-index: 2;
+        animation: ghostFloat 2.5s ease-in-out infinite, ghostAppear 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0;
+        filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.15));
+      }
+
+      @keyframes ghostFloat {
+
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+
+        50% {
+          transform: translateY(-12px);
+        }
+      }
+
+      @keyframes ghostAppear {
+        from {
+          opacity: 0;
+          transform: scale(0.3) translateY(40px);
+        }
+
+        to {
+          opacity: 1;
+          transform: scale(1) translateY(0);
+        }
+      }
+
+      .splash-title {
+        font-size: 52px;
+        font-weight: 800;
+        letter-spacing: 18px;
+        color: var(--foreground, #fff);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        position: relative;
+        z-index: 2;
+        animation: titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        opacity: 0;
+      }
+
+      @keyframes titleReveal {
+        from {
+          opacity: 0;
+          transform: translateY(25px);
+          letter-spacing: 40px;
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+          letter-spacing: 18px;
+        }
+      }
+
+      .splash-version {
+        font-size: 11px;
+        color: var(--text-secondary, rgba(255, 255, 255, 0.5));
+        letter-spacing: 6px;
+        text-transform: uppercase;
+        margin-bottom: 40px;
+        position: relative;
+        z-index: 2;
+        animation: subtitleReveal 0.6s ease 0.7s forwards;
+        opacity: 0;
+      }
+
+      @keyframes subtitleReveal {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .splash-progress-track {
+        width: 220px;
+        height: 2px;
+        background: var(--border-color, rgba(255, 255, 255, 0.08));
+        border-radius: 10px;
+        overflow: hidden;
+        position: relative;
+        z-index: 2;
+        margin-bottom: 60px;
+      }
+
+      .splash-progress-bar {
+        height: 100%;
+        width: 0%;
+        background: var(--foreground, #fff);
+        border-radius: 10px;
+        animation: progressFill 2.5s cubic-bezier(0.1, 0, 0.2, 1) 0.3s forwards;
+        box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+      }
+
+      @keyframes progressFill {
+        0% {
+          width: 0%;
+        }
+
+        15% {
+          width: 20%;
+        }
+
+        40% {
+          width: 50%;
+        }
+
+        70% {
+          width: 75%;
+        }
+
+        90% {
+          width: 92%;
+        }
+
+        100% {
+          width: 100%;
+        }
+      }
+
+      .splash-particles {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .splash-particle {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        animation: particleRise linear infinite;
+      }
+
+      @keyframes particleRise {
+        from {
+          transform: translateY(100vh) scale(0);
+          opacity: 0;
+        }
+
+        10% {
+          opacity: 1;
+        }
+
+        90% {
+          opacity: 0.5;
+        }
+
+        to {
+          transform: translateY(-10vh) scale(1);
+          opacity: 0;
+        }
+      }
+    </style>
+
+    <div class="splash-bg-grid"></div>
+    <div class="splash-glow"></div>
+    <div class="splash-particles" id="splash-particles"></div>
+
+    <i class="fa-solid fa-ghost splash-ghost"></i>
+    <div class="splash-title">GHOSTY</div>
+    <div class="splash-version">Secure Proxy • v2.0</div>
+    <div class="splash-progress-track">
+      <div class="splash-progress-bar"></div>
+    </div>
+
+
+  </div>
+
+  <script>
+    (function () {
+      const pc = document.getElementById('splash-particles');
+      if (!pc) return;
+      for (let i = 0; i < 15; i++) {
+        const p = document.createElement('div');
+        p.className = 'splash-particle';
+        p.style.left = Math.random() * 100 + '%';
+        p.style.animationDuration = (4 + Math.random() * 5) + 's';
+        p.style.animationDelay = (Math.random() * 4) + 's';
+        const s = (1 + Math.random() * 2) + 'px';
+        p.style.width = p.style.height = s;
+        pc.appendChild(p);
+      }
+    })();
+    setTimeout(() => {
+      const sp = document.getElementById('splash-screen');
+      if (sp) {
+        sp.classList.add('fade-out');
+        setTimeout(() => sp.remove(), 800);
+      }
+    }, 3000);
+  </script>
+  <!-- ═══ END LOADING SCREEN ═══ -->
+
+
+
   <div class="starfield-wrapper">
     <div class="stars"></div>
     <div class="stars stars-2"></div>
@@ -35,7 +311,7 @@
         <i class="fa-solid fa-ghost logo-icon"></i>
         <h1 class="title">Ghosty</h1>
       </div>
-      <p id="splash" style="display:none">IN DEVELOPMENT SINCE 2022 💪</p>
+
 
       <div class="search-container">
         <form id="fv" method="POST" class="search-form-home">
@@ -49,11 +325,11 @@
           <div class="home-app-icon"><i class="fa-solid fa-gamepad"></i></div>
           <span>Games</span>
         </a>
-        <a href="#" class="home-app-btn">
+        <a href="#" class="home-app-btn" onclick="event.preventDefault(); go('https://soundcloud.com');">
           <div class="home-app-icon"><i class="fa-solid fa-music"></i></div>
           <span>Music</span>
         </a>
-        <a href="#" class="home-app-btn">
+        <a href="#" class="home-app-btn" onclick="event.preventDefault(); go('https://tubitv.com');">
           <div class="home-app-icon"><i class="fa-solid fa-film"></i></div>
           <span>Movies</span>
         </a>
@@ -61,14 +337,8 @@
           <div class="home-app-icon"><i class="fa-solid fa-rocket"></i></div>
           <span>Apps</span>
         </a>
-        <a href="#" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-comments"></i></div>
-          <span>Chat</span>
-        </a>
-        <a href="#" class="home-app-btn add-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-plus-circle"></i></div>
-          <span>Add</span>
-        </a>
+
+
       </div>
 
       <div class="domain-selector">
@@ -79,12 +349,13 @@
   </div>
 
   <div id="discord-toast" class="toast-hidden">
-     Discord no creado esperen por update 👻
+    Discord no creado esperen por update 👻
   </div>
 
   <div class="bottom-bar">
     <div class="bb-left">
-      1 tabs • 1 spaces | <i class="fa-solid fa-ghost"></i> Ghosty v2 | <span class="dim">ToS &nbsp; Privacy &nbsp; DMCA</span>
+      1 tabs • 1 spaces | <i class="fa-solid fa-ghost"></i> Ghosty v2 | <span class="dim">ToS &nbsp; Privacy &nbsp;
+        DMCA</span>
     </div>
     <div class="bb-right">
       <span><i class="fa-solid fa-shield-halved"></i> Secure</span>

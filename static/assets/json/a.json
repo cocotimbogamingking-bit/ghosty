@@ -471,43 +471,6 @@
         ]
     },
     {
-        "name": "FMovies.to",
-        "link": "https://fmovies24.to/",
-        "image": "/assets/media/icons/FM.png",
-        "categories": [
-            "all",
-            "media"
-        ]
-    },
-    {
-        "name": "EMovies.si",
-        "link": "https://emovies.si",
-        "categories": [
-            "all",
-            "media"
-        ]
-    },
-    {
-        "name": "Movie Web",
-        "link": "https://movie-web-me.vercel.app/",
-        "image": "/assets/media/icons/MW.png",
-        "say": "This is not an official domain for Movie Web",
-        "categories": [
-            "all",
-            "media"
-        ]
-    },
-    {
-        "name": "Sudo-Flix.Lol (Movie Web Clone)",
-        "link": "https://sudo-flix.lol/",
-        "image": "/assets/media/icons/MW.png",
-        "say": "This is not an official domain for Movie Web",
-        "categories": [
-            "all",
-            "media"
-        ]
-    },
-    {
         "name": "GBA Games",
         "link": "https://gba.js.org/",
         "image": "/assets/media/icons/gba.png",
@@ -609,16 +572,6 @@
         ]
     },
     {
-        "name": "Blooket Cheats",
-        "link": "https://github.com/005konz/Blooket-Cheats",
-        "image": "/assets/media/icons/bl.webp",
-        "categories": [
-            "all",
-            "bl",
-            "cs"
-        ]
-    },
-    {
         "name": "Edpuzzle Cheats",
         "link": "https://github.com/ading2210/edpuzzle-answers",
         "image": "/assets/media/icons/ep.png",
@@ -652,6 +605,81 @@
         "categories": [
             "all",
             "ai"
+        ]
+    },
+    {
+        "name": "Tubi",
+        "link": "https://tubitv.com",
+        "image": "/assets/media/icons/flixhq.webp",
+        "categories": [
+            "all",
+            "media",
+            "stream"
+        ]
+    },
+    {
+        "name": "Pluto TV",
+        "link": "https://pluto.tv",
+        "image": "/assets/media/icons/flixhq.webp",
+        "categories": [
+            "all",
+            "media",
+            "stream"
+        ]
+    },
+    {
+        "name": "ViX (Español)",
+        "link": "https://www.vix.com",
+        "image": "/assets/media/icons/flixhq.webp",
+        "categories": [
+            "all",
+            "media",
+            "stream"
+        ]
+    },
+    {
+        "name": "Cineby",
+        "link": "https://www.cineby.app",
+        "image": "/assets/media/icons/FM.png",
+        "categories": [
+            "all",
+            "media"
+        ]
+    },
+    {
+        "name": "MyFlixer",
+        "link": "https://myflixerz.to",
+        "image": "/assets/media/icons/FM.png",
+        "categories": [
+            "all",
+            "media"
+        ]
+    },
+    {
+        "name": "FMoviesz",
+        "link": "https://fmoviesz.to",
+        "image": "/assets/media/icons/FM.png",
+        "categories": [
+            "all",
+            "media"
+        ]
+    },
+    {
+        "name": "Soap2Day",
+        "link": "https://soap2day.day",
+        "image": "/assets/media/icons/MW.png",
+        "categories": [
+            "all",
+            "media"
+        ]
+    },
+    {
+        "name": "Bflix",
+        "link": "https://bflix.sh",
+        "image": "/assets/media/icons/MW.png",
+        "categories": [
+            "all",
+            "media"
         ]
     }
 ]

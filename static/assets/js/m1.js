@@ -1,4 +1,3 @@
-// main.js
 let qp;
 
 try {
@@ -10,7 +9,6 @@ try {
     qp = false;
   }
 }
-
 document.addEventListener("DOMContentLoaded", () => {
   // Custom initialization
 
@@ -31,14 +29,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <a class="sidebar-link" href="/./b" title="Apps">
            <i class="fa-solid fa-rocket"></i>
         </a>
-        <a class="sidebar-link" href="#" title="Music">
+        <a class="sidebar-link" href="#" title="Music" onclick="event.preventDefault(); go('https://soundcloud.com');">
            <i class="fa-solid fa-music"></i>
         </a>
-        <a class="sidebar-link" href="#" title="Movies">
+        <a class="sidebar-link" href="#" title="Movies" onclick="event.preventDefault(); go('https://tubitv.com');">
            <i class="fa-solid fa-film"></i>
-        </a>
-        <a class="sidebar-link" href="#" title="Chat">
-           <i class="fa-solid fa-comments"></i>
         </a>
       </div>
       <div class="sidebar-bottom">
@@ -83,7 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
             <i class="fa-solid fa-gamepad" title="Games"></i>
             <i class="fa-regular fa-user" title="Account"></i>
             <i class="fa-regular fa-file-lines" title="Changelog"></i>
-            <i class="fa-solid fa-comments" title="Chat"></i>
             <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
          </div>
       `;
@@ -368,4 +362,149 @@ document.addEventListener("DOMContentLoaded", () => {
   if (savedBackgroundImage) {
     document.body.style.backgroundImage = `url('${savedBackgroundImage}')`;
   }
+
+  // ═══ iPhone-Style Disclaimer Notification (every 5 min) ═══
+  (function initDisclaimerNotif() {
+    // Inject styles once
+    const style = document.createElement("style");
+    style.textContent = `
+      .ios-notif {
+        position: fixed;
+        top: -200px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 380px;
+        max-width: 92vw;
+        background: rgba(30, 30, 30, 0.85);
+        backdrop-filter: blur(40px) saturate(1.8);
+        -webkit-backdrop-filter: blur(40px) saturate(1.8);
+        border: 1px solid rgba(255,255,255,0.1);
+        border-radius: 20px;
+        padding: 14px 16px;
+        z-index: 99998;
+        cursor: pointer;
+        box-shadow:
+          0 10px 40px rgba(0,0,0,0.5),
+          0 2px 10px rgba(0,0,0,0.3),
+          inset 0 1px 0 rgba(255,255,255,0.08);
+        transition: top 0.5s cubic-bezier(0.32, 0.72, 0, 1),
+                    opacity 0.4s ease;
+        opacity: 0;
+        font-family: -apple-system, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+      }
+      .ios-notif.show {
+        top: 16px;
+        opacity: 1;
+      }
+      .ios-notif.hide {
+        top: -200px;
+        opacity: 0;
+      }
+      .ios-notif-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 8px;
+      }
+      .ios-notif-icon {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        background: rgba(255,255,255,0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        color: #fff;
+        flex-shrink: 0;
+      }
+      .ios-notif-app {
+        font-size: 13px;
+        font-weight: 600;
+        color: rgba(255,255,255,0.7);
+        flex: 1;
+        letter-spacing: 0.3px;
+      }
+      .ios-notif-time {
+        font-size: 12px;
+        color: rgba(255,255,255,0.35);
+      }
+      .ios-notif-title {
+        font-size: 15px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 4px;
+        padding-left: 42px;
+      }
+      .ios-notif-body {
+        font-size: 13px;
+        color: rgba(255,255,255,0.55);
+        line-height: 1.45;
+        padding-left: 42px;
+      }
+      .ios-notif-grab {
+        width: 36px;
+        height: 5px;
+        background: rgba(255,255,255,0.2);
+        border-radius: 100px;
+        margin: 10px auto 0;
+      }
+    `;
+    document.head.appendChild(style);
+
+    function showDisclaimer() {
+      // Don't show if splash screen is still visible
+      if (document.getElementById("splash-screen")) return;
+
+      // Remove any existing
+      const existing = document.querySelector(".ios-notif");
+      if (existing) existing.remove();
+
+      const notif = document.createElement("div");
+      notif.className = "ios-notif";
+      notif.innerHTML = `
+        <div class="ios-notif-header">
+          <div class="ios-notif-icon"><i class="fa-solid fa-ghost"></i></div>
+          <span class="ios-notif-app">Ghosty</span>
+          <span class="ios-notif-time">now</span>
+        </div>
+        <div class="ios-notif-title">⚠️ Disclaimer</div>
+        <div class="ios-notif-body">
+          For local testing & educational use only. The developer is not
+          responsible for misuse during school hours or in restricted
+          environments. Use at your own risk.
+        </div>
+        <div class="ios-notif-grab"></div>
+      `;
+
+      // Dismiss on click
+      notif.addEventListener("click", () => {
+        notif.classList.remove("show");
+        notif.classList.add("hide");
+        setTimeout(() => notif.remove(), 500);
+      });
+
+      document.body.appendChild(notif);
+
+      // Slide in
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          notif.classList.add("show");
+        });
+      });
+
+      // Auto dismiss after 8 seconds
+      setTimeout(() => {
+        if (notif.parentNode) {
+          notif.classList.remove("show");
+          notif.classList.add("hide");
+          setTimeout(() => notif.remove(), 500);
+        }
+      }, 8000);
+    }
+
+    // Show first time after 10 seconds, then every 5 minutes
+    setTimeout(showDisclaimer, 10000);
+    setInterval(showDisclaimer, 5 * 60 * 1000);
+  })();
 });

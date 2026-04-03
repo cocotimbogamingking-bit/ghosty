@@ -93,14 +93,6 @@
         ]
     },
     {
-        "name": "Rooftop Snipers 2",
-        "link": "https://h5cdn.github.io/s6/rooftop-snipers-2/",
-        "image": "/assets/media/icons/rooftopsnipers2.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Stickman Archero Fight",
         "link": "https://html5.gamedistribution.com/rvvASMiM/3f4c166817ad4fd4b5b05d9adba22fcd/index.html",
         "image": "/assets/media/icons/stickman-archero-fight.webp",
@@ -143,14 +135,6 @@
         ]
     },
     {
-        "name": "The Impossible Quiz",
-        "link": "https://the-impossible-quiz.game-files.crazygames.com/ruffle/theimpossiblequiz.html",
-        "image": "/assets/media/icons/theimpossiblequiz.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Helix Jump",
         "link": "https://helix-jump.game-files.crazygames.com/helix-jump/1/index.html",
         "image": "/assets/media/icons/helixjump.webp",
@@ -185,34 +169,9 @@
         ]
     },
     {
-        "name": "Age of War",
-        "link": "https://age-of-war.game-files.crazygames.com/ruffle/ageofwar.html",
-        "image": "/assets/media/icons/ageofwar.webp",
-        "categories": [
-            "all",
-            "2P"
-        ]
-    },
-    {
-        "name": "Gladihoppers",
-        "link": "https://bonbang.github.io/store99/gladihoppers/index.html",
-        "image": "/assets/media/icons/gladihoppers.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Snow Rider 3D",
         "link": "https://html5.gamedistribution.com/rvvASMiM/3b79a8537ebc414fb4f9672a9b8c68c8/index.html?gd_zone_config=eyJwYXJlbnRVUkwiOiJodHRwczovL3Nub3dyaWRlcjNkLmNvbS8iLCJwYXJlbnREb21haW4iOiJzbm93cmlkZXIzZC5jb20iLCJ0b3BEb21haW4iOiJzbm93cmlkZXIzZC5jb20iLCJoYXNJbXByZXNzaW9uIjpmYWxzZSwibG9hZGVyRW5hYmxlZCI6dHJ1ZSwiaG9zdCI6Imh0bWw1LmdhbWVkaXN0cmlidXRpb24uY29tIiwidmVyc2lvbiI6IjEuNS4xNiJ9",
         "image": "/assets/media/icons/snowrider3d.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "3 Slices",
-        "link": "https://images-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%2F3-slices.xml",
-        "image": "/assets/media/icons/3slices.webp",
         "categories": [
             "all"
         ]
@@ -339,15 +298,6 @@
         ]
     },
     {
-        "name": "Tube Jumpers",
-        "link": "https://unblocked76.github.io/tube-jumpers/",
-        "image": "/assets/media/icons/tubejumpers.webp",
-        "categories": [
-            "all",
-            "2P"
-        ]
-    },
-    {
         "name": "Google Feud",
         "link": "https://googlefeud.com/",
         "image": "/assets/media/icons/googlefeud.webp",
@@ -427,14 +377,6 @@
         ]
     },
     {
-        "name": "FeedVid",
-        "link": "https://v6p9d9t4.ssl.hwcdn.net/html/4941980-683813/index.html",
-        "image": "/assets/media/icons/feedvid.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "florr.io",
         "link": "https://florr.io",
         "image": "/assets/media/icons/florr.webp",
@@ -447,14 +389,6 @@
         "name": "Rocket Bot Royale",
         "link": "https://rocketbotroyale2.winterpixel.io/",
         "image": "/assets/media/icons/rocketbotroyale.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Happy Wheels",
-        "link": "https://files.crazygames.com/ruffle/happywheels.html",
-        "image": "/assets/media/icons/happywheels.webp",
         "categories": [
             "all"
         ]
@@ -474,22 +408,6 @@
         "categories": [
             "all",
             "2P"
-        ]
-    },
-    {
-        "name": "Papa's Scooperia",
-        "link": "https://files.crazygames.com/ruffle/papasscooperia.html",
-        "image": "/assets/media/icons/papasscooperia.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Papa's Sushiria",
-        "link": "https://files.crazygames.com/ruffle/papassushiria.html",
-        "image": "/assets/media/icons/papassushiria.webp",
-        "categories": [
-            "all"
         ]
     },
     {
@@ -584,30 +502,6 @@
         ]
     },
     {
-        "name": "FNAF Web",
-        "link": "https://wellsousaaa.github.io/Five-Nights-at-Freddys-Web/",
-        "image": "/assets/media/icons/FNAFWeb.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Riddle School 4",
-        "link": "https://riddle-school-4.game-files.crazygames.com/ruffle/riddleschool4.html",
-        "image": "/assets/media/icons/rs4.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Riddle School 5",
-        "link": "https://riddle-school-5.game-files.crazygames.com/ruffle/riddleschool5.html",
-        "image": "/assets/media/icons/rs5.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "GBA Emulator",
         "link": "https://ds.44670.org/gba/",
         "image": "/assets/media/icons/gba.webp",
@@ -662,15 +556,6 @@
         ]
     },
     {
-        "name": "Subway Surfers: San Francisco ",
-        "link": "https://raw.githack.com/3kh0/3kh0-assets/main/subway-surfers/index.html",
-        "image": "/assets/media/icons/SF.webp",
-        "categories": [
-            "all,",
-            "emu"
-        ]
-    },
-    {
         "name": "Survivor.io",
         "link": "https://html5.gamedistribution.com/rvvASMiM/f1c451e586c04b4c8cba01b0c50d9090/index.html",
         "image": "/assets/media/icons/SVI.webp",
@@ -713,23 +598,6 @@
         "categories": [
             "all",
             "local"
-        ]
-    },
-    {
-        "name": "1v1.LOL",
-        "link": "https://1v1.lol",
-        "image": "/assets/media/icons/1v1-lol.webp",
-        "categories": [
-            "all,",
-            "2P"
-        ]
-    },
-    {
-        "name": "2D Rocket League",
-        "link": "https://v6p9d9t4.ssl.hwcdn.net/html/3325334/index.html",
-        "image": "/assets/media/icons/2D-Rocket-League.webp",
-        "categories": [
-            "all"
         ]
     },
     {
@@ -853,14 +721,6 @@
         ]
     },
     {
-        "name": "Cat Ninja",
-        "link": "https://4iapq88o5f3gc1dij3it0mp5jojnm3jr-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://s3.amazonaws.com/production-assetsbucket-8ljvyr1xczmb/1ee20621-61bc-4ec8-a8ec-5e839c2e6edc%252Fcat-ninja.xml",
-        "image": "/assets/media/icons/cat-ninja.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Candy Box",
         "link": "https://candybox2.net",
         "image": "/assets/media/icons/candybox.webp",
@@ -910,14 +770,6 @@
         ]
     },
     {
-        "name": "Deepest Sword",
-        "link": "https://v6p9d9t4.ssl.hwcdn.net/html/4017918/index.html",
-        "image": "/assets/media/icons/deepest-sword.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Diep.io",
         "link": "https://diep.io/",
         "image": "/assets/media/icons/diep.webp",
@@ -935,41 +787,9 @@
         ]
     },
     {
-        "name": "Doom 1",
-        "link": "https://browncha023.github.io/GBA/launcher.html#dm",
-        "image": "/assets/media/icons/DOOM.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Doom 2",
-        "link": "https://browncha023.github.io/GBA/launcher.html#dm2",
-        "image": "/assets/media/icons/doom2.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Dreader",
         "link": "https://donitz.itch.io/dreader",
         "image": "/assets/media/icons/dreader.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Drift Hunters",
-        "link": "https://webglmath.github.io/drift-hunters/",
-        "image": "/assets/media/icons/drift-hunters.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Drive Mad",
-        "link": "https://raw.githack.com/3kh0/3kh0-assets/main/drive-mad/index.html",
-        "image": "/assets/media/icons/dm.webp",
         "categories": [
             "all"
         ]
@@ -986,14 +806,6 @@
         "name": "FNAF 2 (Scratch)",
         "link": "https://scratch.mit.edu/projects/469219637/embed/",
         "image": "/assets/media/icons/FNAF2.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Friday Night Funkin'",
-        "link": "https://w8.snokido.com/games/html5/friday-night-funkin/0281/index.html",
-        "image": "/assets/media/icons/fnf.webp",
         "categories": [
             "all"
         ]
@@ -1185,25 +997,9 @@
         ]
     },
     {
-        "name": "MX3M: Pool Party",
-        "link": "https://h0jokl1egt0fd4oc8qv3j0tltl9jbqhn-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://649025137-174029463385024710.preview.editmysite.com/uploads/b/139890129-767696982876512205/files/mx3mpp.xml",
-        "image": "/assets/media/icons/mx3m.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "MX3M: Spooky Land",
         "link": "https://html5.gamedistribution.com/rvvASMiM/b8a342904608470a9f3382337aca3558/index.html",
         "image": "/assets/media/icons/mx3m-spooky.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "MX3M: Winter",
-        "link": "https://www-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://sites.google.com/site/s017q3e/moto-x3m-4-winter.xml",
-        "image": "/assets/media/icons/mx3m-winter.webp",
         "categories": [
             "all"
         ]
@@ -1220,14 +1016,6 @@
         "name": "Ninja Cat Exploit",
         "link": "https://html5.gamedistribution.com/rvvASMiM/903ba9346b9d437e9c7e81d672cead44/index.html",
         "image": "/assets/media/icons/ninja-cat.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "OvO",
-        "link": "https://8rlfg0ch3417et18dp8lvps6uo7c3b2c-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://427396048-642845047394716217.preview.editmysite.com/uploads/b/139890129-761103484729797659/files/ovo.xml",
-        "image": "/assets/media/icons/ovo.webp",
         "categories": [
             "all"
         ]
@@ -1260,22 +1048,6 @@
         "name": "Paper.io",
         "link": "https://paper-io.com/",
         "image": "/assets/media/icons/paperio.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Pixel Shooter",
-        "link": "https://94bfktj403i6m18as4vkvtreqd0ohci4-a-sites-opensocial.googleusercontent.com/gadgets/ifr?url=https://274019683-173520394482650759.preview.editmysite.com/uploads/b/139890129-131715539788281629/files/ps.xml",
-        "image": "/assets/media/icons/pixel-shooter.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Pizza Tower",
-        "link": "https://gamaverse.com/c/e/g/pizza-tower-1678640389/index.html",
-        "image": "/assets/media/icons/pizza-tower.webp",
         "categories": [
             "all"
         ]
@@ -1321,14 +1093,6 @@
         ]
     },
     {
-        "name": "Doodle Jump",
-        "link": "https://doodlejump.pro/",
-        "image": "/assets/media/icons/doodlejump.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Madalin Stunt Cars Multiplayer",
         "link": "https://games.crazygames.com/en_US/madalin-cars-multiplayer/index.html",
         "image": "/assets/media/icons/madalinmultiplayer.webp",
@@ -1354,14 +1118,6 @@
         ]
     },
     {
-        "name": "PM: Light Platinum",
-        "link": "https://browncha023.github.io/GBA/launcher.html#pokemonlp",
-        "image": "/assets/media/icons/lp.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Precision Client",
         "link": "https://glcdn.githack.com/3kh0/3kh0-assets/-/raw/main/precision-client/index.html",
         "image": "/assets/media/icons/precision.webp",
@@ -1378,62 +1134,6 @@
         ]
     },
     {
-        "name": "Red Ball 1",
-        "link": "https://www.algebrashelper.com/redball",
-        "image": "/assets/media/icons/redball1.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Red Ball 2",
-        "link": "https://www.algebrashelper.com/redball-2",
-        "image": "/assets/media/icons/redball2.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Red Ball 4",
-        "link": "https://www.algebrashelper.com/redball-4",
-        "image": "/assets/media/icons/redball4.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Red Ball 4 Vol. 2",
-        "link": "https://www.algebrashelper.com/read-ball-4v2",
-        "image": "/assets/media/icons/redball4vol2.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Red Ball 4 Vol. 3",
-        "link": "https://www.algebrashelper.com/red-ball-4v3",
-        "image": "/assets/media/icons/redball4vol3.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Riddle School 3",
-        "link": "https://riddle-school-3.game-files.crazygames.com/ruffle/riddleschool3.html",
-        "image": "/assets/media/icons/rs3.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Rocket Pult",
-        "link": "https://v6p9d9t4.ssl.hwcdn.net/html/565140/index.html",
-        "image": "/assets/media/icons/rocketpult.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
         "name": "Rooftop Snipers",
         "link": "https://html5.gamedistribution.com/rvvASMiM/c3a70ae98547407a92ebedca8b79fdfa/index.html",
         "image": "/assets/media/icons/rooftop.webp",
@@ -1445,14 +1145,6 @@
         "name": "Sand Spiel",
         "link": "https://sandspiel.club/",
         "image": "/assets/media/icons/sand.webp",
-        "categories": [
-            "all"
-        ]
-    },
-    {
-        "name": "Sandboxels",
-        "link": "https://v6p9d9t4.ssl.hwcdn.net/html/5808591/index.html",
-        "image": "/assets/media/icons/sandboxels.webp",
         "categories": [
             "all"
         ]
@@ -1559,15 +1251,6 @@
         "image": "/assets/media/icons/tamingio.webp",
         "categories": [
             "all"
-        ]
-    },
-    {
-        "name": "Temple of Boom",
-        "link": "https://temple-of-boom.github.io/file/",
-        "image": "/assets/media/icons/templeofboom.webp",
-        "categories": [
-            "all",
-            "2P"
         ]
     },
     {

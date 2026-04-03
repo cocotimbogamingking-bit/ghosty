@@ -117,8 +117,8 @@
 
 /* ── Credits Card in Settings ── */
 .credits-card-premium {
-    background: linear-gradient(145deg, rgba(25, 18, 45, 0.95), rgba(15, 10, 30, 0.98)) !important;
-    border: 1px solid rgba(168, 85, 247, 0.12) !important;
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
     border-radius: 16px !important;
     padding: 0 !important;
     overflow: hidden;
@@ -132,14 +132,14 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 2px;
-    background: linear-gradient(90deg, #6c3ce0, #a855f7, #c084fc);
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
 }
 
 .credits-card-premium:hover {
-    border-color: rgba(168, 85, 247, 0.25) !important;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(168, 85, 247, 0.08) !important;
-    transform: translateY(-6px) !important;
+    border-color: rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.05) !important;
+    transform: translateY(-4px) !important;
 }
 
 .credits-header {
@@ -153,7 +153,8 @@
     width: 44px;
     height: 44px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #6c3ce0, #a855f7);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -165,13 +166,13 @@
     font-family: 'Outfit', 'Inter', sans-serif !important;
     font-size: 20px !important;
     font-weight: 700 !important;
-    color: #fff !important;
+    color: var(--text-primary) !important;
     -webkit-text-fill-color: initial !important;
 }
 
 .credits-header-text .credits-subtitle {
     font-size: 11px;
-    color: rgba(255, 255, 255, 0.3);
+    color: var(--text-secondary);
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -187,29 +188,29 @@
     align-items: center;
     gap: 14px;
     padding: 16px;
-    background: rgba(168, 85, 247, 0.06);
-    border: 1px solid rgba(168, 85, 247, 0.08);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 12px;
     margin-bottom: 16px;
     transition: all 0.3s ease;
 }
 
 .credits-creator-block:hover {
-    background: rgba(168, 85, 247, 0.1);
-    border-color: rgba(168, 85, 247, 0.18);
+    background: rgba(255, 255, 255, 0.06);
+    border-color: rgba(255, 255, 255, 0.15);
 }
 
 .creator-avatar {
     width: 48px;
     height: 48px;
     border-radius: 50%;
-    background: linear-gradient(135deg, #6c3ce0, #a855f7);
+    background: rgba(255, 255, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 22px;
     font-weight: 800;
-    color: #fff;
+    color: var(--text-primary);
     flex-shrink: 0;
     font-family: 'Outfit', sans-serif;
 }
@@ -221,7 +222,7 @@
 .creator-info .name {
     font-size: 16px;
     font-weight: 700;
-    color: #fff;
+    color: var(--text-primary);
     font-family: 'Outfit', sans-serif;
     margin-bottom: 2px;
 }
@@ -242,7 +243,7 @@
 .credits-description {
     font-size: 13px;
     line-height: 1.7;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--text-secondary);
     margin-bottom: 16px;
 }
 
