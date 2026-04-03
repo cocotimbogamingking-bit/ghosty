@@ -17,8 +17,6 @@ const server = http.createServer();
 const app = express();
 const bareServer = createBareServer("/ca/");
 const PORT = process.env.PORT || 8080;
-const cache = new Map();
-const CACHE_TTL = 30 * 24 * 60 * 60 * 1000; // Cache for 30 Days
 
 app.use(cookieParser());
 app.use(express.json());
@@ -26,16 +24,6 @@ app.use(express.urlencoded({ extended: true }));
 
 app.get("/e/*", async (req, res, next) => {
   try {
-    if (cache.has(req.path)) {
-      const { data, contentType, timestamp } = cache.get(req.path);
-      if (Date.now() - timestamp > CACHE_TTL) {
-        cache.delete(req.path);
-      } else {
-        res.writeHead(200, { "Content-Type": contentType });
-        return res.end(data);
-      }
-    }
-
     const baseUrls = {
       "/e/1/": "https://raw.githubusercontent.com/qrs/x/fixy/",
       "/e/2/": "https://raw.githubusercontent.com/3v1/V5-Assets/main/",
@@ -59,18 +47,20 @@ app.get("/e/*", async (req, res, next) => {
       return next();
     }
 
-    const data = Buffer.from(await asset.arrayBuffer());
     const ext = path.extname(reqTarget);
-    const no = [".unityweb"];
+    const no = [".unityweb", ".wasm", ".data", ".mem", ".pck"];
     const contentType = no.includes(ext) ? "application/octet-stream" : mime.getType(ext);
 
-    cache.set(req.path, { data, contentType, timestamp: Date.now() });
-    res.writeHead(200, { "Content-Type": contentType });
-    res.end(data);
+    res.writeHead(200, { "Content-Type": contentType || "application/octet-stream" });
+
+    // Stream directly to the client! This makes things load INSTANTLY and saves VPS RAM.
+    asset.body.pipe(res);
   } catch (error) {
     console.error("Error fetching asset:", error);
-    res.setHeader("Content-Type", "text/html");
-    res.status(500).send("Error fetching the asset");
+    if (!res.headersSent) {
+      res.setHeader("Content-Type", "text/plain");
+      res.status(500).send("Error fetching the asset");
+    }
   }
 });
 
