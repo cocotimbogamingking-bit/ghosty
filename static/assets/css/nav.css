@@ -5,14 +5,13 @@
    left: 0;
    height: 100vh;
    width: 56px;
-   background: rgba(10, 15, 25, 0.6);
-   border-right: 1px solid var(--border-color);
+   background: #050505;
+   border-right: 1px solid rgba(255, 255, 255, 0.05);
    display: flex;
    flex-direction: column;
    align-items: center;
    padding: 20px 0;
    z-index: 1000;
-   backdrop-filter: blur(20px);
 }
 
 .sidebar-top {
@@ -32,19 +31,16 @@
    align-items: center;
    width: 40px;
    height: 40px;
-   color: rgba(255, 255, 255, 0.6);
+   color: rgba(255, 255, 255, 0.4);
    font-size: 18px;
    border-radius: 12px;
-   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+   transition: all 0.3s ease;
    text-decoration: none;
-   transform-style: preserve-3d;
 }
 
 .sidebar-link:hover {
    color: #fff;
-   background: rgba(255, 255, 255, 0.1);
-   transform: scale(1.1) translateZ(20px) rotateY(10deg);
-   box-shadow: 0 0 15px var(--primary-glow);
+   background: rgba(255, 255, 255, 0.05);
 }
 
 .sidebar-logo {
@@ -54,14 +50,15 @@
    width: 40px;
    height: 40px;
    border-radius: 12px;
-   color: var(--primary);
+   color: #fff;
    font-size: 22px;
    text-decoration: none;
    transition: var(--transition-premium);
 }
 
 .sidebar-logo i {
-   animation: pulse-neon 2s infinite alternate;
+   /* Remove blue neon pulse */
+   filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
 }
 
 .sidebar-bottom {
@@ -71,7 +68,7 @@
    gap: 12px;
 }
 
-/* Top bar matching PeteZah */
+/* Top bar matching theme */
 .top-nav {
    position: fixed;
    top: 0;
@@ -81,10 +78,9 @@
    display: flex;
    align-items: center;
    padding: 0 16px;
-   background: rgba(8, 12, 20, 0.8);
-   border-bottom: 1px solid var(--border-color);
+   background: #050505;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
    z-index: 999;
-   backdrop-filter: blur(15px);
 }
 
 .nav-actions {

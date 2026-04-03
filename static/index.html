@@ -16,20 +16,31 @@
 </head>
 
 <body onload="SplashT">
+  <div class="starfield-wrapper">
+    <div class="stars"></div>
+    <div class="stars stars-2"></div>
+    <div class="stars stars-3"></div>
+  </div>
+  <div class="planet planet-1"></div>
+  <div class="planet planet-2"></div>
   <div class="f-nav"></div>
 
   <div class="main-wrapper">
-    <a href="#" class="top-discord-btn"><i class="fa-brands fa-discord"></i> Discord</a>
-
     <div class="main">
-      <h1 class="title">Ghosty</h1>
-      <p id="splash">IN DEVELOPMENT SINCE 2022 💪</p>
+      <div class="status-pill">
+        <div class="status-dot"></div>
+        System Online
+      </div>
+      <div class="logo-container">
+        <i class="fa-solid fa-ghost logo-icon"></i>
+        <h1 class="title">Ghosty</h1>
+      </div>
+      <p id="splash" style="display:none">IN DEVELOPMENT SINCE 2022 💪</p>
 
       <div class="search-container">
         <form id="fv" method="POST" class="search-form-home">
-          <i class="fa-solid fa-ghost search-icon"></i>
-          <input id="input" autocomplete="off" placeholder="Search or enter URL..." type="text" />
-          <span class="search-shortcut">CTRL+K</span>
+          <i class="fa-solid fa-magnifying-glass search-icon-main"></i>
+          <input id="input" autocomplete="off" placeholder="Search the web or enter a URL..." type="text" />
         </form>
       </div>
 
@@ -38,10 +49,6 @@
           <div class="home-app-icon"><i class="fa-solid fa-gamepad"></i></div>
           <span>Games</span>
         </a>
-          <a href="/./ai" class="home-app-btn">
-            <div class="home-app-icon"><i class="fa-solid fa-brain"></i></div>
-            <span>AI</span>
-          </a>
         <a href="#" class="home-app-btn">
           <div class="home-app-icon"><i class="fa-solid fa-music"></i></div>
           <span>Music</span>

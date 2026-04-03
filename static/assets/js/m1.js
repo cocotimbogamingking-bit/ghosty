@@ -31,9 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <a class="sidebar-link" href="/./b" title="Apps">
            <i class="fa-solid fa-rocket"></i>
         </a>
-        <a class="sidebar-link" href="/./ai" title="AI">
-           <i class="fa-solid fa-brain"></i>
-        </a>        <a class="sidebar-link" href="#" title="Music">
+        <a class="sidebar-link" href="#" title="Music">
            <i class="fa-solid fa-music"></i>
         </a>
         <a class="sidebar-link" href="#" title="Movies">
@@ -83,7 +81,6 @@ document.addEventListener("DOMContentLoaded", () => {
          </div>
          <div class="right-actions">
             <i class="fa-solid fa-gamepad" title="Games"></i>
-            <i class="fa-solid fa-brain" title="AI"></i>
             <i class="fa-regular fa-user" title="Account"></i>
             <i class="fa-regular fa-file-lines" title="Changelog"></i>
             <i class="fa-solid fa-comments" title="Chat"></i>
