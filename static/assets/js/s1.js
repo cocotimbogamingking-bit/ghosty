@@ -257,7 +257,7 @@ function AB() {
   if (!inFrame && !navigator.userAgent.includes("Firefox")) {
     const popup = open("about:blank", "_blank");
     if (!popup || popup.closed) {
-      alert("Window blocked. Please allow popups for this site.");
+      // alert disabled by user request
     } else {
       const doc = popup.document;
       const iframe = doc.createElement("iframe");
