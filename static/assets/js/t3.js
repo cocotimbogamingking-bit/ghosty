@@ -1,6 +1,5 @@
-// tabs.js — Improved Tab System
+﻿// tabs.js â€” Improved Tab System
 window.addEventListener("load", () => {
-  navigator.serviceWorker.register("../sw.js?v=2025-04-15", { scope: "/a/" });
   const form = document.getElementById("fv");
   const input = document.getElementById("input");
   if (form && input) {
@@ -14,11 +13,12 @@ window.addEventListener("load", () => {
     });
   }
   function processUrl(url) {
-    sessionStorage.setItem("GoUrl", __uv$config.encodeUrl(url));
+    const proxied = __ghosty.url(url);
+    sessionStorage.setItem("GoUrl", proxied);
     const iframeContainer = document.getElementById("frame-container");
     const activeIframe = iframeContainer.querySelector("iframe.active");
     if (activeIframe) {
-      activeIframe.src = `/a/${__uv$config.encodeUrl(url)}`;
+      activeIframe.src = proxied;
       activeIframe.dataset.tabUrl = url;
       input.value = url;
     }
@@ -95,7 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Intercept window.open to create new tabs
       try {
         newIframe.contentWindow.open = url => {
-          sessionStorage.setItem("URL", `/a/${__uv$config.encodeUrl(url)}`);
+          sessionStorage.setItem("URL", __ghosty.url(url));
           createNewTab();
           return null;
         };
@@ -111,6 +111,13 @@ document.addEventListener("DOMContentLoaded", () => {
     if (urlOverride) {
       targetSrc = urlOverride;
     } else {
+      // The service worker sends address-bar hits on a proxied path here, because a
+      // proxied page opened at the top level has no bare-mux connection of its own.
+      const handoff = new URLSearchParams(location.search).get("go");
+      if (handoff && handoff.startsWith("/")) {
+        sessionStorage.setItem("GoUrl", handoff);
+        history.replaceState(null, "", location.pathname);
+      }
       const goUrl = sessionStorage.getItem("GoUrl");
       const url = sessionStorage.getItem("URL");
 
@@ -118,11 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         targetSrc = window.location.origin + url;
         sessionStorage.removeItem("URL");
       } else if (goUrl) {
-        if (goUrl.includes("/e/")) {
-          targetSrc = window.location.origin + goUrl;
-        } else {
-          targetSrc = `${window.location.origin}/a/${goUrl}`;
-        }
+        targetSrc = window.location.origin + goUrl;
         // Only use GoUrl for the first tab
         if (tabCounter > 1) {
           targetSrc = "/";
@@ -318,11 +321,9 @@ function updateUrlBar() {
     if (activeIframe.contentWindow && activeIframe.contentWindow.document.readyState === "complete") {
       const website = activeIframe.contentWindow.document.location.href;
       if (website.includes("/a/q/")) {
-        const websitePath = website.replace(window.location.origin, "").replace("/a/q/", "");
-        input.value = decodeXor(websitePath);
-      } else if (website.includes("/a/")) {
-        const websitePath = website.replace(window.location.origin, "").replace("/a/", "");
-        input.value = decodeXor(websitePath);
+        input.value = decodeXor(website.replace(window.location.origin, "").replace("/a/q/", ""));
+      } else if (__ghosty.isProxied(website)) {
+        input.value = __ghosty.real(website) || "";
       } else {
         const websitePath = website.replace(window.location.origin, "");
         input.value = websitePath === "/" ? "" : websitePath;
@@ -420,7 +421,7 @@ function Home() {
 const homeButton = document.getElementById("home-page");
 if (homeButton) homeButton.addEventListener("click", Home);
 
-// Back — FIXED: was using undefined 'iframe' variable
+// Back â€” FIXED: was using undefined 'iframe' variable
 function goBack() {
   const activeIframe = document.querySelector("#frame-container iframe.active");
   if (activeIframe) {
@@ -431,7 +432,7 @@ function goBack() {
   }
 }
 
-// Forward — FIXED: was using undefined 'iframe' variable
+// Forward â€” FIXED: was using undefined 'iframe' variable
 function goForward() {
   const activeIframe = document.querySelector("#frame-container iframe.active");
   if (activeIframe) {
@@ -477,3 +478,9 @@ function decodeXor(input) {
       .join("") + (search.length ? `?${search.join("?")}` : "")
   );
 }
+
+
+
+
+
+

@@ -1,12 +1,14 @@
 {
   "name": "interstellar",
-  "version": "5.2.5",
+  "version": "5.2.6",
   "type": "module",
   "engines": {
     "npm": ">=7.0.0",
     "node": ">=16.0.0"
   },
   "scripts": {
+    "postinstall": "node scripts/patch-scramjet.mjs",
+    "patch": "node scripts/patch-scramjet.mjs",
     "start": "node --max-old-space-size=3072 index.js",
     "format": "pnpm biome format --write .",
     "precommit": "pnpm run format && pnpm biome check --write .",
@@ -15,18 +17,23 @@
   "author": "InterstellarNetwork",
   "license": "GPL-3.0-or-later",
   "dependencies": {
+    "@mercuryworkshop/bare-mux": "^2.1.9",
+    "@mercuryworkshop/epoxy-transport": "^3.0.1",
+    "@mercuryworkshop/scramjet": "^1.1.0",
+    "@mercuryworkshop/wisp-js": "^0.4.1",
     "@nebula-services/bare-server-node": "^2.0.4",
-    "chalk": "^5.4.1",
+    "@titaniumnetwork-dev/ultraviolet": "^3.2.10",
+    "chalk": "^6.0.0",
     "cookie-parser": "^1.4.7",
-    "cors": "^2.8.5",
-    "dotenv": "^17.2.0",
-    "express": "^4.21.2",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^4.22.2",
     "express-basic-auth": "^1.2.1",
     "mime": "^4.1.0",
     "node-fetch": "^3.3.2"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.2"
+    "@biomejs/biome": "^2.5.8"
   },
   "packageManager": "pnpm@9.10.0"
 }

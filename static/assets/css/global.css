@@ -21,6 +21,11 @@
    --body-gradient: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 100%);
 
    --transition-premium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+   /* settings.css styles the toggles against these two and neither was ever declared,
+      so the track rendered transparent and the switch looked like a loose dot. */
+   --slider-inactive-background: rgba(255, 255, 255, 0.1);
+   --slider-active-background: #10b981;
 }
 
 * {
@@ -129,6 +134,32 @@ body {
    background: #10b981;
    border-radius: 50%;
    box-shadow: 0 0 10px #10b981;
+   transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* The pill reports the engine, not a hardcoded "online": amber while the transport
+   comes up, green once it answers, red when it never does. */
+.status-pill[data-state="waiting"] .status-dot {
+   background: #f5a524;
+   box-shadow: 0 0 10px #f5a524;
+   animation: statusBlink 1.1s ease-in-out infinite;
+}
+
+.status-pill[data-state="down"] .status-dot {
+   background: #f31260;
+   box-shadow: 0 0 10px #f31260;
+}
+
+@keyframes statusBlink {
+
+   0%,
+   100% {
+      opacity: 1;
+   }
+
+   50% {
+      opacity: 0.25;
+   }
 }
 
 /* Background Planets (matching screenshot colors) */

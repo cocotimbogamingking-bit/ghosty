@@ -35,41 +35,36 @@ document.addEventListener("DOMContentLoaded", () => {
   const nameElement = document.getElementById("name");
   const customIcon = localStorage.getItem("CustomIcon");
   const customName = localStorage.getItem("CustomName");
-  iconElement.value = customIcon;
-  nameElement.value = customName;
+  if (iconElement) iconElement.value = customIcon || "";
+  if (nameElement) nameElement.value = customName || "";
 
-  if (localStorage.getItem("ab") === "true") {
-    document.getElementById("ab-settings-switch").checked = true;
+  const abSwitch = document.getElementById("ab-settings-switch");
+  if (abSwitch && localStorage.getItem("ab") === "true") {
+    abSwitch.checked = true;
   }
 });
 
 // Dyn
 document.addEventListener("DOMContentLoaded", () => {
   function pChange(selectedValue) {
-    if (selectedValue === "uv") {
-      localStorage.setItem("uv", "true");
-      localStorage.setItem("dy", "false");
-    } else if (selectedValue === "dy") {
-      localStorage.setItem("uv", "false");
-      localStorage.setItem("dy", "true");
-    }
+    localStorage.setItem("dy", selectedValue === "dy" ? "true" : "false");
+    localStorage.setItem("uv", selectedValue === "uv" ? "true" : "false");
+    localStorage.setItem("proxyEngine", selectedValue === "uv" ? "uv" : "scramjet");
   }
 
   const pChangeElement = document.getElementById("pChange");
 
   if (pChangeElement) {
     pChangeElement.addEventListener("change", function () {
-      const selectedOption = this.value;
-      pChange(selectedOption);
+      pChange(this.value);
     });
 
-    const storedP = localStorage.getItem("uv");
-    if (storedP === "true") {
-      pChangeElement.value = "uv";
-    } else if (localStorage.getItem("dy") === "true" || localStorage.getItem("dy") === "auto") {
+    if (localStorage.getItem("dy") === "true") {
       pChangeElement.value = "dy";
-    } else {
+    } else if (localStorage.getItem("proxyEngine") === "uv") {
       pChangeElement.value = "uv";
+    } else {
+      pChangeElement.value = "sj";
     }
   }
 });
@@ -123,36 +118,34 @@ for (const option of sortedOptions) {
 
 function saveIcon() {
   const iconElement = document.getElementById("icon");
-  const iconValue = iconElement.value;
-  console.log("saveIcon function called with icon value:", iconValue);
-  localStorage.setItem("icon", iconValue);
+  if (!iconElement) return;
+  localStorage.setItem("icon", iconElement.value);
 }
 
 function saveName() {
   const nameElement = document.getElementById("name");
-  const nameValue = nameElement.value;
-  console.log("saveName function called with name value:", nameValue);
-  localStorage.setItem("name", nameValue);
+  if (!nameElement) return;
+  localStorage.setItem("name", nameElement.value);
 }
 
 function CustomIcon() {
   const iconElement = document.getElementById("icon");
-  const iconValue = iconElement.value;
-  console.log("saveIcon function called with icon value:", iconValue);
-  localStorage.setItem("CustomIcon", iconValue);
+  if (!iconElement) return;
+  localStorage.setItem("CustomIcon", iconElement.value);
 }
 
 function CustomName() {
   const nameElement = document.getElementById("name");
-  const nameValue = nameElement.value;
-  console.log("saveName function called with name value:", nameValue);
-  localStorage.setItem("CustomName", nameValue);
+  if (!nameElement) return;
+  localStorage.setItem("CustomName", nameElement.value);
 }
 function ResetCustomCloak() {
   localStorage.removeItem("CustomName");
   localStorage.removeItem("CustomIcon");
-  document.getElementById("icon").value = "";
-  document.getElementById("name").value = "";
+  const iconElement = document.getElementById("icon");
+  const nameElement = document.getElementById("name");
+  if (iconElement) iconElement.value = "";
+  if (nameElement) nameElement.value = "";
 }
 
 function redirectToMainDomain() {
@@ -175,8 +168,15 @@ function redirectToMainDomain() {
 document.addEventListener("DOMContentLoaded", event => {
   const icon = document.getElementById("tab-favicon");
   const name = document.getElementById("t");
-  const selectedValue = localStorage.getItem("selectedOption") || "Default";
-  document.getElementById("dropdown").value = selectedValue;
+  // "Default" is not one of the options, so it left the select showing an empty row.
+  const stored = localStorage.getItem("selectedOption");
+  const picker = document.getElementById("dropdown");
+  const known = stored && [...picker.options].some(option => option.value === stored);
+  const fallback = [...picker.options].some(option => option.value === "Classroom")
+    ? "Classroom"
+    : picker.options[0].value;
+  const selectedValue = known ? stored : fallback;
+  picker.value = selectedValue;
   updateHeadSection(selectedValue);
 });
 
@@ -296,14 +296,8 @@ function AB() {
 }
 
 function toggleAB() {
-  ab = localStorage.getItem("ab");
-  if (!ab) {
-    localStorage.setItem("ab", "true");
-  } else if (ab === "true") {
-    localStorage.setItem("ab", "false");
-  } else {
-    localStorage.setItem("ab", "true");
-  }
+  const abSwitch = document.getElementById("ab-settings-switch");
+  localStorage.setItem("ab", abSwitch && abSwitch.checked ? "true" : "false");
 }
 // Search Engine
 function EngineChange(dropdown) {
@@ -313,13 +307,14 @@ function EngineChange(dropdown) {
     Brave: "https://search.brave.com/search?q=",
     Google: "https://www.google.com/search?q=",
     Bing: "https://www.bing.com/search?q=",
-    Qwant: "https://www.qwant.com/?q=",
     Startpage: "https://www.startpage.com/search?q=",
-    SearchEncrypt: "https://www.searchencrypt.com/search/?q=",
-    Ecosia: "https://www.ecosia.org/search?q=",
+    DuckDuckGo: "https://duckduckgo.com/?q=",
   };
 
-  localStorage.setItem("engine", engineUrls[selectedEngine]);
+  const engineUrl = engineUrls[selectedEngine];
+  if (!engineUrl) return;
+
+  localStorage.setItem("engine", engineUrl);
   localStorage.setItem("enginename", selectedEngine);
 
   dropdown.value = selectedEngine;

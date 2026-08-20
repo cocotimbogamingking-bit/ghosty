@@ -43,9 +43,10 @@ function handleClick(app) {
 
   if (app.local) {
     saveToLocal(Selected);
-    window.location.href = "rx";
     if (t) {
       window.location.href = Selected;
+    } else {
+      window.location.href = "/d";
     }
   } else if (app.local2) {
     saveToLocal(Selected);
@@ -372,8 +373,10 @@ fetch(path)
     }
 
     const appsContainer = document.getElementById("apps-container");
-    appsContainer.appendChild(pinnedApps);
-    appsContainer.appendChild(nonPinnedApps);
+    if (appsContainer) {
+      appsContainer.appendChild(pinnedApps);
+      appsContainer.appendChild(nonPinnedApps);
+    }
   })
   .catch(error => {
     console.error("Error fetching JSON data:", error);

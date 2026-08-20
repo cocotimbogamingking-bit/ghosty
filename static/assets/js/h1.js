@@ -6,7 +6,6 @@ try {
 } catch (e) {
   inFrame = true;
 }
-if (!localStorage.getItem("ab")) localStorage.setItem("ab", true);
 if (!inFrame && !navigator.userAgent.includes("Firefox") && localStorage.getItem("ab") === "true") {
   const popup = open("about:blank", "_blank");
   setTimeout(() => {
@@ -51,7 +50,7 @@ if (!inFrame && !navigator.userAgent.includes("Firefox") && localStorage.getItem
 }
 // Particles
 document.addEventListener("DOMContentLoaded", event => {
-  if (window.localStorage.getItem("Particles") === "true") {
+  if (window.localStorage.getItem("particles") === "true") {
     const particlesConfig = {
       particles: {
         number: {
@@ -162,7 +161,9 @@ document.addEventListener("DOMContentLoaded", event => {
       },
       retina_detect: true,
     };
-    particlesJS("particles-js", particlesConfig);
+    if (typeof particlesJS === "function" && document.getElementById("particles-js")) {
+      particlesJS("particles-js", particlesConfig);
+    }
   }
 });
 // Splash texts
@@ -183,13 +184,15 @@ let SplashI = Math.floor(Math.random() * SplashT.length);
 const SplashE = document.getElementById("splash");
 
 function US() {
+  if (!SplashE) return;
   SplashI = (SplashI + 1) % SplashT.length;
   SplashE.innerText = SplashT[SplashI];
 }
 
-SplashE.innerText = SplashT[SplashI];
-
-SplashE.addEventListener("click", US);
+if (SplashE) {
+  SplashE.innerText = SplashT[SplashI];
+  SplashE.addEventListener("click", US);
+}
 // Random URL
 function getRandomUrl() {
   const randomUrls = [

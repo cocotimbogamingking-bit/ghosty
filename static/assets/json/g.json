@@ -290,7 +290,7 @@
     },
     {
         "name": "Stickman Hook",
-        "link": "/e/stickman-hook/index.html",
+        "link": "/e/1/stickman-hook/index.html",
         "image": "/assets/media/icons/stickmanhook.webp",
         "categories": [
             "all",
@@ -369,7 +369,7 @@
     },
     {
         "name": "Jetpack Joyride",
-        "link": "/e/jetpack-joyride/index.html",
+        "link": "/e/1/jetpack-joyride/index.html",
         "image": "/assets/media/icons/jetpackjoyride.webp",
         "categories": [
             "all",
@@ -456,7 +456,7 @@
     },
     {
         "name": "Duck Life 4",
-        "link": "/e/ducklife4/index.html",
+        "link": "/e/1/ducklife4/index.html",
         "image": "/assets/media/icons/dl4.webp",
         "categories": [
             "all",
@@ -566,7 +566,7 @@
     },
     {
         "name": "Web Retro",
-        "link": "/e/index.html",
+        "link": "/e/1/webretro/index.html",
         "image": "/assets/media/icons/webretro.webp",
         "categories": [
             "all,",
@@ -1632,7 +1632,7 @@
     {
         "name": "Super Mario Bros.",
         "link": "https://emulator-games.pages.dev/nes/Super Mario Bros.",
-        "image": "/assets/media/icons/emulator/smb.webp",
+        "image": "/assets/media/icons/SMB.webp",
         "categories": [
             "all",
             "emu"
@@ -1641,7 +1641,7 @@
     {
         "name": "Super Mario Bros. 2",
         "link": "https://emulator-games.pages.dev/nes/Super Mario Bros. 2",
-        "image": "/assets/media/icons/emulator/smb2.webp",
+        "image": "/assets/media/icons/SMB.webp",
         "categories": [
             "all",
             "emu"
@@ -1650,10 +1650,195 @@
     {
         "name": "Super Mario Bros. 3",
         "link": "https://emulator-games.pages.dev/nes/Super Mario Bros. 3",
-        "image": "/assets/media/icons/emulator/smb3.webp",
+        "image": "/assets/media/icons/SMB.webp",
         "categories": [
             "all",
             "emu"
+        ]
+    },
+    {
+        "name": "1v1.LOL",
+        "link": "/e/1/1v1lol/index.html",
+        "categories": [
+            "all",
+            "local",
+            "2P"
+        ],
+        "image": "/assets/media/icons/1v1-lol.webp"
+    },
+    {
+        "name": "OvO",
+        "link": "/e/1/ovo/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/ovo.webp"
+    },
+    {
+        "name": "Slope",
+        "link": "/e/1/slope/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/slope.webp"
+    },
+    {
+        "name": "Tiny Fishing",
+        "link": "/e/1/tiny-fishing/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/tinyfishing.webp"
+    },
+    {
+        "name": "Tunnel Rush",
+        "link": "/e/1/tunnel-rush/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/tunnelrush.webp"
+    },
+    {
+        "name": "Drift Hunters",
+        "link": "/e/1/drift-hunters/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/drift-hunters.webp"
+    },
+    {
+        "name": "Temple Run 2",
+        "link": "/e/1/temple-run-2/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/temple-run-2.webp"
+    },
+    {
+        "name": "Doodle Jump",
+        "link": "/e/1/doodle-jump/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/doodlejump.webp"
+    },
+    {
+        "name": "Sandboxels",
+        "link": "/e/1/sandboxels/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/sandboxels.webp"
+    },
+    {
+        "name": "Bloons TD",
+        "link": "/e/1/bloonstd/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/bloonstd.webp"
+    },
+    {
+        "name": "Bloons TD 2",
+        "link": "/e/1/bloonstd2/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/bloonstd2.webp"
+    },
+    {
+        "name": "Papas Burgeria",
+        "link": "/e/1/papasburgeria/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/papasburgeria.webp"
+    },
+    {
+        "name": "Papas Pizzeria",
+        "link": "/e/1/papaspizzaria/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/pizzeria.webp"
+    },
+    {
+        "name": "Tanuki Sunset",
+        "link": "/e/1/tanuki-sunset/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/tanuki.webp"
+    },
+    {
+        "name": "Chrome Dino",
+        "link": "/e/1/chrome-dino/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/trex-run-3D.webp"
+    },
+    {
+        "name": "Moto X3M Winter",
+        "link": "/e/1/motox3m-winter/index.html",
+        "categories": [
+            "all",
+            "local"
+        ],
+        "image": "/assets/media/icons/mx3m-winter.webp"
+    },
+    {
+        "name": "Subway Surfers",
+        "link": "/e/1/subway-surfers/index.html",
+        "categories": [
+            "all",
+            "local"
+        ]
+    },
+    {
+        "name": "Drive Mad",
+        "link": "/e/1/drive-mad/index.html",
+        "categories": [
+            "all",
+            "local"
+        ]
+    },
+    {
+        "name": "Drift Boss",
+        "link": "/e/1/drift-boss/index.html",
+        "categories": [
+            "all",
+            "local"
+        ]
+    },
+    {
+        "name": "Worlds Hardest Game",
+        "link": "/e/1/worlds-hardest-game/index.html",
+        "categories": [
+            "all",
+            "local"
+        ]
+    },
+    {
+        "name": "Stick Merge",
+        "link": "/e/1/stick-merge/index.html",
+        "categories": [
+            "all",
+            "local"
         ]
     }
 ]

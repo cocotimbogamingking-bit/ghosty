@@ -1,10 +1,4 @@
-// index.js
-window.addEventListener("load", () => {
-  navigator.serviceWorker.register("../sw.js?v=2025-04-15", {
-    scope: "/a/",
-  });
-});
-
+﻿// index.js — the service worker and the engines are registered by assets/js/engine.js
 let xl;
 
 try {
@@ -42,7 +36,9 @@ function processUrl(value, path) {
     url = `https://${url}`;
   }
 
-  sessionStorage.setItem("GoUrl", __uv$config.encodeUrl(url));
+  const proxied = __ghosty.url(url);
+  sessionStorage.setItem("GoUrl", proxied);
+  remember(url);
   const dy = localStorage.getItem("dy");
 
   if (dy === "true") {
@@ -50,7 +46,7 @@ function processUrl(value, path) {
   } else if (path) {
     location.href = path;
   } else {
-    window.location.href = `/a/${__uv$config.encodeUrl(url)}`;
+    window.location.href = proxied;
   }
 }
 
@@ -66,9 +62,30 @@ function dy(value) {
   processUrl(value, `/a/q/${__uv$config.encodeUrl(value)}`);
 }
 
+// Feeds the recent-sites row on the home page. Search-engine queries are skipped:
+// the row is for places to go back to, not for a log of what was typed.
+function remember(url) {
+  try {
+    const host = new URL(url).hostname.replace(/^www\./, "");
+    const engine = localStorage.getItem("engine") || "https://search.brave.com/search?q=";
+    if (host === new URL(engine).hostname.replace(/^www\./, "")) return;
+    const list = JSON.parse(localStorage.getItem("ghostyRecent") || "[]").filter(
+      entry => entry && entry.host !== host,
+    );
+    list.unshift({ host, url });
+    localStorage.setItem("ghostyRecent", JSON.stringify(list.slice(0, 6)));
+  } catch {}
+}
+
 function isUrl(val = "") {
   if (/^http(s?):\/\//.test(val) || (val.includes(".") && val.substr(0, 1) !== " ")) {
     return true;
   }
   return false;
 }
+
+
+
+
+
+

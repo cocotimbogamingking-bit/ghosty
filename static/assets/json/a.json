@@ -180,7 +180,7 @@
     {
         "name": "NBA",
         "link": "https://nba.com",
-        "image": "assets/media/icons/nba.webp",
+        "image": "/assets/media/icons/nba.webp",
         "categories": [
             "all"
         ]

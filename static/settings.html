@@ -9,10 +9,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
   <title id="t">Home</title>
-  <link rel="stylesheet" id="global" href="/assets/css/global.css?v=8" />
-  <link rel="stylesheet" href="/assets/css/container.css?v=3" />
+  <link rel="stylesheet" id="global" href="/assets/css/global.css?v=sj3" />
+  <link rel="stylesheet" href="/assets/css/container.css?v=sj3" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=03" />
-  <link rel="stylesheet" href="/assets/css/settings.css?v=08" />
+  <link rel="stylesheet" href="/assets/css/settings.css?v=sj3" />
   <link rel="stylesheet" href="/assets/css/credits.css?v=2" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
@@ -110,11 +110,12 @@
       <div class="settings-card">
         <h3>Proxy Engine Core</h3>
         <p>
-          Select your routing core. UltraViolet offers maximum stability, while Dynamic (Beta) pushes boundaries for
-          compatibility.
+          Select your routing core. Scramjet is the current engine and handles YouTube, Google and TikTok. Switch to
+          UltraViolet only if a site misbehaves under Scramjet.
         </p>
         <select id="pChange" style="margin-top:12px;">
-          <option value="uv">UltraViolet Node (Stable)</option>
+          <option value="sj">Scramjet Node (Recommended)</option>
+          <option value="uv">UltraViolet Node (Fallback)</option>
           <option value="dy">Dynamic Node (Experimental)</option>
         </select>
       </div>
@@ -186,8 +187,13 @@
     </div>
   </div>
 
+  <script src="./assets/mathematics/bundle.js?v=sj1"></script>
+  <script src="./assets/mathematics/config.js?v=sj1"></script>
+  <script src="/baremux/index.js?v=sj1"></script>
+  <script src="/scram/scramjet.all.js"></script>
+  <script src="/assets/js/engine.js?v=sj1"></script>
   <script src="/assets/js/m1.js"></script>
-  <script src="/assets/js/s1.js"></script>
+  <script src="/assets/js/s1.js?v=sj3"></script>
 </body>
 
 </html>

@@ -2,6 +2,8 @@ import fs from "node:fs";
 import http from "node:http";
 import path from "node:path";
 import { createBareServer } from "@nebula-services/bare-server-node";
+import { scramjetPath } from "@mercuryworkshop/scramjet/path";
+import { server as wisp } from "@mercuryworkshop/wisp-js/server";
 import chalk from "chalk";
 import cookieParser from "cookie-parser";
 import cors from "cors";
@@ -65,6 +67,7 @@ app.get("/e/*", async (req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, "static")));
+app.use("/scram/", express.static(scramjetPath));
 app.use("/ca", cors({ origin: true }));
 
 const routes = [
@@ -102,7 +105,9 @@ server.on("request", (req, res) => {
 });
 
 server.on("upgrade", (req, socket, head) => {
-  if (bareServer.shouldRoute(req)) {
+  if (req.url.startsWith("/wisp/")) {
+    wisp.routeRequest(req, socket, head);
+  } else if (bareServer.shouldRoute(req)) {
     bareServer.routeUpgrade(req, socket, head);
   } else {
     socket.end();

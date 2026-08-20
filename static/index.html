@@ -9,9 +9,9 @@
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
   <!-- Fixed title injection logic -->
   <title id="t">Home</title>
-  <link rel="stylesheet" href="/assets/css/global.css?v=8" />
+  <link rel="stylesheet" href="/assets/css/global.css?v=sj3" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=03" />
-  <link rel="stylesheet" href="/assets/css/h.css?v=03" />
+  <link rel="stylesheet" href="/assets/css/h.css?v=sj3" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -257,7 +257,7 @@
 
     <i class="fa-solid fa-ghost splash-ghost"></i>
     <div class="splash-title">GHOSTY</div>
-    <div class="splash-version">Secure Proxy • v2.0</div>
+    <div class="splash-version">Secure Proxy • v5.2.6</div>
     <div class="splash-progress-track">
       <div class="splash-progress-bar"></div>
     </div>
@@ -280,13 +280,6 @@
         pc.appendChild(p);
       }
     })();
-    setTimeout(() => {
-      const sp = document.getElementById('splash-screen');
-      if (sp) {
-        sp.classList.add('fade-out');
-        setTimeout(() => sp.remove(), 800);
-      }
-    }, 3000);
   </script>
   <!-- ═══ END LOADING SCREEN ═══ -->
 
@@ -303,9 +296,9 @@
 
   <div class="main-wrapper">
     <div class="main">
-      <div class="status-pill">
+      <div class="status-pill" id="status-pill" data-state="waiting">
         <div class="status-dot"></div>
-        System Online
+        <span id="status-text">Connecting...</span>
       </div>
       <div class="logo-container">
         <i class="fa-solid fa-ghost logo-icon"></i>
@@ -316,9 +309,14 @@
       <div class="search-container">
         <form id="fv" method="POST" class="search-form-home">
           <i class="fa-solid fa-magnifying-glass search-icon-main"></i>
-          <input id="input" autocomplete="off" placeholder="Search the web or enter a URL..." type="text" />
+          <input id="input" autocomplete="off" spellcheck="false" placeholder="Search the web or enter a URL..."
+            type="text" />
+          <span class="search-shortcut">Ctrl K</span>
         </form>
+        <div id="suggestions" class="suggestions" hidden></div>
       </div>
+
+      <div id="recent-row" class="recent-row" hidden></div>
 
       <div class="home-apps-row">
         <a href="/./a" class="home-app-btn">
@@ -351,7 +349,7 @@
 
   <div class="bottom-bar">
     <div class="bb-left">
-      1 tabs • 1 spaces | <i class="fa-solid fa-ghost"></i> Ghosty v2 | <span class="dim">ToS &nbsp; Privacy &nbsp;
+      1 tabs • 1 spaces | <i class="fa-solid fa-ghost"></i> Ghosty v5.2.6 | <span class="dim">ToS &nbsp; Privacy &nbsp;
         DMCA</span>
     </div>
     <div class="bb-right">
@@ -363,19 +361,25 @@
   <script>
     const discordBtn = document.querySelector('.top-discord-btn');
     const toast = document.getElementById('discord-toast');
-    discordBtn.addEventListener('click', (e) => {
-      e.preventDefault();
-      toast.className = 'toast-visible';
-      setTimeout(() => {
-        toast.className = 'toast-hidden';
-      }, 3000);
-    });
+    if (discordBtn && toast) {
+      discordBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toast.className = 'toast-visible';
+        setTimeout(() => {
+          toast.className = 'toast-hidden';
+        }, 3000);
+      });
+    }
   </script>
 
   <script src="assets/js/index-3.js"></script>
   <script src="/assets/js/h1.js"></script>
-  <script src="./assets/mathematics/bundle.js?v=2025-04-15"></script>
-  <script src="./assets/mathematics/config.js?v=2025-04-15"></script>
+  <script src="./assets/mathematics/bundle.js?v=sj1"></script>
+  <script src="./assets/mathematics/config.js?v=sj1"></script>
+  <script src="/baremux/index.js?v=sj1"></script>
+  <script src="/scram/scramjet.all.js"></script>
+  <script src="/assets/js/engine.js?v=sj1"></script>
+  <script src="/assets/js/home.js?v=sj3"></script>
   <script src="/assets/js/m1.js"></script>
 </body>
 

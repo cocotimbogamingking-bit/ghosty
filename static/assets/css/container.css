@@ -90,10 +90,16 @@
    margin-left: 56px;
    padding: 0 48px;
    margin-top: 30px;
-   padding-bottom: 60px;
+   padding-bottom: 110px;
    perspective: 1500px;
    transform-style: preserve-3d;
    animation: popIn3D 0.8s var(--transition-premium) forwards;
+}
+
+/* With nothing pinned the grid still claimed its margin and padding, leaving a
+   dead band between the search row and the first game. */
+.pinned:empty {
+   display: none;
 }
 
 .input-c {
