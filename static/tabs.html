@@ -10,7 +10,7 @@
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
   <title id="t">Home</title>
   <link rel="stylesheet" href="/assets/css/global.css?v=sj3" />
-  <link rel="stylesheet" href="/assets/css/t.css?v=sj4" />
+  <link rel="stylesheet" href="/assets/css/t.css?v=sj5" />
   <link rel="stylesheet" href="/assets/css/palette.css?v=sj4" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
@@ -68,6 +68,10 @@
             onclick="window.__ghosty && window.__ghosty.blocking(!window.__ghosty.blocking())">
             <i class="fa-solid fa-shield-halved"></i><span id="shield-count">0</span>
           </button>
+          <button title="Stealth screen (Ctrl+Shift+H)" id="stealth-button" class="nav-icon-btn"
+            onclick="window.__ghostyBlackout && window.__ghostyBlackout.cycle()">
+            <i class="fa-solid fa-eye-slash"></i>
+          </button>
           <button title="Inspect" class="nav-icon-btn" onclick="eToggle()">
             <i class="fa-solid fa-code"></i>
           </button>
@@ -88,6 +92,7 @@
   </div>
 
   <script src="assets/js/t3.js?v=sj4"></script>
+  <script src="assets/js/blackout.js?v=bo1"></script>
   <script src="./assets/mathematics/bundle.js?v=sj1"></script>
   <script src="./assets/mathematics/config.js?v=sj1"></script>
   <script src="/baremux/index.js?v=sj1"></script>

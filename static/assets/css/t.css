@@ -306,3 +306,63 @@ iframe.active {
    text-overflow: ellipsis;
    flex: 1;
 }
+
+/* Stealth blackout overlay — sits over the page inside the frame area. It never blocks
+   interaction; it only decides what pixels are visible. Black by default; a spotlight
+   follows the cursor, or a hold key reveals everything. */
+#ghosty-blackout {
+   position: absolute;
+   inset: 0;
+   z-index: 90;
+   pointer-events: none;
+   display: none;
+   background: #000;
+}
+#ghosty-blackout.on {
+   display: block;
+}
+/* Spotlight: transparent up to the visible radius, then black. Off-screen --x/--y keeps
+   it fully black until the cursor first moves. */
+#ghosty-blackout.on:not(.solid):not(.clear) {
+   background: radial-gradient(circle var(--r, 130px) at var(--x, -9999px) var(--y, -9999px),
+      rgba(0,0,0,0) 0,
+      rgba(0,0,0,0) calc(var(--r, 130px) - var(--feather, 70px)),
+      rgba(0,0,0,1) var(--r, 130px));
+}
+#ghosty-blackout.on.solid {
+   background: #000;
+}
+#ghosty-blackout.on.clear {
+   background: rgba(0,0,0,0);
+   transition: background 0.12s ease;
+}
+
+#ghosty-blackout-toast {
+   position: fixed;
+   bottom: 22px;
+   left: 50%;
+   transform: translateX(-50%) translateY(20px);
+   z-index: 2147483000;
+   pointer-events: none;
+   background: rgba(10, 15, 25, 0.92);
+   border: 1px solid var(--border-color);
+   color: var(--foreground);
+   font-family: 'Inter', sans-serif;
+   font-size: 13px;
+   font-weight: 500;
+   padding: 10px 16px;
+   border-radius: 12px;
+   backdrop-filter: blur(20px);
+   box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+   opacity: 0;
+   transition: opacity 0.25s ease, transform 0.25s ease;
+}
+#ghosty-blackout-toast.show {
+   opacity: 1;
+   transform: translateX(-50%) translateY(0);
+}
+
+#stealth-button.active {
+   color: var(--primary, #6ea8fe);
+   background: rgba(110, 168, 254, 0.12);
+}

@@ -490,3 +490,16 @@ function importSaveData() {
   };
   input.click();
 }
+
+
+// Stealth screen mode. The overlay lives in the tab shell; this only stores the choice
+// so the shell picks it up on its next load. Ctrl+Shift+H there cycles it live.
+function setStealth(mode) {
+  const allowed = ['off', 'spotlight', 'hold'];
+  localStorage.setItem('ghostyBlackout', allowed.includes(mode) ? mode : 'off');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  const select = document.getElementById('stealth-mode');
+  if (select) select.value = localStorage.getItem('ghostyBlackout') || 'off';
+});

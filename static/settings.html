@@ -121,6 +121,26 @@
         </select>
       </div>
 
+      <!-- Stealth Screen (Blackout) -->
+      <div class="settings-card">
+        <h3>Stealth Screen</h3>
+        <p>
+          Keeps the browsing area black so screen recorders, monitoring extensions and
+          anyone glancing at your display see almost nothing. One honest caveat: no web
+          page can be black in a recording and full to your eyes at the same time — there
+          is a single set of pixels. So the page is black by default and reveals only what
+          you point at. <strong>Spotlight</strong> shows a small circle around your cursor.
+          <strong>Hold to reveal</strong> stays black until you press and hold the
+          <kbd>`</kbd> key. Either way, the moment the tab loses focus the whole page goes
+          solid black. Toggle any time with <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>H</kbd>.
+        </p>
+        <select id="stealth-mode" onchange="setStealth(this.value)">
+          <option value="off">Off</option>
+          <option value="spotlight">Spotlight (reveal under the cursor)</option>
+          <option value="hold">Hold to reveal (press and hold `)</option>
+        </select>
+      </div>
+
       <!-- Ad and tracker blocking -->
       <div class="settings-card">
         <h3>Ad &amp; Tracker Blocking</h3>
@@ -243,7 +263,7 @@
   <script src="/assets/js/engine.js?v=sj15"></script>
   <script src="/assets/js/palette.js?v=sj4"></script>
   <script src="/assets/js/m1.js?v=sj4"></script>
-  <script src="/assets/js/s1.js?v=sj6"></script>
+  <script src="/assets/js/s1.js?v=bo1"></script>
 </body>
 
 </html>
