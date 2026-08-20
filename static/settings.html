@@ -12,7 +12,7 @@
   <link rel="stylesheet" id="global" href="/assets/css/global.css?v=sj3" />
   <link rel="stylesheet" href="/assets/css/container.css?v=sj4" />
   <link rel="stylesheet" href="/assets/css/nav.css?v=sj4" />
-  <link rel="stylesheet" href="/assets/css/settings.css?v=sj5" />
+  <link rel="stylesheet" href="/assets/css/settings.css?v=sj6" />
   <link rel="stylesheet" href="/assets/css/credits.css?v=2" />
   <link rel="stylesheet" href="/assets/css/palette.css?v=sj4" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -125,8 +125,10 @@
       <div class="settings-card">
         <h3>Ad &amp; Tracker Blocking</h3>
         <p>
-          The proxy already decodes every request a page makes, so ads and trackers are dropped before they
-          reach the network. Pages load lighter and nothing gets to profile you.
+          The proxy decodes every request a page makes, so ads and trackers are dropped before they reach the
+          network. YouTube is handled differently: its ads travel inside the player response, from the same
+          host as the video, so those get cut out of the response body instead — no pre-roll, no mid-roll, no
+          sponsored results in search.
         </p>
         <div id="block-row">
           <label class="switch">
@@ -138,6 +140,7 @@
             <span class="stat-label">blocked this session</span>
           </div>
         </div>
+        <div class="block-detail" id="block-detail"></div>
       </div>
 
       <!-- Sites rescued by the fallback engine -->
@@ -237,10 +240,10 @@
   <script src="./assets/mathematics/config.js?v=sj1"></script>
   <script src="/baremux/index.js?v=sj1"></script>
   <script src="/scram/scramjet.all.js"></script>
-  <script src="/assets/js/engine.js?v=sj4"></script>
+  <script src="/assets/js/engine.js?v=sj6"></script>
   <script src="/assets/js/palette.js?v=sj4"></script>
   <script src="/assets/js/m1.js?v=sj4"></script>
-  <script src="/assets/js/s1.js?v=sj5"></script>
+  <script src="/assets/js/s1.js?v=sj6"></script>
 </body>
 
 </html>

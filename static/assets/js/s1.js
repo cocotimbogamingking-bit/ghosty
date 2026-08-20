@@ -309,12 +309,20 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
   if (count) {
-    // The worker owns the tally; asking it beats keeping a second copy in sync.
-    const paint = value => {
-      count.textContent = String(value);
+    // The worker owns the tally; asking it beats keeping a second copy in sync. The
+    // split matters: one number is requests that never left, the other is responses
+    // that were edited, and calling both "blocked" would overstate what happened.
+    const detail = document.getElementById("block-detail");
+    const paint = () => {
+      const stats = window.__ghosty ? window.__ghosty.blockStats() : { requests: 0, players: 0 };
+      count.textContent = String(stats.requests + stats.players);
+      if (detail) {
+        detail.textContent =
+          stats.requests + " requests stopped · " + stats.players + " YouTube responses cleaned";
+      }
     };
-    window.addEventListener("ghosty:blocked", event => paint(event.detail));
-    setTimeout(() => paint(window.__ghosty ? window.__ghosty.blocked() : 0), 600);
+    window.addEventListener("ghosty:blocked", paint);
+    setTimeout(paint, 600);
   }
   renderRescued();
 });

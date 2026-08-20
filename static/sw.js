@@ -5,13 +5,138 @@ importScripts("/scram/scramjet.all.js");
 const { ScramjetServiceWorker } = self.$scramjetLoadWorker();
 const scramjet = new ScramjetServiceWorker();
 
-// The transport hands back a decompressed body but the origin's headers still describe
-// the compressed one. Left in place, the browser stops reading at content-length: a 2.9MB
-// stylesheet arrives cut in half and half of YouTube's layout never applies.
+// YouTube's ads do not come from an ad domain. They are listed inside the same player
+// response as the video and streamed from the same googlevideo host, so a domain
+// blocklist cannot separate them — measured: adPlacements 1, adSlots 8, ad showing.
+// What a proxy can do that an extension cannot is edit the response on the way past:
+// renaming the keys leaves the player looking up fields that are no longer there, and
+// it never asks for the ad streams in the first place.
+const AD_KEYS = [
+  // Player ads: pre-roll, mid-roll and the ad break scheduler.
+  '"adPlacements"',
+  '"playerAds"',
+  '"adSlots"',
+  '"adBreakHeartbeatParams"',
+  '"playerAdParams"',
+  // Feed and search ads. Renaming the renderer key means the component that draws it
+  // is never looked up, so the entry arrives as something YouTube cannot render.
+  '"adSlotRenderer"',
+  '"inFeedAdLayoutRenderer"',
+  '"promotedVideoRenderer"',
+  '"compactPromotedVideoRenderer"',
+  '"displayAdRenderer"',
+  '"promotedSparklesWebRenderer"',
+  '"promotedSparklesTextSearchRenderer"',
+  '"searchPyvRenderer"',
+  '"carouselAdRenderer"',
+  '"primetimePromoRenderer"',
+  '"bannerPromoRenderer"',
+  '"statementBannerRenderer"',
+  '"adsEngagementPanelRenderer"',
+  '"brandVideoShelfRenderer"',
+  '"brandVideoSingletonRenderer"',
+];
+// Longest key, used as the overlap kept between chunks so a key split across a stream
+// boundary is still caught.
+const AD_KEY_MAX = 40;
+
+// Belt to the renaming's braces: an ad slot that arrives through a path this does not
+// cover still ends up hidden, and the empty container it sits in goes with it.
+const AD_CSS = [
+  "ytd-ad-slot-renderer,ytd-in-feed-ad-layout-renderer,ytd-promoted-video-renderer,",
+  "ytd-compact-promoted-video-renderer,ytd-display-ad-renderer,ytd-companion-slot-renderer,",
+  "ytd-action-companion-ad-renderer,ytd-promoted-sparkles-web-renderer,ytd-search-pyv-renderer,",
+  "ytd-carousel-ad-renderer,ytd-primetime-promo-renderer,ytd-banner-promo-renderer,",
+  "ytd-statement-banner-renderer,ytd-brand-video-shelf-renderer,ytd-brand-video-singleton-renderer,",
+  "ytm-promoted-video-renderer,ytm-companion-slot-renderer,",
+  "#player-ads,#masthead-ad,.ytp-ad-module,.ytp-ad-overlay-container,.ytd-companion-slot-renderer,",
+  "ytd-rich-item-renderer:has(ytd-ad-slot-renderer),",
+  "ytd-rich-item-renderer:has(ytd-in-feed-ad-layout-renderer),",
+  "ytd-rich-section-renderer:has(ytd-statement-banner-renderer),",
+  "ytd-item-section-renderer:has(>#contents>ytd-ad-slot-renderer)",
+  "{display:none!important}",
+].join("");
+
+function injectAdCss(html) {
+  if (html.includes("ghosty-ad-css")) return html;
+  const style = '<style id="ghosty-ad-css">' + AD_CSS + "</style>";
+  const head = html.indexOf("<head");
+  if (head < 0) return style + html;
+  const close = html.indexOf(">", head);
+  if (close < 0) return style + html;
+  return html.slice(0, close + 1) + style + html.slice(close + 1);
+}
+
+function stripAdKeys(text) {
+  let out = text;
+  for (const key of AD_KEYS) {
+    if (out.includes(key)) out = out.split(key).join(key.slice(0, -1) + '_ghosty"');
+  }
+  return out;
+}
+
+function adStrippingStream() {
+  const decoder = new TextDecoder();
+  const encoder = new TextEncoder();
+  let carry = "";
+  let counted = false;
+  const emit = (text, controller) => {
+    const stripped = stripAdKeys(text);
+    if (!counted && stripped !== text) {
+      counted = true;
+      ytAdsStripped++;
+      announceBlocked();
+    }
+    if (stripped) controller.enqueue(encoder.encode(stripped));
+  };
+  return new TransformStream({
+    transform(chunk, controller) {
+      const text = carry + decoder.decode(chunk, { stream: true });
+      const cut = Math.max(0, text.length - AD_KEY_MAX);
+      carry = text.slice(cut);
+      if (cut) emit(text.slice(0, cut), controller);
+    },
+    flush(controller) {
+      emit(carry + decoder.decode(), controller);
+    },
+  });
+}
+
+function isYouTube(url) {
+  try {
+    const host = (typeof url === "string" ? new URL(url) : url).hostname;
+    return /(^|\.)(youtube\.com|youtube-nocookie\.com|m\.youtube\.com)$/.test(host);
+  } catch {
+    return false;
+  }
+}
+
 scramjet.addEventListener("handleResponse", event => {
+  // The transport hands back a decompressed body but the origin's headers still describe
+  // the compressed one. Left in place, the browser stops reading at content-length: a
+  // 2.9MB stylesheet arrives cut in half and half of YouTube's layout never applies.
   delete event.responseHeaders["content-encoding"];
   delete event.responseHeaders["content-length"];
   delete event.responseHeaders["transfer-encoding"];
+
+  if (!blockingOn || !isYouTube(event.url)) return;
+  const type = String(event.responseHeaders["content-type"] || "").toLowerCase();
+  if (!type.includes("json") && !type.includes("html") && !type.includes("javascript")) return;
+
+  const body = event.responseBody;
+  // dispatchEvent is synchronous and the Response is built the moment it returns, so
+  // the body can only be swapped for something that is ready now: a string, or a
+  // stream with the edit wired into it.
+  if (typeof body === "string") {
+    const stripped = stripAdKeys(body);
+    if (stripped !== body) {
+      ytAdsStripped++;
+      announceBlocked();
+    }
+    event.responseBody = type.includes("html") ? injectAdCss(stripped) : stripped;
+  } else if (body && typeof body.pipeThrough === "function") {
+    event.responseBody = body.pipeThrough(adStrippingStream());
+  }
 });
 
 let uv = null;
@@ -78,6 +203,9 @@ self.addEventListener("activate", event => event.waitUntil(self.clients.claim())
 // so "ads.example.com" never matches "example.com" by accident and vice versa.
 let blockingOn = true;
 let blockedCount = 0;
+// Player responses that had their ad fields renamed. Counted apart from the domain
+// blocks so the badge does not claim a network request was stopped when it was not.
+let ytAdsStripped = 0;
 const blockSuffixes = blocklist || [];
 
 function isBlocked(hostname) {
@@ -127,7 +255,12 @@ async function announceBlocked() {
   try {
     const clients = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
     for (const client of clients) {
-      client.postMessage({ ghosty: "blocked", count: blockedCount });
+      client.postMessage({
+        ghosty: "blocked",
+        count: blockedCount + ytAdsStripped,
+        requests: blockedCount,
+        players: ytAdsStripped,
+      });
     }
   } catch {}
 }
@@ -136,7 +269,10 @@ self.addEventListener("message", event => {
   const data = event.data;
   if (!data || data.ghosty !== "config") return;
   if (typeof data.blocking === "boolean") blockingOn = data.blocking;
-  if (data.reset) blockedCount = 0;
+  if (data.reset) {
+    blockedCount = 0;
+    ytAdsStripped = 0;
+  }
   announceBlocked();
 });
 

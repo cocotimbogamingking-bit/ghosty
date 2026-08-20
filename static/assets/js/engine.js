@@ -3,7 +3,7 @@
 (() => {
   const SCRAM_PREFIX = "/a/";
   const UV_PREFIX = "/uv/";
-  const SW_URL = "/sw.js?v=sj4";
+  const SW_URL = "/sw.js?v=sj6";
   const EPOXY = "/epoxy/index.mjs?v=hdrpatch2";
 
   const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
@@ -120,13 +120,15 @@
 
   // The worker reports what it blocked and what it had to rescue; pages listen so the
   // counter in the interface is the worker's real tally, not a guess.
-  const blockState = { count: 0 };
+  const blockState = { count: 0, requests: 0, players: 0 };
   if ("serviceWorker" in navigator) {
     navigator.serviceWorker.addEventListener("message", event => {
       const data = event.data;
       if (!data || !data.ghosty) return;
       if (data.ghosty === "blocked") {
         blockState.count = data.count;
+        blockState.requests = data.requests || 0;
+        blockState.players = data.players || 0;
         window.dispatchEvent(new CustomEvent("ghosty:blocked", { detail: data.count }));
       } else if (data.ghosty === "failover" && data.host) {
         pinHost(data.host);
@@ -198,6 +200,12 @@
     // Ad and tracker blocking, reported by the worker that actually does it.
     blocked() {
       return blockState.count;
+    },
+
+    // requests: never left the browser. players: YouTube responses with their ad
+    // fields cut out. Two different things, kept apart on purpose.
+    blockStats() {
+      return { requests: blockState.requests, players: blockState.players };
     },
 
     blocking(enabled) {
