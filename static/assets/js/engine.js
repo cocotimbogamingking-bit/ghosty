@@ -3,8 +3,9 @@
 (() => {
   const SCRAM_PREFIX = "/a/";
   const UV_PREFIX = "/uv/";
-  const SW_URL = "/sw.js?v=sj6";
-  const EPOXY = "/epoxy/index.mjs?v=hdrpatch2";
+  const SW_URL = "/sw.js?v=sj15";
+  // Epoxy with an HTTP/1.1 rescue behind it; see transport.mjs for why.
+  const TRANSPORT = "/assets/js/transport.mjs?v=h1g";
 
   const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
 
@@ -23,7 +24,7 @@
   // added with addEventListener, and that queue stays parked until startMessages() runs.
   // Without this every proxied request waits out bare-mux's retry loop first.
   if ("serviceWorker" in navigator) navigator.serviceWorker.startMessages();
-  const transportReady = conn.setTransport(EPOXY, [{ wisp: wispUrl }]).catch(err => {
+  const transportReady = conn.setTransport(TRANSPORT, [{ wisp: wispUrl }]).catch(err => {
     console.error("[engine] setTransport failed:", err);
   });
 

@@ -360,6 +360,18 @@ async function reproxy(event) {
       ? location.origin + SCRAM_PREFIX + xorEncode(target.href)
       : location.origin + UV_PREFIX + __uv$config.encodeUrl(target.href);
 
+  // Scripts get the canonical address instead of the bytes, for the same reason as
+  // rescueRelative: a module served under /cdn/assets/x.js and again under its encoded
+  // name is two modules, and ChatGPT's router then cannot find its own route chunk.
+  // Only scripts, because only module identity depends on the URL — redirecting an
+  // image or a stylesheet would buy nothing and cost a round trip.
+  if (
+    event.request.destination === "script" &&
+    (event.request.method === "GET" || event.request.method === "HEAD")
+  ) {
+    return Response.redirect(proxied, 302);
+  }
+
   const init = {
     method: event.request.method,
     headers: event.request.headers,
@@ -376,8 +388,152 @@ async function reproxy(event) {
 
   const request = new Request(proxied, init);
   return owner.engine === "scramjet"
-    ? scramjet.fetch({ request, clientId: event.clientId })
-    : uv.fetch({ request });
+    ? scramjet.fetch({ request: keepDestination(request, event.request.destination), clientId: event.clientId })
+    : uv.fetch({ request: keepDestination(request, event.request.destination) });
+}
+
+// A module that computes its own import paths at runtime — the chunk loader every
+// Vite and webpack build ships — never passes through the rewriter, so the browser
+// resolves "./chunk-a1b2.js" against the proxied path and asks for /a/chunk-a1b2.js.
+// That is not an encoded URL, so Scramjet answers 500 and the import fails. Resolving
+// the raw remainder against the page's real address reproduces exactly the URL an
+// unproxied browser would have asked for.
+function looksEncoded(rest) {
+  try {
+    const url = new URL(xorDecode(rest));
+    return url.protocol === "http:" || url.protocol === "https:";
+  } catch {
+    return false;
+  }
+}
+
+// Client-side routers build their next address from the one in the bar, so they append
+// ?a=b to the already-proxied path instead of to the site's real URL. The query then
+// sits outside the encoded blob, where every decoder drops it: ChatGPT's login lands on
+// /auth/login_with with no login_hint and answers "Application Error". Fold the stray
+// query back onto the real target and send the request again, fully encoded.
+// Scramjet tags its own requests by appending these after the encoded blob, so they
+// are the engine talking to itself, not part of the site's URL. They have to survive
+// untouched: strip ?type=module from a module request and the browser fetches the same
+// file under two names, which is two copies of React and two copies of zod.
+const ENGINE_MARKERS = new Set(["type", "dest", "from"]);
+
+// Scramjet decides how to rewrite a response from request.destination, and a Request
+// built by hand always reports "". Rebuilding a navigation that way makes it come back
+// as a bare script instead of a document, with none of the client bootstrap injected,
+// so the page loads blank on "$scramjet$pushsourcemap is not defined". The destination
+// is read-only, so carry the original one over a proxy.
+function keepDestination(request, destination) {
+  if (!destination) return request;
+  return new Proxy(request, {
+    get(target, prop) {
+      if (prop === "destination") return destination;
+      const value = Reflect.get(target, prop, target);
+      return typeof value === "function" ? value.bind(target) : value;
+    },
+  });
+}
+
+function splitMarkers(search) {
+  if (!search) return { markers: "", stray: "" };
+  const markers = [];
+  const stray = [];
+  for (const pair of search.slice(1).split("&")) {
+    if (!pair) continue;
+    (ENGINE_MARKERS.has(pair.split("=")[0]) ? markers : stray).push(pair);
+  }
+  return { markers: markers.length ? "?" + markers.join("&") : "", stray: stray.join("&") };
+}
+
+async function mergeStrayQuery(event, requestUrl) {
+  if (!requestUrl.search) return null;
+  const rest = requestUrl.pathname.slice(SCRAM_PREFIX.length);
+  if (!rest || rest.startsWith("q/")) return null;
+
+  const { markers, stray } = splitMarkers(requestUrl.search);
+  if (!stray) return null;
+
+  let target;
+  try {
+    target = new URL(xorDecode(rest));
+  } catch {
+    return null;
+  }
+  if (target.protocol !== "http:" && target.protocol !== "https:") return null;
+
+  target.search = target.search ? target.search.slice(1) + "&" + stray : stray;
+
+  const init = {
+    method: event.request.method,
+    headers: event.request.headers,
+    mode: event.request.mode === "navigate" ? "same-origin" : event.request.mode,
+    credentials: event.request.credentials,
+    cache: event.request.cache,
+    redirect: event.request.redirect,
+    referrerPolicy: event.request.referrerPolicy,
+  };
+  if (event.request.method !== "GET" && event.request.method !== "HEAD") {
+    init.body = await event.request.clone().arrayBuffer();
+  }
+
+  const request = new Request(
+    location.origin + SCRAM_PREFIX + xorEncode(target.href) + markers,
+    init,
+  );
+  return await scramjet.fetch({ request: keepDestination(request, event.request.destination), clientId: event.clientId });
+}
+
+async function rescueRelative(event, requestUrl) {
+  const rest = requestUrl.pathname.slice(SCRAM_PREFIX.length);
+  if (!rest || rest.startsWith("q/") || looksEncoded(rest)) return null;
+
+  // The referrer is the right base and the page is only a fallback. A module that
+  // imports "./react-router-CUW.js" is referred by the importing module, which lives
+  // on a CDN the page does not: resolving against the page would ask the site itself
+  // for a chunk it does not have, and a 200 HTML answer kills the whole import.
+  let owner = null;
+  const referrer = event.request.referrer;
+  if (referrer && referrer.startsWith(location.origin)) owner = originOf(referrer);
+  let from = referrer;
+  if (!owner) {
+    from = await clientUrl(event);
+    if (!from) return null;
+    owner = originOf(from);
+  }
+  if (!owner || owner.engine !== "scramjet") return null;
+
+  const { markers, stray } = splitMarkers(requestUrl.search);
+  let target;
+  try {
+    target = new URL(rest + (stray ? "?" + stray : ""), owner.base);
+  } catch {
+    return null;
+  }
+  if (target.origin === location.origin) return null;
+
+  const canonical = location.origin + SCRAM_PREFIX + xorEncode(target.href) + markers;
+
+  // A redirect rather than the bytes, because module identity is the URL. Serving the
+  // chunk here would give the same file two names, and a second copy of React whose
+  // dispatcher is null: "Cannot read properties of null (reading 'useContext')".
+  // After a redirect the module map keys both requests to the same final URL.
+  if (event.request.method === "GET" || event.request.method === "HEAD") {
+    return Response.redirect(canonical, 302);
+  }
+
+  const init = {
+    method: event.request.method,
+    headers: event.request.headers,
+    mode: event.request.mode === "navigate" ? "same-origin" : event.request.mode,
+    credentials: event.request.credentials,
+    cache: event.request.cache,
+    redirect: event.request.redirect,
+    referrer: from,
+    referrerPolicy: event.request.referrerPolicy,
+    body: await event.request.clone().arrayBuffer(),
+  };
+  const request = new Request(canonical, init);
+  return await scramjet.fetch({ request: keepDestination(request, event.request.destination), clientId: event.clientId });
 }
 
 const WASM_PATH = "/scram/scramjet.wasm.wasm";
@@ -564,6 +720,20 @@ self.addEventListener("fetch", event => {
 
       if (isScramjetPath(requestUrl)) {
         await scramjetReady();
+        if (requestUrl.pathname.startsWith(SCRAM_PREFIX)) {
+          try {
+            const merged = await mergeStrayQuery(event, requestUrl);
+            if (merged) return merged;
+          } catch (err) {
+            console.error("[sw] stray query merge failed:", err);
+          }
+          try {
+            const resolved = await rescueRelative(event, requestUrl);
+            if (resolved) return resolved;
+          } catch (err) {
+            console.error("[sw] relative rescue failed:", err);
+          }
+        }
         const answer = await scramjetFetch(event);
         if (answer) return answer;
         if (requestUrl.pathname.startsWith(SCRAM_PREFIX)) {
