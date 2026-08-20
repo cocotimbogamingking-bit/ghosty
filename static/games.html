@@ -10,30 +10,35 @@
   <title id="t">Home</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="/assets/css/global.css?v=sj3" />
-  <link rel="stylesheet" href="/assets/css/container.css?v=sj3" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=01" />
+  <link rel="stylesheet" href="/assets/css/container.css?v=sj5" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=sj4" />
   <link rel="stylesheet" href="/assets/css/credits.css?v=1" />
   <script src="/assets/js/index-3.js"></script>
+  <link rel="stylesheet" href="/assets/css/palette.css?v=sj4" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
 <body>
   <div class="f-nav"></div>
-  <div class="input-c">
-    <input type="text" id="search" onkeyup="bar()" placeholder="Search" />
-    <select id="category" name="category" onchange="category()">
-      <option value="all">&#65;&#108;&#108;</option>
-      <option value="android">
-        &#65;&#110;&#100;&#114;&#111;&#105;&#100;&#32;&#69;&#109;&#117;&#108;&#97;&#116;&#111;&#114;</option>
-      <option value="2P">&#77;&#117;&#108;&#116;&#105;&#112;&#108;&#97;&#121;&#101;&#114;</option>
-      <option value="sports">&#83;&#112;&#111;&#114;&#116;&#115;</option>
-      <option value="flash">&#70;&#108;&#97;&#115;&#104;</option>
-      <option value="emu">&#69;&#109;&#117;&#108;&#97;&#116;&#111;&#114;</option>
-      <option value="local">&#76;&#111;&#99;&#97;&#108;</option>
-    </select>
+  <div class="library-head">
+    <div class="input-c">
+      <i class="fa-solid fa-magnifying-glass lib-search-icon"></i>
+      <input type="text" id="search" onkeyup="bar()" placeholder="Search the library" autocomplete="off" />
+      <button type="button" class="lib-random" onclick="surpriseMe()" title="Open something at random">
+        <i class="fa-solid fa-shuffle"></i> Surprise me
+      </button>
+    </div>
+    <div class="lib-filters">
+      <div class="chip-row" id="category-row"></div>
+      <span class="lib-count" id="result-count"></span>
+    </div>
   </div>
   <div class="pinned"></div>
   <div class="apps"></div>
+  <div class="lib-empty" id="no-results" hidden>
+    <i class="fa-solid fa-ghost"></i>
+    <p>Nothing matches that.</p>
+  </div>
 
   <!-- ═══ Premium Credits Footer ═══ -->
   <div class="credits-footer" id="credits-footer">
@@ -57,13 +62,14 @@
     </div>
   </div>
 
-  <script src="/assets/js/c1.js?v=002"></script>
+  <script src="/assets/js/c1.js?v=sj5"></script>
   <script src="./assets/mathematics/bundle.js?v=sj1"></script>
   <script src="./assets/mathematics/config.js?v=sj1"></script>
   <script src="/baremux/index.js?v=sj1"></script>
   <script src="/scram/scramjet.all.js"></script>
-  <script src="/assets/js/engine.js?v=sj1"></script>
-  <script src="/assets/js/m1.js"></script>
+  <script src="/assets/js/engine.js?v=sj4"></script>
+  <script src="/assets/js/palette.js?v=sj4"></script>
+  <script src="/assets/js/m1.js?v=sj4"></script>
   <!-- Scripts -->
 </body>
 

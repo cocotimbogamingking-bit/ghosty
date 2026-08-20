@@ -98,6 +98,109 @@ a {
    color: var(--text-primary);
 }
 
+/* Blocking card: switch on the left, the running total on the right. */
+#block-row {
+   display: flex;
+   align-items: center;
+   gap: 22px;
+}
+
+.stat-block {
+   display: flex;
+   flex-direction: column;
+   line-height: 1.15;
+}
+
+.stat-number {
+   font-size: 26px;
+   font-weight: 700;
+   color: #fff;
+   font-variant-numeric: tabular-nums;
+}
+
+.stat-label {
+   font-size: 11px;
+   font-weight: 600;
+   letter-spacing: 1px;
+   text-transform: uppercase;
+   color: rgba(255, 255, 255, 0.3);
+}
+
+.pill-list {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 8px;
+   margin-bottom: 14px;
+   min-height: 30px;
+}
+
+/* The bare `button` rule in this sheet makes every button full width and 44px tall,
+   which turns a pill into a bar. These win by coming later and being explicit. */
+.pill {
+   display: flex;
+   align-items: center;
+   width: auto;
+   height: auto;
+   margin-top: 0;
+   gap: 8px;
+   padding: 6px 12px;
+   border-radius: 100px;
+   background: rgba(255, 255, 255, 0.04);
+   border: 1px solid rgba(255, 255, 255, 0.08);
+   color: rgba(255, 255, 255, 0.7);
+   font-family: inherit;
+   font-size: 12px;
+   font-weight: 500;
+   cursor: pointer;
+   transition: var(--transition-premium);
+}
+
+.pill i {
+   font-size: 10px;
+   opacity: 0.5;
+}
+
+.pill:hover {
+   background: rgba(255, 255, 255, 0.09);
+   color: #fff;
+}
+
+.pill-empty {
+   font-size: 13px;
+   color: rgba(255, 255, 255, 0.28);
+}
+
+.shortcut-table {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.shortcut-table>div {
+   display: flex;
+   align-items: center;
+   gap: 6px;
+   font-size: 13px;
+   color: rgba(255, 255, 255, 0.55);
+}
+
+.shortcut-table span {
+   margin-left: 10px;
+}
+
+.shortcut-table kbd {
+   font-family: inherit;
+   font-size: 10.5px;
+   font-weight: 600;
+   min-width: 24px;
+   text-align: center;
+   background: rgba(255, 255, 255, 0.06);
+   border: 1px solid rgba(255, 255, 255, 0.09);
+   border-radius: 6px;
+   padding: 4px 7px;
+   color: rgba(255, 255, 255, 0.8);
+}
+
 .switch {
    position: relative;
    display: inline-block;

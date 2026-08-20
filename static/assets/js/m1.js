@@ -16,30 +16,37 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (nav) {
     const themeId = localStorage.getItem("theme");
+    const here = window.location.pathname;
+    // data-label drives the hover plate; without it the icons are a guessing game.
+    const link = (href, icon, label, extra = "") =>
+      `<a class="sidebar-link${here === href ? " active" : ""}" href="${href}" data-label="${label}"${extra}>
+         <i class="fa-solid ${icon}"></i>
+       </a>`;
+
     const html = `
       <div class="sidebar-top">
-        <a class="sidebar-logo" href="/./" title="Home" style="color:var(--primary); font-size:24px; display:flex; justify-content:center; align-items:center; margin-bottom:24px;">
+        <a class="sidebar-logo" href="/" data-label="Home">
            <i class="fa-solid fa-ghost"></i>
         </a>
       </div>
       <div class="sidebar-menu">
-        <a class="sidebar-link" href="/./a" title="Games">
-           <i class="fa-solid fa-gamepad"></i>
-        </a>
-        <a class="sidebar-link" href="/./b" title="Apps">
-           <i class="fa-solid fa-rocket"></i>
-        </a>
-        <a class="sidebar-link" href="#" title="Music" onclick="event.preventDefault(); go('https://soundcloud.com');">
+        ${link("/a", "fa-gamepad", "Games")}
+        ${link("/b", "fa-rocket", "Apps")}
+        <a class="sidebar-link" href="#" data-label="Music" onclick="event.preventDefault(); go('https://soundcloud.com');">
            <i class="fa-solid fa-music"></i>
         </a>
-        <a class="sidebar-link" href="#" title="Movies" onclick="event.preventDefault(); go('https://tubitv.com');">
+        <a class="sidebar-link" href="#" data-label="Movies" onclick="event.preventDefault(); go('https://tubitv.com');">
            <i class="fa-solid fa-film"></i>
+        </a>
+        <div class="sidebar-rule"></div>
+        <a class="sidebar-link" href="#" data-label="Search everything &nbsp;Ctrl K"
+           onclick="event.preventDefault(); window.__ghostyPalette && window.__ghostyPalette.open();">
+           <i class="fa-solid fa-bolt"></i>
         </a>
       </div>
       <div class="sidebar-bottom">
-        ${qp ? "" : '<a class="sidebar-link" href="/./d" title="Tabs"><i class="fa-solid fa-plus"></i></a>'}        <a class="sidebar-link" href="/./c" title="Settings">
-           <i class="fa-solid fa-gear"></i>
-        </a>
+        ${qp ? "" : link("/d", "fa-plus", "New tab")}
+        ${link("/c", "fa-gear", "Settings")}
       </div>`;
     nav.innerHTML = html;
 
@@ -62,23 +69,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!document.querySelector(".top-nav") && !isHome) {
       const displayPath = pathName === "a" ? "games" : pathName === "b" ? "apps" : pathName === "c" ? "settings" : pathName || "home";
+      // Every control here used to be a decorative <i> with no handler. They now do
+      // what their icon says, which is the whole point of putting them on screen.
       const topnavStr = `
          <div class="nav-actions">
-            <i class="fa-solid fa-arrow-left"></i>
-            <i class="fa-solid fa-arrow-right"></i>
-            <i class="fa-solid fa-rotate-right"></i>
+            <i class="fa-solid fa-arrow-left" title="Back" onclick="history.back()"></i>
+            <i class="fa-solid fa-arrow-right" title="Forward" onclick="history.forward()"></i>
+            <i class="fa-solid fa-rotate-right" title="Reload" onclick="location.reload()"></i>
          </div>
          <div class="url-bar-container">
-           <div class="url-bar">
-              <i class="fa-solid fa-lock" style="font-size:10px; margin-right:8px; color:rgba(255,255,255,0.4);"></i>
+           <div class="url-bar" title="Search everything (Ctrl+K)"
+                onclick="window.__ghostyPalette && window.__ghostyPalette.open()">
+              <i class="fa-solid fa-lock"></i>
               <span class="prefix">ghosty://</span><span class="path">${displayPath}</span>
+              <kbd class="url-kbd">Ctrl K</kbd>
            </div>
          </div>
          <div class="right-actions">
-            <i class="fa-solid fa-gamepad" title="Games"></i>
-            <i class="fa-regular fa-user" title="Account"></i>
-            <i class="fa-regular fa-file-lines" title="Changelog"></i>
-            <i class="fa-solid fa-ellipsis-vertical" title="More"></i>
+            <i class="fa-solid fa-bolt" title="Command palette"
+               onclick="window.__ghostyPalette && window.__ghostyPalette.open()"></i>
+            <i class="fa-solid fa-gamepad" title="Games" onclick="location.href='/a'"></i>
+            <i class="fa-solid fa-window-restore" title="Tabs" onclick="location.href='/d'"></i>
+            <i class="fa-solid fa-gear" title="Settings" onclick="location.href='/c'"></i>
          </div>
       `;
       const tnav = document.createElement("div");

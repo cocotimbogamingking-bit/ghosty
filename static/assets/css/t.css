@@ -193,6 +193,40 @@ body {
    transform: scale(0.95);
 }
 
+.nav-icon-btn:disabled {
+   opacity: 0.3;
+   pointer-events: none;
+}
+
+.nav-icon-btn.marked {
+   color: #f5c542;
+}
+
+/* The shield carries its own count, so it is wider than the plain icon buttons. */
+.shield-btn {
+   width: auto;
+   min-width: 36px;
+   padding: 0 10px;
+   gap: 6px;
+   font-family: inherit;
+   font-size: 12px;
+   font-weight: 700;
+}
+
+.shield-btn i {
+   font-size: 14px;
+   color: #10b981;
+   transition: color 0.2s ease;
+}
+
+.shield-btn.off i {
+   color: rgba(255, 255, 255, 0.28);
+}
+
+.shield-btn.off span {
+   opacity: 0.35;
+}
+
 /* URL Bar */
 .url-bar-wrapper {
    flex: 1;

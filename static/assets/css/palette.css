@@ -1,0 +1,172 @@
+/* Command palette. Shares the app's palette but sits above everything, so it declares
+   its own stacking context rather than borrowing one. */
+.gp-backdrop {
+   position: fixed;
+   inset: 0;
+   z-index: 100000;
+   display: flex;
+   align-items: flex-start;
+   justify-content: center;
+   padding-top: 14vh;
+   background: rgba(0, 0, 0, 0.55);
+   backdrop-filter: blur(6px);
+   opacity: 0;
+   pointer-events: none;
+   transition: opacity 0.16s ease;
+}
+
+.gp-backdrop.show {
+   opacity: 1;
+   pointer-events: auto;
+}
+
+.gp-panel {
+   width: min(680px, 92vw);
+   background: rgba(12, 12, 16, 0.985);
+   border: 1px solid rgba(255, 255, 255, 0.1);
+   border-radius: 20px;
+   box-shadow: 0 40px 90px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(255, 255, 255, 0.02) inset;
+   overflow: hidden;
+   transform: translateY(-12px) scale(0.985);
+   opacity: 0;
+   transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.18s ease;
+}
+
+.gp-backdrop.show .gp-panel {
+   transform: translateY(0) scale(1);
+   opacity: 1;
+}
+
+.gp-field {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+   padding: 18px 20px;
+   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.gp-field i {
+   color: rgba(255, 255, 255, 0.35);
+   font-size: 15px;
+}
+
+.gp-field input {
+   flex: 1;
+   background: transparent;
+   border: none;
+   outline: none;
+   height: auto;
+   padding: 0;
+   border-radius: 0;
+   color: #fff;
+   font-family: inherit;
+   font-size: 16px;
+   font-weight: 400;
+}
+
+.gp-field input::placeholder {
+   color: rgba(255, 255, 255, 0.28);
+}
+
+.gp-list {
+   max-height: 46vh;
+   overflow-y: auto;
+   padding: 8px;
+}
+
+.gp-row {
+   display: flex;
+   align-items: center;
+   gap: 14px;
+   padding: 11px 14px;
+   border-radius: 12px;
+   cursor: pointer;
+   color: rgba(255, 255, 255, 0.72);
+   font-size: 14px;
+   transition: background 0.1s ease, color 0.1s ease;
+}
+
+.gp-row>i {
+   width: 15px;
+   text-align: center;
+   font-size: 12px;
+   color: rgba(255, 255, 255, 0.3);
+   flex-shrink: 0;
+}
+
+.gp-name {
+   flex: 1;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+}
+
+.gp-host {
+   font-size: 11.5px;
+   color: rgba(255, 255, 255, 0.28);
+   max-width: 180px;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   flex-shrink: 0;
+}
+
+.gp-tag {
+   font-size: 9.5px;
+   font-weight: 700;
+   letter-spacing: 0.8px;
+   text-transform: uppercase;
+   color: rgba(255, 255, 255, 0.3);
+   background: rgba(255, 255, 255, 0.05);
+   border: 1px solid rgba(255, 255, 255, 0.06);
+   padding: 3px 7px;
+   border-radius: 6px;
+   flex-shrink: 0;
+}
+
+.gp-row.active {
+   background: rgba(255, 255, 255, 0.08);
+   color: #fff;
+}
+
+.gp-row.active>i,
+.gp-row.active .gp-tag {
+   color: #fff;
+}
+
+.gp-empty {
+   padding: 26px;
+   text-align: center;
+   font-size: 13px;
+   color: rgba(255, 255, 255, 0.3);
+}
+
+.gp-foot {
+   display: flex;
+   align-items: center;
+   gap: 18px;
+   padding: 10px 18px;
+   border-top: 1px solid rgba(255, 255, 255, 0.06);
+   font-size: 11px;
+   color: rgba(255, 255, 255, 0.3);
+}
+
+.gp-foot-right {
+   margin-left: auto;
+   font-weight: 700;
+   letter-spacing: 2px;
+   text-transform: uppercase;
+   color: rgba(255, 255, 255, 0.16);
+}
+
+.gp-panel kbd {
+   font-family: inherit;
+   font-size: 10px;
+   font-weight: 600;
+   background: rgba(255, 255, 255, 0.06);
+   border: 1px solid rgba(255, 255, 255, 0.08);
+   border-radius: 5px;
+   padding: 2px 6px;
+   margin-right: 3px;
+   color: rgba(255, 255, 255, 0.45);
+}

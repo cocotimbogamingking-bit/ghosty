@@ -102,6 +102,42 @@
 
   renderRecent();
 
+  // ── stats strip ─────────────────────────────────────────────────────────────
+  // Real numbers only: the catalogue is counted from the catalogue, and the blocked
+  // total comes from the worker that does the blocking.
+  const gamesCell = document.getElementById("stat-games");
+  const blockedCell = document.getElementById("stat-blocked");
+
+  function countUp(el, target) {
+    const start = performance.now();
+    const span = 700;
+    const step = now => {
+      const t = Math.min(1, (now - start) / span);
+      const eased = 1 - Math.pow(1 - t, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (t < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+
+  if (gamesCell) {
+    fetch("/assets/json/g.min.json")
+      .then(res => res.json())
+      .then(list => countUp(gamesCell, Array.isArray(list) ? list.length : 0))
+      .catch(() => {
+        gamesCell.textContent = "—";
+      });
+  }
+
+  if (blockedCell) {
+    window.addEventListener("ghosty:blocked", event => {
+      blockedCell.textContent = String(event.detail);
+    });
+    setTimeout(() => {
+      if (window.__ghosty) blockedCell.textContent = String(window.__ghosty.blocked());
+    }, 800);
+  }
+
   // ── search suggestions ──────────────────────────────────────────────────────
   const box = document.getElementById("suggestions");
   let entries = [];
@@ -214,16 +250,14 @@
     form.addEventListener("submit", closeBox);
   }
 
-  // Ctrl+K / "/" focus the bar, the way every other search surface behaves.
+  // "/" focuses the bar. Ctrl+K belongs to the command palette, which is the same
+  // shortcut on every page — the search bar keeping it here would be the odd one out.
   document.addEventListener("keydown", event => {
-    const typing = document.activeElement === input;
-    if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
-      event.preventDefault();
-      input && input.focus();
-    } else if (event.key === "/" && !typing && input) {
-      event.preventDefault();
-      input.focus();
-    }
+    if (event.key !== "/" || !input) return;
+    const active = document.activeElement;
+    if (active === input || (active && /^(INPUT|TEXTAREA|SELECT)$/.test(active.tagName))) return;
+    event.preventDefault();
+    input.focus();
   });
 
   window.__ghostyRenderRecent = renderRecent;

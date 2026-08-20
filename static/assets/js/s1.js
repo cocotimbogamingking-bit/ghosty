@@ -295,6 +295,61 @@ function AB() {
   }
 }
 
+// ── ad blocking, rescued hosts ───────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", () => {
+  const toggle = document.getElementById("block-switch");
+  const count = document.getElementById("block-count");
+  if (toggle) {
+    const sync = () => {
+      toggle.checked = window.__ghosty ? window.__ghosty.blocking() : true;
+    };
+    setTimeout(sync, 400);
+    toggle.addEventListener("change", () => {
+      if (window.__ghosty) window.__ghosty.blocking(toggle.checked);
+    });
+  }
+  if (count) {
+    // The worker owns the tally; asking it beats keeping a second copy in sync.
+    const paint = value => {
+      count.textContent = String(value);
+    };
+    window.addEventListener("ghosty:blocked", event => paint(event.detail));
+    setTimeout(() => paint(window.__ghosty ? window.__ghosty.blocked() : 0), 600);
+  }
+  renderRescued();
+});
+
+function renderRescued() {
+  const list = document.getElementById("rescued-list");
+  if (!list) return;
+  const hosts = window.__ghosty ? window.__ghosty.rescued() : [];
+  list.innerHTML = "";
+  if (!hosts.length) {
+    const empty = document.createElement("span");
+    empty.className = "pill-empty";
+    empty.textContent = "Nothing has needed the fallback yet.";
+    list.appendChild(empty);
+    return;
+  }
+  for (const host of hosts) {
+    const pill = document.createElement("button");
+    pill.type = "button";
+    pill.className = "pill";
+    pill.title = "Remove " + host;
+    pill.innerHTML = host + ' <i class="fa-solid fa-xmark"></i>';
+    pill.addEventListener("click", () => {
+      window.__ghosty.unpin(host);
+      renderRescued();
+    });
+    list.appendChild(pill);
+  }
+}
+
+function clearRescued() {
+  for (const host of window.__ghosty ? window.__ghosty.rescued() : []) window.__ghosty.unpin(host);
+  renderRescued();
+}
+
 function toggleAB() {
   const abSwitch = document.getElementById("ab-settings-switch");
   localStorage.setItem("ab", abSwitch && abSwitch.checked ? "true" : "false");

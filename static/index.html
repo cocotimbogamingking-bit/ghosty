@@ -9,9 +9,10 @@
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
   <!-- Fixed title injection logic -->
   <title id="t">Home</title>
-  <link rel="stylesheet" href="/assets/css/global.css?v=sj3" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=03" />
-  <link rel="stylesheet" href="/assets/css/h.css?v=sj3" />
+  <link rel="stylesheet" href="/assets/css/global.css?v=sj5" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=sj4" />
+  <link rel="stylesheet" href="/assets/css/h.css?v=sj5" />
+  <link rel="stylesheet" href="/assets/css/palette.css?v=sj4" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 
@@ -311,7 +312,7 @@
           <i class="fa-solid fa-magnifying-glass search-icon-main"></i>
           <input id="input" autocomplete="off" spellcheck="false" placeholder="Search the web or enter a URL..."
             type="text" />
-          <span class="search-shortcut">Ctrl K</span>
+          <span class="search-shortcut">/</span>
         </form>
         <div id="suggestions" class="suggestions" hidden></div>
       </div>
@@ -336,9 +337,22 @@
 
       </div>
 
-      <div class="domain-selector">
-        <button class="domain-btn"><i class="fa-solid fa-network-wired"></i> Ghosty Node <i
-            class="fa-solid fa-caret-down"></i></button>
+      <div class="stat-strip" id="stat-strip">
+        <button class="stat-cell" type="button" onclick="location.href='/a'">
+          <span class="stat-value" id="stat-games">—</span>
+          <span class="stat-name">games</span>
+        </button>
+        <span class="stat-sep"></span>
+        <button class="stat-cell" type="button" onclick="location.href='/c'">
+          <span class="stat-value" id="stat-blocked">0</span>
+          <span class="stat-name">trackers blocked</span>
+        </button>
+        <span class="stat-sep"></span>
+        <button class="stat-cell" type="button"
+          onclick="window.__ghostyPalette && window.__ghostyPalette.open()">
+          <span class="stat-value"><i class="fa-solid fa-bolt"></i> Ctrl K</span>
+          <span class="stat-name">search everything</span>
+        </button>
       </div>
     </div>
   </div>
@@ -378,9 +392,10 @@
   <script src="./assets/mathematics/config.js?v=sj1"></script>
   <script src="/baremux/index.js?v=sj1"></script>
   <script src="/scram/scramjet.all.js"></script>
-  <script src="/assets/js/engine.js?v=sj1"></script>
-  <script src="/assets/js/home.js?v=sj3"></script>
-  <script src="/assets/js/m1.js"></script>
+  <script src="/assets/js/engine.js?v=sj4"></script>
+  <script src="/assets/js/home.js?v=sj5"></script>
+  <script src="/assets/js/palette.js?v=sj4"></script>
+  <script src="/assets/js/m1.js?v=sj4"></script>
 </body>
 
 </html>

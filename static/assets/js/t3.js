@@ -328,11 +328,72 @@ function updateUrlBar() {
         const websitePath = website.replace(window.location.origin, "");
         input.value = websitePath === "/" ? "" : websitePath;
       }
+      recordVisit(input.value, activeIframe);
     }
   } catch {
     // Cross-origin - can't read URL
   }
+  refreshMark();
 }
+
+// History is written here rather than on iframe load: this is the one place that
+// already knows the real URL behind the proxied one, and it runs on every navigation
+// inside a tab, not only the first.
+function recordVisit(url, frame) {
+  if (!window.__ghostyPalette || !url || !/^https?:/.test(url)) return;
+  let title = url;
+  try {
+    title = frame.contentDocument?.title || url;
+  } catch {}
+  window.__ghostyPalette.store.visit(url, title);
+}
+
+function currentPage() {
+  const input = document.getElementById("input");
+  const value = input ? input.value.trim() : "";
+  if (!/^https?:/.test(value)) return null;
+  const frame = document.querySelector("#frame-container iframe.active");
+  let title = value;
+  try {
+    title = frame?.contentDocument?.title || value;
+  } catch {}
+  return { url: value, title };
+}
+
+function refreshMark() {
+  const button = document.getElementById("mark-button");
+  if (!button || !window.__ghostyPalette) return;
+  const page = currentPage();
+  const marked = page ? window.__ghostyPalette.store.isMarked(page.url) : false;
+  button.querySelector("i").className = marked ? "fa-solid fa-star" : "fa-regular fa-star";
+  button.classList.toggle("marked", marked);
+  button.disabled = !page;
+}
+
+function toggleMark() {
+  const page = currentPage();
+  if (!page || !window.__ghostyPalette) return;
+  window.__ghostyPalette.store.toggleMark(page.url, page.title);
+  refreshMark();
+}
+
+// The worker counts what it blocks; the shield just mirrors that number.
+window.addEventListener("ghosty:blocked", event => {
+  const badge = document.getElementById("shield-count");
+  if (badge) badge.textContent = String(event.detail);
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const shield = document.getElementById("shield-button");
+  if (!shield) return;
+  const paint = () => {
+    const on = window.__ghosty ? window.__ghosty.blocking() : true;
+    shield.classList.toggle("off", !on);
+    shield.title = on ? "Ad and tracker blocking is on" : "Ad and tracker blocking is off";
+  };
+  shield.addEventListener("click", () => setTimeout(paint, 60));
+  setTimeout(paint, 400);
+});
 
 // Reload
 function reload() {

@@ -35,6 +35,14 @@ try {
   console.error("[sw] dynamic engine unavailable:", err);
 }
 
+let blocklist = null;
+try {
+  importScripts("/assets/js/blocklist.js?v=sj4");
+  blocklist = self.GHOSTY_BLOCKLIST;
+} catch (err) {
+  console.error("[sw] blocklist unavailable:", err);
+}
+
 const SCRAM_PREFIX = "/a/";
 const UV_PREFIX = uv ? __uv$config.prefix : "/uv/";
 
@@ -63,6 +71,74 @@ function xorDecode(str) {
 // one is closed, so a fixed proxy keeps serving through the broken previous version.
 self.addEventListener("install", () => self.skipWaiting());
 self.addEventListener("activate", event => event.waitUntil(self.clients.claim()));
+
+// ── ad and tracker blocking ──────────────────────────────────────────────────────
+// The proxy already sees every request a page makes, decoded, so this is the one place
+// where blocking costs nothing extra. Matching is by domain suffix on a label boundary,
+// so "ads.example.com" never matches "example.com" by accident and vice versa.
+let blockingOn = true;
+let blockedCount = 0;
+const blockSuffixes = blocklist || [];
+
+function isBlocked(hostname) {
+  if (!blockingOn || !blockSuffixes.length) return false;
+  const host = hostname.toLowerCase();
+  for (const suffix of blockSuffixes) {
+    if (host === suffix || host.endsWith("." + suffix)) return true;
+  }
+  return false;
+}
+
+// The real destination of a proxied request, or null when it is not one.
+function targetOf(url) {
+  try {
+    if (url.pathname.startsWith(SCRAM_PREFIX)) {
+      return new URL(xorDecode(url.pathname.slice(SCRAM_PREFIX.length)));
+    }
+    if (uv && url.pathname.startsWith(UV_PREFIX)) {
+      return new URL(__uv$config.decodeUrl(url.pathname.slice(UV_PREFIX.length)));
+    }
+  } catch {}
+  return null;
+}
+
+// A blocked request must still look like a normal answer or the page's own error
+// handling fires; an empty 200 of the right shape is the quietest thing to return.
+function blockedResponse(request) {
+  const destination = request.destination;
+  if (destination === "script") {
+    return new Response("", { status: 200, headers: { "content-type": "application/javascript" } });
+  }
+  if (destination === "style") {
+    return new Response("", { status: 200, headers: { "content-type": "text/css" } });
+  }
+  if (destination === "image") {
+    // 1x1 transparent GIF, so layouts that size themselves off the image still work.
+    const gif = Uint8Array.from(
+      atob("R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7"),
+      c => c.charCodeAt(0),
+    );
+    return new Response(gif, { status: 200, headers: { "content-type": "image/gif" } });
+  }
+  return new Response("", { status: 200, headers: { "content-type": "text/plain" } });
+}
+
+async function announceBlocked() {
+  try {
+    const clients = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+    for (const client of clients) {
+      client.postMessage({ ghosty: "blocked", count: blockedCount });
+    }
+  } catch {}
+}
+
+self.addEventListener("message", event => {
+  const data = event.data;
+  if (!data || data.ghosty !== "config") return;
+  if (typeof data.blocking === "boolean") blockingOn = data.blocking;
+  if (data.reset) blockedCount = 0;
+  announceBlocked();
+});
 
 // Paths that belong to the proxy itself. A proxied page requests these because the
 // engine injects them, so they must never be resolved against the proxied site.
@@ -253,6 +329,46 @@ async function scramjetFetch(event) {
   return null;
 }
 
+// Second chance for a page Scramjet cannot serve. The two engines rewrite differently,
+// so a site that trips one often works on the other; the host is remembered and sent to
+// the pages, which pin it to Ultraviolet from then on instead of failing first every time.
+const uvHosts = new Set();
+
+async function failOverToUv(event, requestUrl) {
+  if (!uv) return null;
+  const destination = event.request.destination;
+  if (destination !== "document" && destination !== "iframe") return null;
+
+  let target;
+  try {
+    target = new URL(xorDecode(requestUrl.pathname.slice(SCRAM_PREFIX.length)));
+  } catch {
+    return null;
+  }
+
+  try {
+    const request = new Request(location.origin + UV_PREFIX + __uv$config.encodeUrl(target.href), {
+      method: event.request.method,
+      headers: event.request.headers,
+      mode: "same-origin",
+      credentials: event.request.credentials,
+      redirect: event.request.redirect,
+    });
+    const answer = await uv.fetch({ request, clientId: event.clientId });
+    if (!answer) return null;
+    uvHosts.add(target.hostname);
+    const clients = await self.clients.matchAll({ type: "window", includeUncontrolled: true });
+    for (const client of clients) {
+      client.postMessage({ ghosty: "failover", host: target.hostname });
+    }
+    console.warn("[sw] scramjet failed for", target.hostname, "— served through ultraviolet");
+    return answer;
+  } catch (err) {
+    console.error("[sw] ultraviolet failover failed:", err);
+    return null;
+  }
+}
+
 // Shown instead of a wrong page while the engine is still coming up. Navigations get a
 // page that retries itself; anything else gets a plain 503 the site can handle.
 function notReady(event) {
@@ -291,6 +407,17 @@ self.addEventListener("fetch", event => {
         );
       }
 
+      // Checked before either engine runs, so a blocked tracker never opens a socket.
+      // Navigations are exempt: blocking one would strand the user on a blank tab.
+      if (!isTopLevelNav(event) && event.request.destination !== "iframe") {
+        const target = targetOf(requestUrl);
+        if (target && isBlocked(target.hostname)) {
+          blockedCount++;
+          announceBlocked();
+          return blockedResponse(event.request);
+        }
+      }
+
       // /a/q/ is checked first: it sits inside Scramjet's /a/ prefix, and an xor-encoded
       // URL always begins with the letters of "http", never "q/".
       if (dynamic) {
@@ -303,9 +430,13 @@ self.addEventListener("fetch", event => {
         await scramjetReady();
         const answer = await scramjetFetch(event);
         if (answer) return answer;
-        // A /a/ path belongs to nobody else. Falling through would hand the frame the
-        // server's own 404 page, and the frame would keep it.
-        if (requestUrl.pathname.startsWith(SCRAM_PREFIX)) return notReady(event);
+        if (requestUrl.pathname.startsWith(SCRAM_PREFIX)) {
+          const rescued = await failOverToUv(event, requestUrl);
+          if (rescued) return rescued;
+          // A /a/ path belongs to nobody else. Falling through would hand the frame the
+          // server's own 404 page, and the frame would keep it.
+          return notReady(event);
+        }
       }
 
       if (uv) {

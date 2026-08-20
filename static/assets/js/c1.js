@@ -28,6 +28,31 @@ function saveToLocal(path) {
   sessionStorage.setItem("GoUrl", path);
 }
 
+// Most of the bundled games ship no icon of their own. Rather than leave a hole in the
+// grid, build a tile from the title: same name always gets the same hue, so the wall of
+// cards stays varied but stable between reloads.
+function initialsOf(name) {
+  const words = String(name).replace(/[^\w\s.]/g, " ").trim().split(/\s+/);
+  if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+  return (words[0][0] + words[1][0]).toUpperCase();
+}
+
+function hueOf(name) {
+  let hash = 0;
+  for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) % 360;
+  return hash;
+}
+
+function makeTile(name) {
+  const tile = document.createElement("div");
+  tile.className = "tile-fallback";
+  const hue = hueOf(String(name));
+  tile.style.setProperty("--tile-a", `hsl(${hue} 55% 26%)`);
+  tile.style.setProperty("--tile-b", `hsl(${(hue + 42) % 360} 60% 13%)`);
+  tile.textContent = initialsOf(name);
+  return tile;
+}
+
 function handleClick(app) {
   if (typeof app.say !== "undefined") {
     alert(app.say);
@@ -318,15 +343,17 @@ fetch(path)
         handleClick(app);
       };
 
-      const image = document.createElement("img");
-      image.width = 145;
-      image.height = 145;
-      image.loading = "lazy";
-
+      let image;
       if (app.image) {
+        image = document.createElement("img");
+        image.width = 145;
+        image.height = 145;
+        image.loading = "lazy";
         image.src = app.image;
+        // A dead icon URL used to leave the browser's broken-image glyph in the card.
+        image.onerror = () => image.replaceWith(makeTile(app.name));
       } else {
-        image.style.display = "none";
+        image = makeTile(app.name);
       }
 
       const paragraph = document.createElement("p");
@@ -377,38 +404,106 @@ fetch(path)
       appsContainer.appendChild(pinnedApps);
       appsContainer.appendChild(nonPinnedApps);
     }
+
+    // The chips are built from what the catalogue actually contains, so a category
+    // never appears with nothing behind it.
+    const row = document.getElementById("category-row");
+    if (row) {
+      const LABELS = {
+        all: "All",
+        local: "Built in",
+        "2P": "2 player",
+        sports: "Sports",
+        emu: "Emulators",
+        flash: "Flash",
+        android: "Android",
+        game: "Cloud",
+        media: "Media",
+        social: "Social",
+        tools: "Tools",
+      };
+      const counts = {};
+      for (const card of document.getElementsByClassName("column")) {
+        for (const name of (card.getAttribute("data-category") || "").split(" ")) {
+          if (name && name !== "all") counts[name] = (counts[name] || 0) + 1;
+        }
+      }
+      const order = Object.keys(counts)
+        .filter(name => counts[name] >= 5 && LABELS[name])
+        .sort((a, b) => counts[b] - counts[a]);
+
+      const makeChip = (value, label) => {
+        const chip = document.createElement("button");
+        chip.type = "button";
+        chip.className = "chip" + (value === "all" ? " active" : "");
+        chip.textContent = label;
+        chip.addEventListener("click", () => setCategory(value, chip));
+        row.appendChild(chip);
+      };
+      makeChip("all", LABELS.all);
+      for (const name of order) makeChip(name, LABELS[name]);
+    }
+    applyFilter();
   })
   .catch(error => {
     console.error("Error fetching JSON data:", error);
   });
 
-function category() {
-  const selectedCategories = Array.from(document.querySelectorAll("#category option:checked")).map(option => option.value);
-  const g = document.getElementsByClassName("column");
+// Search text and category are applied together. They used to be two functions that each
+// rewrote every card's display, so picking a category threw the search away and vice
+// versa. The old code also set display:block on a flex card, which knocked the icon and
+// the title out of their centred layout for the rest of the session.
+let activeCategory = "all";
 
-  for (const game of g) {
-    const categories = game.getAttribute("data-category").split(" ");
+function applyFilter() {
+  const input = document.getElementById("search");
+  const text = input ? input.value.trim().toLowerCase() : "";
+  const cards = document.getElementsByClassName("column");
+  let shown = 0;
 
-    if (selectedCategories.length === 0 || selectedCategories.some(category => categories.includes(category))) {
-      game.style.display = "block";
-    } else {
-      game.style.display = "none";
-    }
+  for (const card of cards) {
+    const title = card.getElementsByTagName("p")[0];
+    const name = title ? title.textContent.toLowerCase() : "";
+    const categories = (card.getAttribute("data-category") || "").split(" ");
+    const matchesText = !text || name.includes(text);
+    const matchesCategory = activeCategory === "all" || categories.includes(activeCategory);
+    const visible = matchesText && matchesCategory;
+    card.style.display = visible ? "" : "none";
+    if (visible) shown++;
   }
+
+  const counter = document.getElementById("result-count");
+  if (counter) counter.textContent = shown + (shown === 1 ? " result" : " results");
+  const empty = document.getElementById("no-results");
+  if (empty) empty.hidden = shown > 0;
+}
+
+function setCategory(value, chip) {
+  activeCategory = value;
+  const row = document.getElementById("category-row");
+  if (row) {
+    for (const button of row.querySelectorAll(".chip")) button.classList.remove("active");
+  }
+  if (chip) chip.classList.add("active");
+  applyFilter();
+}
+
+// Opens a random card that is currently visible, so it respects the filter you set.
+function surpriseMe() {
+  const visible = [...document.getElementsByClassName("column")].filter(
+    card => card.style.display !== "none",
+  );
+  if (!visible.length) return;
+  const pick = visible[Math.floor(Math.random() * visible.length)];
+  const link = pick.querySelector("a");
+  if (link) link.click();
+}
+
+// Kept because the markup still calls them by name.
+function category() {
+  applyFilter();
 }
 
 function bar() {
-  const input = document.getElementById("search");
-  const filter = input.value.toLowerCase();
-  const g = document.getElementsByClassName("column");
-
-  for (const game of g) {
-    const name = game.getElementsByTagName("p")[0].textContent.toLowerCase();
-
-    if (name.includes(filter)) {
-      game.style.display = "block";
-    } else {
-      game.style.display = "none";
-    }
-  }
+  applyFilter();
 }

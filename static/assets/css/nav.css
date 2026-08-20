@@ -1,11 +1,11 @@
-/* Sidebar matching PeteZah */
+/* Left rail and top bar. */
 .f-nav {
    position: fixed;
    top: 0;
    left: 0;
    height: 100vh;
    width: 56px;
-   background: var(--bg-primary);
+   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 40%), var(--bg-primary);
    border-right: 1px solid var(--border-color);
    display: flex;
    flex-direction: column;
@@ -15,35 +15,106 @@
 }
 
 .sidebar-top {
-   margin-bottom: 24px;
+   margin-bottom: 20px;
 }
 
 .sidebar-menu {
    display: flex;
    flex-direction: column;
-   gap: 12px;
+   gap: 8px;
    align-items: center;
 }
 
+.sidebar-rule {
+   width: 20px;
+   height: 1px;
+   background: rgba(255, 255, 255, 0.08);
+   margin: 6px 0;
+}
+
 .sidebar-link {
+   position: relative;
    display: flex;
    justify-content: center;
    align-items: center;
    width: 40px;
    height: 40px;
-   color: rgba(255, 255, 255, 0.4);
-   font-size: 18px;
+   color: rgba(255, 255, 255, 0.38);
+   font-size: 17px;
    border-radius: 12px;
-   transition: all 0.3s ease;
    text-decoration: none;
+   transition: color 0.18s ease, background 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sidebar-link:hover {
    color: #fff;
-   background: rgba(255, 255, 255, 0.05);
+   background: rgba(255, 255, 255, 0.07);
+   transform: translateY(-1px);
+}
+
+.sidebar-link:active {
+   transform: scale(0.94);
+}
+
+/* Marks the page you are on. The rail is icon-only, so without it there is nothing
+   to tell you where you already are. */
+.sidebar-link.active {
+   color: #fff;
+   background: rgba(255, 255, 255, 0.07);
+}
+
+.sidebar-link.active::before {
+   content: "";
+   position: absolute;
+   left: -10px;
+   top: 50%;
+   transform: translateY(-50%);
+   width: 3px;
+   height: 18px;
+   border-radius: 0 3px 3px 0;
+   background: #fff;
+}
+
+/* Hover plate. The rail shows icons only, so the label is the only thing that says
+   what each one does; title= appears too late to be useful. */
+.sidebar-link[data-label]::after,
+.sidebar-logo[data-label]::after {
+   content: attr(data-label);
+   position: absolute;
+   left: calc(100% + 12px);
+   top: 50%;
+   transform: translateY(-50%) translateX(-4px);
+   padding: 6px 11px;
+   background: rgba(16, 16, 21, 0.97);
+   border: 1px solid rgba(255, 255, 255, 0.09);
+   border-radius: 9px;
+   font-size: 11.5px;
+   font-weight: 600;
+   letter-spacing: 0.2px;
+   color: rgba(255, 255, 255, 0.86);
+   white-space: nowrap;
+   opacity: 0;
+   pointer-events: none;
+   box-shadow: 0 10px 26px rgba(0, 0, 0, 0.55);
+   transition: opacity 0.15s ease, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+   z-index: 1200;
+}
+
+.sidebar-link[data-label]:hover::after,
+.sidebar-logo[data-label]:hover::after {
+   opacity: 1;
+   transform: translateY(-50%) translateX(0);
+}
+
+.sidebar-bottom {
+   margin-top: auto;
+   display: flex;
+   flex-direction: column;
+   gap: 8px;
 }
 
 .sidebar-logo {
+   position: relative;
    display: flex;
    justify-content: center;
    align-items: center;
@@ -53,22 +124,23 @@
    color: #fff;
    font-size: 22px;
    text-decoration: none;
-   transition: var(--transition-premium);
+   transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .sidebar-logo i {
-   /* Remove blue neon pulse */
-   filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+   filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.22));
+   transition: filter 0.3s ease;
 }
 
-.sidebar-bottom {
-   margin-top: auto;
-   display: flex;
-   flex-direction: column;
-   gap: 12px;
+.sidebar-logo:hover {
+   transform: translateY(-2px);
 }
 
-/* Top bar matching theme */
+.sidebar-logo:hover i {
+   filter: drop-shadow(0 0 16px rgba(255, 255, 255, 0.4));
+}
+
+/* Top bar */
 .top-nav {
    position: fixed;
    top: 0;
@@ -78,25 +150,37 @@
    display: flex;
    align-items: center;
    padding: 0 16px;
-   background: var(--bg-primary);
+   background: rgba(4, 4, 6, 0.82);
+   backdrop-filter: blur(18px);
    border-bottom: 1px solid var(--border-color);
    z-index: 999;
 }
 
 .nav-actions {
    display: flex;
-   gap: 16px;
+   gap: 6px;
    color: var(--text-secondary);
-   font-size: 14px;
+   font-size: 13px;
 }
 
 .nav-actions i {
    cursor: pointer;
-   transition: color 0.2s;
+   width: 30px;
+   height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 9px;
+   transition: color 0.15s ease, background 0.15s ease;
 }
 
 .nav-actions i:hover {
    color: #fff;
+   background: rgba(255, 255, 255, 0.07);
+}
+
+.nav-actions i:active {
+   transform: scale(0.92);
 }
 
 .url-bar-container {
@@ -107,7 +191,7 @@
 }
 
 .url-bar {
-   background: var(--glass);
+   background: rgba(255, 255, 255, 0.03);
    border: 1px solid var(--glass-border);
    border-radius: 10px;
    height: 32px;
@@ -115,34 +199,69 @@
    max-width: 600px;
    display: flex;
    align-items: center;
-   padding: 0 14px;
+   gap: 8px;
+   padding: 0 8px 0 14px;
    font-size: 13px;
    color: var(--text-secondary);
+   cursor: pointer;
+   transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.url-bar:hover {
+   background: rgba(255, 255, 255, 0.06);
+   border-color: rgba(255, 255, 255, 0.14);
+}
+
+.url-bar>i {
+   font-size: 10px;
+   color: rgba(255, 255, 255, 0.4);
 }
 
 .url-bar .prefix {
    color: rgba(255, 255, 255, 0.3);
-   margin-right: 4px;
    user-select: none;
 }
 
 .url-bar .path {
    color: #fff;
+   margin-right: auto;
+}
+
+.url-kbd {
+   font-family: inherit;
+   font-size: 9.5px;
+   font-weight: 600;
+   letter-spacing: 0.3px;
+   color: rgba(255, 255, 255, 0.35);
+   background: rgba(255, 255, 255, 0.05);
+   border: 1px solid rgba(255, 255, 255, 0.07);
+   border-radius: 5px;
+   padding: 3px 6px;
 }
 
 .right-actions {
    display: flex;
-   gap: 18px;
+   gap: 4px;
    color: var(--text-secondary);
-   font-size: 16px;
+   font-size: 14px;
 }
 
 .right-actions i {
    cursor: pointer;
-   transition: color 0.2s;
+   width: 30px;
+   height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 9px;
+   transition: color 0.15s ease, background 0.15s ease;
 }
 
 .right-actions i:hover {
    color: #fff;
-   transform: scale(1.1);
+   background: rgba(255, 255, 255, 0.07);
+}
+
+.right-actions i:active {
+   transform: scale(0.92);
 }
