@@ -11,13 +11,20 @@ const scramjet = new ScramjetServiceWorker();
 // What a proxy can do that an extension cannot is edit the response on the way past:
 // renaming the keys leaves the player looking up fields that are no longer there, and
 // it never asks for the ad streams in the first place.
+// Two fields that used to be on this list are deliberately not any more:
+// "playerAdParams" and "adBreakHeartbeatParams". Every other key here is one the
+// player already meets as missing — an unmonetised video ships no adPlacements and
+// no adSlots — so the code that reads them is written to cope. Those two are always
+// present, and the code that reads them is the mid-roll scheduler, which runs the
+// moment you scrub past a break. Renaming them left the player dereferencing
+// undefined exactly then, which is why a video played from the start and died on a
+// long seek. Removing them costs no ad blocking: the ad streams themselves are
+// already gone with adPlacements and adSlots.
 const AD_KEYS = [
   // Player ads: pre-roll, mid-roll and the ad break scheduler.
   '"adPlacements"',
   '"playerAds"',
   '"adSlots"',
-  '"adBreakHeartbeatParams"',
-  '"playerAdParams"',
   // Feed and search ads. Renaming the renderer key means the component that draws it
   // is never looked up, so the entry arrives as something YouTube cannot render.
   '"adSlotRenderer"',
@@ -112,16 +119,38 @@ function isYouTube(url) {
 }
 
 scramjet.addEventListener("handleResponse", event => {
-  // The transport hands back a decompressed body but the origin's headers still describe
-  // the compressed one. Left in place, the browser stops reading at content-length: a
-  // 2.9MB stylesheet arrives cut in half and half of YouTube's layout never applies.
-  delete event.responseHeaders["content-encoding"];
-  delete event.responseHeaders["content-length"];
-  delete event.responseHeaders["transfer-encoding"];
+  const headers = event.responseHeaders;
 
-  if (!blockingOn || !isYouTube(event.url)) return;
-  const type = String(event.responseHeaders["content-type"] || "").toLowerCase();
+  // Framing belongs to the hop between the transport and this worker. The browser
+  // builds its own, and a stale value here is never right.
+  delete headers["transfer-encoding"];
+
+  // A byte range is the one response where content-length carries meaning the client
+  // acts on: a media player asked for exactly these bytes and refuses the answer if
+  // the length and the Content-Range disagree. It is also the one response that is
+  // never compressed, so the length is still true. That is why seeking a video used
+  // to die on "Something went wrong" while playing from the start was fine — the
+  // first segments are fetched before the player starts checking, the seek is not.
+  //
+  // Everything else does come back decompressed with the compressed length still
+  // attached, and left in place the browser stops reading early: a 2.9MB stylesheet
+  // arrives cut in half and half of YouTube's layout never applies.
+  const encoded = !!headers["content-encoding"];
+  const partial = !encoded && (event.status === 206 || !!headers["content-range"]);
+
+  if (!partial) {
+    delete headers["content-encoding"];
+    delete headers["content-length"];
+  }
+
+  // Never rewrite a fragment of a body. The keys below can straddle the edges of a
+  // range, and half a key renamed is a broken document.
+  if (!blockingOn || partial || !isYouTube(event.url)) return;
+  const type = String(headers["content-type"] || "").toLowerCase();
   if (!type.includes("json") && !type.includes("html") && !type.includes("javascript")) return;
+
+  // The rename makes the body longer, so any length that survived above is now a lie.
+  delete headers["content-length"];
 
   const body = event.responseBody;
   // dispatchEvent is synchronous and the Response is built the moment it returns, so

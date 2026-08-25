@@ -47,8 +47,12 @@ function makeTile(name) {
   const tile = document.createElement("div");
   tile.className = "tile-fallback";
   const hue = hueOf(String(name));
-  tile.style.setProperty("--tile-a", `hsl(${hue} 55% 26%)`);
-  tile.style.setProperty("--tile-b", `hsl(${(hue + 42) % 360} 60% 13%)`);
+  // Folded into a warm band and drained of saturation: enough drift that two
+  // neighbouring fallbacks are not identical, not enough to put a cool tile in
+  // the middle of a warm page.
+  const warm = 16 + (hue % 46);
+  tile.style.setProperty("--tile-a", `hsl(${warm} 12% 19%)`);
+  tile.style.setProperty("--tile-b", `hsl(${warm - 8} 14% 11%)`);
   tile.textContent = initialsOf(name);
   return tile;
 }
@@ -208,15 +212,10 @@ function CreateCustomApp(customApp) {
 
   const btn = document.createElement("button");
   btn.appendChild(pinIcon);
-  btn.style.float = "right";
-  btn.style.cursor = "pointer";
-  btn.style.backgroundColor = "rgb(45,45,45)";
-  btn.style.borderRadius = "50%";
-  btn.style.borderColor = "transparent";
-  btn.style.color = "white";
-  btn.style.top = "-200px";
-  btn.style.position = "relative";
-  btn.onclick = () => {
+  btn.className = "pin-btn";
+  btn.type = "button";
+  btn.onclick = event => {
+    event.stopPropagation();
     setPin(appInd);
   };
   btn.title = "Pin";
@@ -325,14 +324,10 @@ fetch(path)
 
       const btn = document.createElement("button");
       btn.appendChild(pinIcon);
-      btn.style.float = "right";
-      btn.style.backgroundColor = "rgb(45,45,45)";
-      btn.style.borderRadius = "50%";
-      btn.style.borderColor = "transparent";
-      btn.style.color = "white";
-      btn.style.top = "-200px";
-      btn.style.position = "relative";
-      btn.onclick = () => {
+      btn.className = "pin-btn";
+      btn.type = "button";
+      btn.onclick = event => {
+        event.stopPropagation();
         setPin(pinNum);
       };
       btn.title = "Pin";
@@ -362,18 +357,20 @@ fetch(path)
         paragraph.appendChild(span);
       }
 
+      // Terracotta and amber, not red and yellow. A broken tile should read as
+      // a note in the margin, not as the loudest thing on the page.
       if (app.error) {
-        paragraph.style.color = "red";
+        columnDiv.classList.add("is-broken");
         if (!app.say) {
           app.say = "This app is currently not working.";
         }
       } else if (app.load) {
-        paragraph.style.color = "yellow";
+        columnDiv.classList.add("is-slow");
         if (!app.say) {
           app.say = "This app may experience excessive loading times.";
         }
       } else if (app.partial) {
-        paragraph.style.color = "yellow";
+        columnDiv.classList.add("is-slow");
         if (!app.say) {
           app.say = "This app is currently experiencing some issues, it may not work for you. (Dynamic doesn't work in about:blank)";
         }

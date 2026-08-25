@@ -190,13 +190,23 @@ export default class GhostyTransport {
     }
 
     const raw = JSON.parse(joinBareHeaders(answer.headers) || "{}");
+    const status = parseInt(answer.headers.get("x-bare-status") || "200", 10);
+    const rawNames = Object.keys(raw).map(name => name.toLowerCase());
+    const compressed = rawNames.includes("content-encoding");
+    const partial = !compressed && (status === 206 || rawNames.includes("content-range"));
     // Same shape the bundled epoxy build returns: a plain object, lowercase names,
     // an array only where the upstream really sent the header more than once. An
     // array of pairs here reads back downstream as {0:"content-type",1:"date",...}.
+    // Keep the length only for an uncompressed byte range. A googlevideo host that
+    // falls back from Epoxy lands here for every later segment; dropping the range's
+    // length makes a long seek fail even though playback from the first buffer works.
+    // Non-range bodies still arrive with framing from the upstream hop, so keeping
+    // their length would cut decompressed responses such as YouTube's large CSS short.
     const out = {};
     for (const [name, value] of Object.entries(raw)) {
       const lower = name.toLowerCase();
-      if (lower === "content-encoding" || lower === "content-length" || lower === "transfer-encoding") continue;
+      if (lower === "transfer-encoding") continue;
+      if (!partial && (lower === "content-encoding" || lower === "content-length")) continue;
       const values = Array.isArray(value) ? value : [value];
       for (const one of values) {
         if (out[lower] === undefined) out[lower] = one;
@@ -208,7 +218,7 @@ export default class GhostyTransport {
     return {
       body: answer.body,
       headers: out,
-      status: parseInt(answer.headers.get("x-bare-status") || "200", 10),
+      status,
       statusText: answer.headers.get("x-bare-status-text") || "",
     };
   }

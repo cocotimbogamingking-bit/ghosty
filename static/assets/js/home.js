@@ -11,7 +11,12 @@
   // It used to sit there for a flat three seconds whatever the engine was doing.
   // Now it leaves as soon as the proxy is usable, with a floor so it never blinks
   // and a ceiling so a dead transport cannot trap the page behind it.
-  if (splash) {
+  // Arriving from another Ghosty page, the ghost wipe is already playing over
+  // the top of this. Two loading screens back to back is one too many, so the
+  // splash only survives a cold load.
+  if (splash && document.documentElement.classList.contains("gh-in")) {
+    splash.remove();
+  } else if (splash) {
     const shownAt = Date.now();
     let gone = false;
     const dismiss = () => {
@@ -43,8 +48,9 @@
     window.__ghosty.ready.then(
       () => {
         settled = true;
-        const name = window.__ghosty.engine() === "uv" ? "UltraViolet" : "Scramjet";
-        setStatus("online", name + " online");
+        // Which engine is carrying the traffic is a detail of the plumbing. The pill
+        // is there to say the proxy is up, and it says it the same way every time.
+        setStatus("online", "Ghosty Engine online");
       },
       () => {
         settled = true;
@@ -120,10 +126,16 @@
     requestAnimationFrame(step);
   }
 
+  const gamesSub = document.getElementById("sub-games");
+
   if (gamesCell) {
     fetch("/assets/json/g.min.json")
       .then(res => res.json())
-      .then(list => countUp(gamesCell, Array.isArray(list) ? list.length : 0))
+      .then(list => {
+        const total = Array.isArray(list) ? list.length : 0;
+        countUp(gamesCell, total);
+        if (gamesSub && total) gamesSub.textContent = total + " to play";
+      })
       .catch(() => {
         gamesCell.textContent = "—";
       });

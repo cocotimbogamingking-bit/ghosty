@@ -7,311 +7,110 @@
   <meta http-equiv="X-Content-Type-Options" content="nosniff" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
-  <!-- Fixed title injection logic -->
   <title id="t">Home</title>
-  <link rel="stylesheet" href="/assets/css/global.css?v=sj5" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=sj4" />
-  <link rel="stylesheet" href="/assets/css/h.css?v=sj5" />
-  <link rel="stylesheet" href="/assets/css/palette.css?v=sj4" />
+  <link rel="stylesheet" href="/assets/css/global.css?v=ember2" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=ember2" />
+  <link rel="stylesheet" href="/assets/css/h.css?v=ember2" />
+  <link rel="stylesheet" href="/assets/css/palette.css?v=ember2" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>try{if(sessionStorage.getItem("gh:in")){sessionStorage.removeItem("gh:in");document.documentElement.className+=" gh-in";}}catch(e){}</script>
 </head>
 
 <body>
-  <!-- ═══ LOADING SCREEN ═══ -->
+  <!-- ═══ Splash ═══ -->
   <div id="splash-screen">
     <style>
       #splash-screen {
         position: fixed;
         inset: 0;
         z-index: 99999;
-        background: var(--background, #050505);
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        font-family: 'Inter', system-ui, sans-serif;
-        overflow: hidden;
-        transition: opacity 0.8s ease, transform 0.8s ease;
+        background: var(--ink-900, #0d0c0b);
+        transition: opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1);
       }
 
       #splash-screen.fade-out {
         opacity: 0;
-        transform: scale(1.08);
         pointer-events: none;
       }
 
-      .splash-bg-grid {
-        position: absolute;
-        inset: 0;
-        background-image:
-          linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
-        background-size: 60px 60px;
-        animation: gridPulse 4s ease-in-out infinite;
-      }
-
-      @keyframes gridPulse {
-
-        0%,
-        100% {
-          opacity: 0.3;
-        }
-
-        50% {
-          opacity: 1;
-        }
-      }
-
-      .splash-glow {
-        position: absolute;
-        width: 500px;
-        height: 500px;
-        border-radius: 50%;
-        background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
-        animation: splashGlowPulse 3s ease-in-out infinite;
-      }
-
-      @keyframes splashGlowPulse {
-
-        0%,
-        100% {
-          transform: scale(1);
-          opacity: 0.4;
-        }
-
-        50% {
-          transform: scale(1.3);
-          opacity: 1;
-        }
-      }
-
-      .splash-ghost {
-        font-size: 90px;
-        color: var(--foreground, #fff);
-        margin-bottom: 24px;
-        position: relative;
-        z-index: 2;
-        animation: ghostFloat 2.5s ease-in-out infinite, ghostAppear 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      .splash-mark {
+        font-size: 24px;
+        color: var(--brass, #d2a35d);
+        margin-bottom: 18px;
         opacity: 0;
-        filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.15));
-      }
-
-      @keyframes ghostFloat {
-
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-
-        50% {
-          transform: translateY(-12px);
-        }
-      }
-
-      @keyframes ghostAppear {
-        from {
-          opacity: 0;
-          transform: scale(0.3) translateY(40px);
-        }
-
-        to {
-          opacity: 1;
-          transform: scale(1) translateY(0);
-        }
+        animation: splashIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
       }
 
       .splash-title {
-        font-size: 52px;
-        font-weight: 800;
-        letter-spacing: 18px;
-        color: var(--foreground, #fff);
-        text-transform: uppercase;
-        margin-bottom: 10px;
-        position: relative;
-        z-index: 2;
-        animation: titleReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+        font-family: var(--serif, Georgia, serif);
+        font-size: 46px;
+        font-weight: 300;
+        font-variation-settings: "SOFT" 20, "WONK" 1;
+        letter-spacing: -0.035em;
+        color: var(--paper, #f4efe6);
         opacity: 0;
+        animation: splashIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.22s forwards;
       }
 
-      @keyframes titleReveal {
-        from {
-          opacity: 0;
-          transform: translateY(25px);
-          letter-spacing: 40px;
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-          letter-spacing: 18px;
-        }
+      @keyframes splashIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
       }
 
-      .splash-version {
-        font-size: 11px;
-        color: var(--text-secondary, rgba(255, 255, 255, 0.5));
-        letter-spacing: 6px;
-        text-transform: uppercase;
-        margin-bottom: 40px;
+      /* One hairline, filling from the centre. No progress bar, no percentage:
+         it is a mood, not a measurement, and pretending otherwise reads cheap. */
+      .splash-rule {
+        width: 148px;
+        height: 1px;
+        margin-top: 26px;
+        background: rgba(244, 239, 230, 0.1);
         position: relative;
-        z-index: 2;
-        animation: subtitleReveal 0.6s ease 0.7s forwards;
-        opacity: 0;
-      }
-
-      @keyframes subtitleReveal {
-        from {
-          opacity: 0;
-          transform: translateY(10px);
-        }
-
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .splash-progress-track {
-        width: 220px;
-        height: 2px;
-        background: var(--border-color, rgba(255, 255, 255, 0.08));
-        border-radius: 10px;
         overflow: hidden;
-        position: relative;
-        z-index: 2;
-        margin-bottom: 60px;
       }
 
-      .splash-progress-bar {
-        height: 100%;
-        width: 0%;
-        background: var(--foreground, #fff);
-        border-radius: 10px;
-        animation: progressFill 2.5s cubic-bezier(0.1, 0, 0.2, 1) 0.3s forwards;
-        box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
-      }
-
-      @keyframes progressFill {
-        0% {
-          width: 0%;
-        }
-
-        15% {
-          width: 20%;
-        }
-
-        40% {
-          width: 50%;
-        }
-
-        70% {
-          width: 75%;
-        }
-
-        90% {
-          width: 92%;
-        }
-
-        100% {
-          width: 100%;
-        }
-      }
-
-      .splash-particles {
+      .splash-rule::after {
+        content: "";
         position: absolute;
         inset: 0;
-        overflow: hidden;
-        z-index: 1;
+        background: linear-gradient(90deg, transparent, var(--brass, #d2a35d), transparent);
+        transform: translateX(-100%);
+        animation: splashSweep 1.5s cubic-bezier(0.5, 0, 0.5, 1) 0.4s infinite;
       }
 
-      .splash-particle {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        animation: particleRise linear infinite;
-      }
-
-      @keyframes particleRise {
-        from {
-          transform: translateY(100vh) scale(0);
-          opacity: 0;
-        }
-
-        10% {
-          opacity: 1;
-        }
-
-        90% {
-          opacity: 0.5;
-        }
-
-        to {
-          transform: translateY(-10vh) scale(1);
-          opacity: 0;
-        }
+      @keyframes splashSweep {
+        to { transform: translateX(100%); }
       }
     </style>
 
-    <div class="splash-bg-grid"></div>
-    <div class="splash-glow"></div>
-    <div class="splash-particles" id="splash-particles"></div>
-
-    <i class="fa-solid fa-ghost splash-ghost"></i>
-    <div class="splash-title">GHOSTY</div>
-    <div class="splash-version">Secure Proxy • v5.2.6</div>
-    <div class="splash-progress-track">
-      <div class="splash-progress-bar"></div>
-    </div>
-
-
+    <i class="fa-solid fa-ghost splash-mark"></i>
+    <div class="splash-title">Ghosty</div>
+    <div class="splash-rule"></div>
   </div>
+  <!-- ═══ End splash ═══ -->
 
-  <script>
-    (function () {
-      const pc = document.getElementById('splash-particles');
-      if (!pc) return;
-      for (let i = 0; i < 15; i++) {
-        const p = document.createElement('div');
-        p.className = 'splash-particle';
-        p.style.left = Math.random() * 100 + '%';
-        p.style.animationDuration = (4 + Math.random() * 5) + 's';
-        p.style.animationDelay = (Math.random() * 4) + 's';
-        const s = (1 + Math.random() * 2) + 'px';
-        p.style.width = p.style.height = s;
-        pc.appendChild(p);
-      }
-    })();
-  </script>
-  <!-- ═══ END LOADING SCREEN ═══ -->
-
-
-
-  <div class="starfield-wrapper">
-    <div class="stars"></div>
-    <div class="stars stars-2"></div>
-    <div class="stars stars-3"></div>
-  </div>
-  <div class="planet planet-1"></div>
-  <div class="planet planet-2"></div>
   <div class="f-nav"></div>
 
   <div class="main-wrapper">
     <div class="main">
       <div class="status-pill" id="status-pill" data-state="waiting">
         <div class="status-dot"></div>
-        <span id="status-text">Connecting...</span>
-      </div>
-      <div class="logo-container">
-        <i class="fa-solid fa-ghost logo-icon"></i>
-        <h1 class="title">Ghosty</h1>
+        <span id="status-text">Connecting…</span>
       </div>
 
+      <div class="hero">
+        <i class="fa-solid fa-ghost hero-mark"></i>
+        <h1 class="wordmark">Ghosty</h1>
+        <p class="greeting" id="greeting"><em>Where would you like to go?</em></p>
+      </div>
 
       <div class="search-container">
         <form id="fv" method="POST" class="search-form-home">
           <i class="fa-solid fa-magnifying-glass search-icon-main"></i>
-          <input id="input" autocomplete="off" spellcheck="false" placeholder="Search the web or enter a URL..."
-            type="text" />
+          <input id="input" autocomplete="off" spellcheck="false" placeholder="Search, or paste a link" type="text" />
           <span class="search-shortcut">/</span>
         </form>
         <div id="suggestions" class="suggestions" hidden></div>
@@ -322,35 +121,40 @@
       <div class="home-apps-row">
         <a href="/./a" class="home-app-btn">
           <div class="home-app-icon"><i class="fa-solid fa-gamepad"></i></div>
-          <span>Games</span>
+          <div class="home-app-text">
+            <span class="home-app-name">Games</span>
+            <span class="home-app-sub" id="sub-games">The library</span>
+          </div>
         </a>
-
         <a href="#" class="home-app-btn" onclick="event.preventDefault(); go('https://tubitv.com');">
           <div class="home-app-icon"><i class="fa-solid fa-film"></i></div>
-          <span>Movies</span>
+          <div class="home-app-text">
+            <span class="home-app-name">Movies</span>
+            <span class="home-app-sub">Free on Tubi</span>
+          </div>
         </a>
         <a href="/./b" class="home-app-btn">
-          <div class="home-app-icon"><i class="fa-solid fa-rocket"></i></div>
-          <span>Apps</span>
+          <div class="home-app-icon"><i class="fa-solid fa-compass"></i></div>
+          <div class="home-app-text">
+            <span class="home-app-name">Apps</span>
+            <span class="home-app-sub">Sites &amp; tools</span>
+          </div>
         </a>
-
-
       </div>
 
       <div class="stat-strip" id="stat-strip">
-        <button class="stat-cell" type="button" onclick="location.href='/a'">
+        <button class="stat-cell" type="button" onclick="(window.ghostNav||(u=>location.href=u))('/a')">
           <span class="stat-value" id="stat-games">—</span>
           <span class="stat-name">games</span>
         </button>
         <span class="stat-sep"></span>
-        <button class="stat-cell" type="button" onclick="location.href='/c'">
+        <button class="stat-cell" type="button" onclick="(window.ghostNav||(u=>location.href=u))('/c')">
           <span class="stat-value" id="stat-blocked">0</span>
           <span class="stat-name">trackers blocked</span>
         </button>
         <span class="stat-sep"></span>
-        <button class="stat-cell" type="button"
-          onclick="window.__ghostyPalette && window.__ghostyPalette.open()">
-          <span class="stat-value"><i class="fa-solid fa-bolt"></i> Ctrl K</span>
+        <button class="stat-cell" type="button" onclick="window.__ghostyPalette && window.__ghostyPalette.open()">
+          <span class="stat-value"><i class="fa-solid fa-bolt"></i>Ctrl K</span>
           <span class="stat-name">search everything</span>
         </button>
       </div>
@@ -363,8 +167,8 @@
 
   <div class="bottom-bar">
     <div class="bb-left">
-      1 tabs • 1 spaces | <i class="fa-solid fa-ghost"></i> Ghosty v5.2.6 | <span class="dim">ToS &nbsp; Privacy &nbsp;
-        DMCA</span>
+      <span><i class="fa-solid fa-ghost"></i> &nbsp;Ghosty 5.2.6</span>
+      <span class="dim">ToS &nbsp;·&nbsp; Privacy &nbsp;·&nbsp; DMCA</span>
     </div>
     <div class="bb-right">
       <span><i class="fa-solid fa-shield-halved"></i> Secure</span>
@@ -373,15 +177,27 @@
   </div>
 
   <script>
+    // A greeting costs nothing and is the one line on the page written for a
+    // person rather than about the software.
+    (function () {
+      const el = document.getElementById("greeting");
+      if (!el) return;
+      const h = new Date().getHours();
+      const hello =
+        h < 5 ? "Still up" :
+        h < 12 ? "Good morning" :
+        h < 18 ? "Good afternoon" :
+        "Good evening";
+      el.innerHTML = hello + ". <em>Where would you like to go?</em>";
+    })();
+
     const discordBtn = document.querySelector('.top-discord-btn');
     const toast = document.getElementById('discord-toast');
     if (discordBtn && toast) {
       discordBtn.addEventListener('click', (e) => {
         e.preventDefault();
         toast.className = 'toast-visible';
-        setTimeout(() => {
-          toast.className = 'toast-hidden';
-        }, 3000);
+        setTimeout(() => { toast.className = 'toast-hidden'; }, 3000);
       });
     }
   </script>
@@ -392,10 +208,11 @@
   <script src="./assets/mathematics/config.js?v=sj1"></script>
   <script src="/baremux/index.js?v=sj1"></script>
   <script src="/scram/scramjet.all.js"></script>
-  <script src="/assets/js/engine.js?v=sj15"></script>
-  <script src="/assets/js/home.js?v=sj5"></script>
-  <script src="/assets/js/palette.js?v=sj4"></script>
-  <script src="/assets/js/m1.js?v=sj4"></script>
+  <script src="/assets/js/engine.js?v=sj17"></script>
+  <script src="/assets/js/ghost.js?v=ember2"></script>
+  <script src="/assets/js/home.js?v=ember2"></script>
+  <script src="/assets/js/palette.js?v=ember2"></script>
+  <script src="/assets/js/m1.js?v=ember2"></script>
 </body>
 
 </html>

@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", () => {
       </div>
       <div class="sidebar-menu">
         ${link("/a", "fa-gamepad", "Games")}
-        ${link("/b", "fa-rocket", "Apps")}
+        ${link("/b", "fa-compass", "Apps")}
         <a class="sidebar-link" href="#" data-label="Music" onclick="event.preventDefault(); go('https://soundcloud.com');">
            <i class="fa-solid fa-music"></i>
         </a>
@@ -88,9 +88,9 @@ document.addEventListener("DOMContentLoaded", () => {
          <div class="right-actions">
             <i class="fa-solid fa-bolt" title="Command palette"
                onclick="window.__ghostyPalette && window.__ghostyPalette.open()"></i>
-            <i class="fa-solid fa-gamepad" title="Games" onclick="location.href='/a'"></i>
-            <i class="fa-solid fa-window-restore" title="Tabs" onclick="location.href='/d'"></i>
-            <i class="fa-solid fa-gear" title="Settings" onclick="location.href='/c'"></i>
+            <i class="fa-solid fa-gamepad" title="Games" onclick="(window.ghostNav||(u=>location.href=u))('/a')"></i>
+            <i class="fa-solid fa-window-restore" title="Tabs" onclick="(window.ghostNav||(u=>location.href=u))('/d')"></i>
+            <i class="fa-solid fa-gear" title="Settings" onclick="(window.ghostNav||(u=>location.href=u))('/c')"></i>
          </div>
       `;
       const tnav = document.createElement("div");
@@ -380,86 +380,84 @@ document.addEventListener("DOMContentLoaded", () => {
     // Inject styles once
     const style = document.createElement("style");
     style.textContent = `
+      /* Slides in from the right, low on the page. Up at the top it covered the
+         library's "Surprise me" button and the right end of the search bar for as
+         long as it was on screen. */
       .ios-notif {
         position: fixed;
-        top: -200px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 380px;
-        max-width: 92vw;
-        background: rgba(30, 30, 30, 0.85);
-        backdrop-filter: blur(40px) saturate(1.8);
-        -webkit-backdrop-filter: blur(40px) saturate(1.8);
-        border: 1px solid rgba(255,255,255,0.1);
-        border-radius: 20px;
+        bottom: 52px;
+        right: 20px;
+        width: 330px;
+        max-width: calc(100vw - 40px);
+        background: rgba(25, 23, 21, 0.94);
+        -webkit-backdrop-filter: blur(22px);
+        backdrop-filter: blur(22px);
+        border: 1px solid var(--line-2, rgba(244,239,230,0.13));
+        border-radius: 14px;
         padding: 14px 16px;
-        z-index: 99998;
+        z-index: 99980;
         cursor: pointer;
-        box-shadow:
-          0 10px 40px rgba(0,0,0,0.5),
-          0 2px 10px rgba(0,0,0,0.3),
-          inset 0 1px 0 rgba(255,255,255,0.08);
-        transition: top 0.5s cubic-bezier(0.32, 0.72, 0, 1),
-                    opacity 0.4s ease;
+        box-shadow: var(--lift-3, 0 16px 40px rgba(0,0,0,0.46));
+        transform: translateX(calc(100% + 30px));
         opacity: 0;
-        font-family: -apple-system, 'SF Pro Display', 'Inter', system-ui, sans-serif;
+        transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease;
+        font-family: var(--sans, 'Inter', system-ui, sans-serif);
       }
       .ios-notif.show {
-        top: 16px;
+        transform: translateX(0);
         opacity: 1;
       }
       .ios-notif.hide {
-        top: -200px;
+        transform: translateX(calc(100% + 30px));
         opacity: 0;
       }
       .ios-notif-header {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-bottom: 8px;
+        margin-bottom: 9px;
       }
       .ios-notif-icon {
-        width: 32px;
-        height: 32px;
+        width: 26px;
+        height: 26px;
         border-radius: 8px;
-        background: rgba(255,255,255,0.08);
+        background: rgba(210, 163, 93, 0.11);
+        border: 1px solid var(--line, rgba(244,239,230,0.07));
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 16px;
-        color: #fff;
+        font-size: 12px;
+        color: var(--brass, #d2a35d);
         flex-shrink: 0;
       }
       .ios-notif-app {
-        font-size: 13px;
-        font-weight: 600;
-        color: rgba(255,255,255,0.7);
+        font-size: 11.5px;
+        font-weight: 500;
+        color: var(--paper-2, #b7ae9f);
         flex: 1;
-        letter-spacing: 0.3px;
+        letter-spacing: 0.01em;
       }
       .ios-notif-time {
-        font-size: 12px;
-        color: rgba(255,255,255,0.35);
+        font-size: 10px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--paper-4, #57504a);
       }
       .ios-notif-title {
-        font-size: 15px;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 4px;
-        padding-left: 42px;
+        font-family: var(--serif, Georgia, serif);
+        font-size: 16px;
+        font-weight: 400;
+        letter-spacing: -0.015em;
+        color: var(--paper, #f4efe6);
+        margin-bottom: 5px;
       }
       .ios-notif-body {
-        font-size: 13px;
-        color: rgba(255,255,255,0.55);
-        line-height: 1.45;
-        padding-left: 42px;
+        font-size: 12px;
+        color: var(--paper-3, #82796d);
+        line-height: 1.55;
       }
       .ios-notif-grab {
-        width: 36px;
-        height: 5px;
-        background: rgba(255,255,255,0.2);
-        border-radius: 100px;
-        margin: 10px auto 0;
+        display: none;
       }
     `;
     document.head.appendChild(style);
@@ -480,13 +478,12 @@ document.addEventListener("DOMContentLoaded", () => {
           <span class="ios-notif-app">Ghosty</span>
           <span class="ios-notif-time">now</span>
         </div>
-        <div class="ios-notif-title">⚠️ Disclaimer</div>
+        <div class="ios-notif-title">A quick disclaimer</div>
         <div class="ios-notif-body">
-          For local testing & educational use only. The developer is not
+          For local testing and educational use only. The developer is not
           responsible for misuse during school hours or in restricted
           environments. Use at your own risk.
         </div>
-        <div class="ios-notif-grab"></div>
       `;
 
       // Dismiss on click

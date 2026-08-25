@@ -5,7 +5,7 @@
   const UV_PREFIX = "/uv/";
   const SW_URL = "/sw.js?v=sj15";
   // Epoxy with an HTTP/1.1 rescue behind it; see transport.mjs for why.
-  const TRANSPORT = "/assets/js/transport.mjs?v=h1g";
+  const TRANSPORT = "/assets/js/transport.mjs?v=h1g3";
 
   const wispUrl = (location.protocol === "https:" ? "wss" : "ws") + "://" + location.host + "/wisp/";
 
@@ -26,6 +26,7 @@
   if ("serviceWorker" in navigator) navigator.serviceWorker.startMessages();
   const transportReady = conn.setTransport(TRANSPORT, [{ wisp: wispUrl }]).catch(err => {
     console.error("[engine] setTransport failed:", err);
+    throw err;
   });
 
   const { ScramjetController } = self.$scramjetLoadController();

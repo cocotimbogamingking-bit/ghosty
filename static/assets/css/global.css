@@ -1,31 +1,75 @@
-﻿@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
+/* ═════════════════════════════════════════════════════════════
+   Ghosty — "Ember"
+   Warm paper-dark. Serif display, quiet sans UI, no glow.
+   ═════════════════════════════════════════════════════════════ */
+
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Inter:wght@400;450;500;600;700&display=swap");
 
 :root {
-   --background: #020202;
-   --foreground: #ffffff;
-   --accent: #ffffff;
-   --border: rgba(255, 255, 255, 0.04);
-   --glass: rgba(255, 255, 255, 0.015);
-   --glass-border: rgba(255, 255, 255, 0.05);
+   /* Ink — warm near-blacks. Never #000: pure black reads as a hole, not a page. */
+   --ink-900: #0d0c0b;
+   --ink-850: #131211;
+   --ink-800: #191715;
+   --ink-750: #201d1a;
+   --ink-700: #272320;
+   --ink-650: #322d28;
 
-   --primary: #ffffff;
-   --primary-glow: rgba(255, 255, 255, 0.1);
+   /* Paper — warm ivories. */
+   --paper: #f4efe6;
+   --paper-2: #b7ae9f;
+   --paper-3: #82796d;
+   --paper-4: #57504a;
 
-   --bg-primary: #020202;
-   --bg-secondary: #050505;
-   --text-primary: #ffffff;
-   --text-secondary: rgba(255, 255, 255, 0.4);
-   --border-color: rgba(255, 255, 255, 0.04);
+   --line: rgba(244, 239, 230, 0.07);
+   --line-2: rgba(244, 239, 230, 0.13);
+   --line-3: rgba(244, 239, 230, 0.22);
 
-   --stars-color: #ffffff;
-   --body-gradient: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+   /* One accent, desaturated brass. Sage for "good", terracotta for "bad". */
+   --brass: #d2a35d;
+   --brass-dim: #9d7c48;
+   --brass-wash: rgba(210, 163, 93, 0.11);
+   --sage: #86a173;
+   --clay: #b8604a;
+   --amber: #c79350;
 
-   --transition-premium: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+   --radius-sm: 8px;
+   --radius: 12px;
+   --radius-lg: 18px;
+   --radius-xl: 26px;
 
-   /* settings.css styles the toggles against these two and neither was ever declared,
-      so the track rendered transparent and the switch looked like a loose dot. */
-   --slider-inactive-background: rgba(255, 255, 255, 0.1);
-   --slider-active-background: #10b981;
+   /* Layered, warm-tinted. A single hard shadow always looks pasted on. */
+   --lift-1: 0 1px 2px rgba(0, 0, 0, 0.4);
+   --lift-2: 0 2px 4px rgba(0, 0, 0, 0.3), 0 8px 20px rgba(0, 0, 0, 0.34);
+   --lift-3: 0 3px 6px rgba(0, 0, 0, 0.3), 0 16px 40px rgba(0, 0, 0, 0.46);
+   --lift-4: 0 6px 12px rgba(0, 0, 0, 0.34), 0 32px 72px rgba(0, 0, 0, 0.58);
+
+   --serif: "Fraunces", Georgia, "Times New Roman", serif;
+   --sans: "Inter", ui-sans-serif, system-ui, -apple-system, sans-serif;
+
+   --ease: cubic-bezier(0.22, 1, 0.36, 1);
+   --fast: 0.16s var(--ease);
+   --mid: 0.28s var(--ease);
+   --slow: 0.5s var(--ease);
+   --transition-premium: var(--mid);
+
+   --rail: 60px;
+
+   /* Legacy names other sheets and the theme files still reference. */
+   --background: var(--ink-900);
+   --foreground: var(--paper);
+   --accent: var(--brass);
+   --primary: var(--brass);
+   --primary-glow: transparent;
+   --border: var(--line);
+   --border-color: var(--line);
+   --glass: rgba(244, 239, 230, 0.022);
+   --glass-border: var(--line-2);
+   --bg-primary: var(--ink-900);
+   --bg-secondary: var(--ink-850);
+   --text-primary: var(--paper);
+   --text-secondary: var(--paper-2);
+   --slider-inactive-background: rgba(244, 239, 230, 0.09);
+   --slider-active-background: var(--sage);
 }
 
 * {
@@ -34,319 +78,265 @@
    box-sizing: border-box;
 }
 
-body {
-   font-family: "Inter", sans-serif;
-   background-color: var(--background);
-   color: var(--foreground);
-   overflow-x: hidden;
-   min-height: 100vh;
-   background: var(--body-gradient);
+html {
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+   text-rendering: optimizeLegibility;
 }
 
-/* Advanced Starfield Background */
+body {
+   font-family: var(--sans);
+   font-size: 15px;
+   line-height: 1.55;
+   background: var(--ink-900);
+   color: var(--paper);
+   min-height: 100vh;
+   overflow-x: hidden;
+   font-feature-settings: "cv05" 1, "ss03" 1;
+}
+
+::selection {
+   background: var(--brass);
+   color: var(--ink-900);
+}
+
+/* ── Background ────────────────────────────────────────────────
+   Two broad, low-contrast washes plus film grain. No blurred orbs:
+   at 120px blur they read as neon bloom, which is the one thing
+   this design is not. */
+
+.glow-wrapper,
 .starfield-wrapper {
    position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
+   inset: 0;
    z-index: -2;
    pointer-events: none;
-   background: var(--bg-primary);
    overflow: hidden;
+   background:
+      radial-gradient(120% 85% at 78% -12%, rgba(210, 163, 93, 0.09) 0%, transparent 55%),
+      radial-gradient(95% 70% at 8% 108%, rgba(126, 140, 150, 0.07) 0%, transparent 58%),
+      var(--ink-900);
 }
 
-.stars {
+/* Grain. The whole reason the surfaces read as paper and not as plastic. */
+.glow-wrapper::after,
+.starfield-wrapper::after {
+   content: "";
    position: absolute;
-   top: 0;
-   left: 0;
-   width: 200%;
-   height: 200%;
-   background-image:
-      radial-gradient(1.5px 1.5px at 20px 30px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(1.5px 1.5px at 40px 70px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(2px 2px at 50px 160px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(1.5px 1.5px at 80px 120px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(2px 2px at 110px 40px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(2.5px 2.5px at 150px 90px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(1.5px 1.5px at 190px 150px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(2px 2px at 210px 210px, var(--stars-color), rgba(0, 0, 0, 0)),
-      radial-gradient(1.5px 1.5px at 240px 50px, var(--stars-color), rgba(0, 0, 0, 0));
-   background-repeat: repeat;
-   background-size: 300px 300px;
-   opacity: 0.4;
-   animation: star-move 100s linear infinite, twinkle 4s ease-in-out infinite;
+   inset: -50%;
+   opacity: 0.035;
+   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='260' height='260'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='260' height='260' filter='url(%23n)'/%3E%3C/svg%3E");
+   animation: grain-shift 8s steps(6) infinite;
 }
 
-.stars-2 {
-   background-size: 400px 400px;
-   opacity: 0.3;
-   animation: star-move 150s linear infinite reverse, twinkle 6s ease-in-out infinite 1s;
+@keyframes grain-shift {
+   0% { transform: translate(0, 0); }
+   17% { transform: translate(-2%, 1%); }
+   34% { transform: translate(1%, -2%); }
+   51% { transform: translate(-1%, -1%); }
+   68% { transform: translate(2%, 1%); }
+   85% { transform: translate(-2%, 2%); }
+   100% { transform: translate(0, 0); }
 }
 
-.stars-3 {
-   background-size: 500px 500px;
-   opacity: 0.2;
-   animation: star-move 200s linear infinite, twinkle 8s ease-in-out infinite 2s;
+/* A single slow drifting wash, so the page breathes without twinkling. */
+.glow-orb {
+   position: absolute;
+   border-radius: 50%;
+   filter: blur(90px);
+   opacity: 0.5;
+   will-change: transform;
 }
 
-@keyframes star-move {
-   from {
-      transform: translate(0, 0);
-   }
-
-   to {
-      transform: translate(-300px, -300px);
-   }
+.glow-1 {
+   top: -22%;
+   right: -8%;
+   width: 52vw;
+   height: 52vw;
+   background: radial-gradient(circle, rgba(210, 163, 93, 0.13), transparent 66%);
+   animation: drift-a 34s ease-in-out infinite alternate;
 }
 
-@keyframes twinkle {
-
-   0%,
-   100% {
-      opacity: 0.2;
-   }
-
-   50% {
-      opacity: 0.6;
-   }
+.glow-2 {
+   bottom: -26%;
+   left: -10%;
+   width: 46vw;
+   height: 46vw;
+   background: radial-gradient(circle, rgba(134, 161, 115, 0.09), transparent 66%);
+   animation: drift-b 41s ease-in-out infinite alternate;
 }
 
-/* Status Pill */
+.glow-3 {
+   display: none;
+}
+
+@keyframes drift-a {
+   from { transform: translate(0, 0) scale(1); }
+   to { transform: translate(-5vw, 4vh) scale(1.12); }
+}
+
+@keyframes drift-b {
+   from { transform: translate(0, 0) scale(1); }
+   to { transform: translate(4vw, -5vh) scale(1.1); }
+}
+
+/* The old starfield markup is still in the page. Nothing to draw any more. */
+.stars,
+.planet {
+   display: none !important;
+}
+
+/* ── Type ─────────────────────────────────────────────────────── */
+
+h1, h2, h3, h4 {
+   font-family: var(--serif);
+   font-weight: 400;
+   letter-spacing: -0.015em;
+   line-height: 1.15;
+   color: var(--paper);
+}
+
+.eyebrow {
+   font-family: var(--sans);
+   font-size: 10.5px;
+   font-weight: 600;
+   letter-spacing: 0.16em;
+   text-transform: uppercase;
+   color: var(--paper-3);
+}
+
+/* ── Status pill ──────────────────────────────────────────────── */
+
 .status-pill {
-   display: flex;
+   display: inline-flex;
    align-items: center;
-   gap: 8px;
-   padding: 6px 16px;
-   background: rgba(255, 255, 255, 0.05);
-   border: 1px solid rgba(255, 255, 255, 0.1);
+   gap: 9px;
+   padding: 6px 15px 6px 12px;
+   background: rgba(244, 239, 230, 0.035);
+   border: 1px solid var(--line);
    border-radius: 100px;
-   font-size: 12px;
+   font-size: 11.5px;
    font-weight: 500;
-   color: rgba(255, 255, 255, 0.8);
-   margin-bottom: 24px;
-   backdrop-filter: blur(10px);
+   letter-spacing: 0.02em;
+   color: var(--paper-2);
+   transition: border-color var(--mid), color var(--mid);
+}
+
+.status-pill:hover {
+   border-color: var(--line-2);
+   color: var(--paper);
 }
 
 .status-dot {
-   width: 6px;
-   height: 6px;
-   background: #10b981;
+   width: 5px;
+   height: 5px;
    border-radius: 50%;
-   box-shadow: 0 0 10px #10b981;
-   transition: background 0.3s ease, box-shadow 0.3s ease;
+   background: var(--sage);
+   transition: background var(--mid);
 }
 
-/* The pill reports the engine, not a hardcoded "online": amber while the transport
-   comes up, green once it answers, red when it never does. */
+/* Halo instead of a glow: a soft ring that says "live" without lighting up. */
+.status-pill[data-state="ok"] .status-dot,
+.status-pill:not([data-state]) .status-dot {
+   box-shadow: 0 0 0 3px rgba(134, 161, 115, 0.16);
+}
+
 .status-pill[data-state="waiting"] .status-dot {
-   background: #f5a524;
-   box-shadow: 0 0 10px #f5a524;
-   animation: statusBlink 1.1s ease-in-out infinite;
+   background: var(--amber);
+   box-shadow: 0 0 0 3px rgba(199, 147, 80, 0.16);
+   animation: breathe 1.6s ease-in-out infinite;
 }
 
 .status-pill[data-state="down"] .status-dot {
-   background: #f31260;
-   box-shadow: 0 0 10px #f31260;
+   background: var(--clay);
+   box-shadow: 0 0 0 3px rgba(184, 96, 74, 0.16);
 }
 
-@keyframes statusBlink {
-
-   0%,
-   100% {
-      opacity: 1;
-   }
-
-   50% {
-      opacity: 0.25;
-   }
+@keyframes breathe {
+   0%, 100% { opacity: 1; }
+   50% { opacity: 0.3; }
 }
 
-/* Background Planets (matching screenshot colors) */
-.planet {
-   position: fixed;
-   border-radius: 50%;
-   pointer-events: none;
-   z-index: -1;
-   filter: blur(1px);
+/* ── Entrance ─────────────────────────────────────────────────── */
+
+@keyframes rise {
+   from { opacity: 0; transform: translateY(14px); }
+   to { opacity: 1; transform: translateY(0); }
 }
 
-.planet-1 {
-   width: 400px;
-   height: 400px;
-   background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.05), rgba(0, 0, 0, 0));
-   top: -10%;
-   right: -5%;
-   opacity: 0.5;
+@keyframes fade {
+   from { opacity: 0; }
+   to { opacity: 1; }
 }
 
-.planet-2 {
-   width: 300px;
-   height: 300px;
-   background: radial-gradient(circle at 70% 70%, rgba(255, 255, 255, 0.03), rgba(0, 0, 0, 0));
-   bottom: 5%;
-   left: -5%;
-   opacity: 0.3;
-}
-
-/* Premium 3D Animations & Hard Effects */
-@keyframes nebula-drift {
-   0% {
-      transform: scale(1) translate(0, 0) rotate(0deg);
-      opacity: 0.1;
-   }
-
-   100% {
-      transform: scale(1.1) translate(40px, -20px) rotate(5deg);
-      opacity: 0.2;
-   }
-}
-
+/* Kept because three sheets animate with it. It used to fly cards in on a
+   200px Z-axis swing; now it is a short, flat rise. */
 @keyframes popIn3D {
-   0% {
-      opacity: 0;
-      transform: perspective(1200px) translateZ(-200px) translateY(50px) rotateX(-15deg);
-   }
-
-   100% {
-      opacity: 1;
-      transform: perspective(1200px) translateZ(0) translateY(0) rotateX(0deg);
-   }
+   from { opacity: 0; transform: translateY(16px); }
+   to { opacity: 1; transform: translateY(0); }
 }
 
-@keyframes pulse-neon {
-
-   0%,
-   100% {
-      filter: drop-shadow(0 0 5px var(--primary-glow));
-   }
-
-   50% {
-      filter: drop-shadow(0 0 20px var(--primary-glow));
-   }
+@keyframes nebula-drift {
+   from { transform: scale(1); }
+   to { transform: scale(1.08); }
 }
 
-@keyframes glitch {
-   0% {
-      transform: translate(0);
-   }
+/* ── Toast ────────────────────────────────────────────────────── */
 
-   20% {
-      transform: translate(-2px, 2px);
-   }
-
-   40% {
-      transform: translate(-2px, -2px);
-   }
-
-   60% {
-      transform: translate(2px, 2px);
-   }
-
-   80% {
-      transform: translate(2px, -2px);
-   }
-
-   100% {
-      transform: translate(0);
-   }
-}
-
-/* Toast Notification Styles */
 #discord-toast {
    position: fixed;
-   top: 80px;
+   top: 24px;
    right: 24px;
-   padding: 12px 24px;
-   background: rgba(15, 20, 35, 0.9);
-   border: 1px solid var(--primary);
-   border-radius: 12px;
-   color: #fff;
-   font-size: 14px;
-   font-weight: 600;
+   padding: 13px 20px;
+   background: var(--ink-750);
+   border: 1px solid var(--line-2);
+   border-radius: var(--radius);
+   color: var(--paper);
+   font-size: 13.5px;
+   font-weight: 500;
    z-index: 10000;
-   backdrop-filter: blur(10px);
-   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px var(--primary-glow);
-   transition: var(--transition-premium);
+   box-shadow: var(--lift-3);
+   transition: opacity var(--mid), transform var(--mid);
 }
 
 .toast-hidden {
    opacity: 0;
-   transform: translateX(50px) scale(0.9);
+   transform: translateY(-8px);
    pointer-events: none;
 }
 
 .toast-visible {
    opacity: 1;
-   transform: translateX(0) scale(1);
+   transform: translateY(0);
 }
 
-/* Background Glowing Orbs */
-.glow-wrapper {
-   position: fixed;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   z-index: -1;
-   overflow: hidden;
-   pointer-events: none;
-}
-
-.glow-orb {
-   position: absolute;
-   border-radius: 50%;
-   filter: blur(120px);
-   opacity: 0.4;
-   animation: nebula-drift 25s infinite alternate cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.glow-1 {
-   top: -15%;
-   left: 5%;
-   width: 60vw;
-   height: 60vw;
-   background: rgba(255, 255, 255, 0.05);
-}
-
-.glow-2 {
-   top: 30%;
-   right: -10%;
-   width: 70vw;
-   height: 70vw;
-   background: rgba(255, 255, 255, 0.03);
-}
-
-.glow-3 {
-   bottom: -20%;
-   left: 20%;
-   width: 55vw;
-   height: 55vw;
-   background: rgba(255, 255, 255, 0.02);
-}
+/* ── Footer strip ─────────────────────────────────────────────── */
 
 .bottom-bar {
    position: fixed;
    bottom: 0;
    left: 0;
    right: 0;
-   height: 28px;
-   background: rgba(0, 0, 0, 0.3);
-   border-top: 1px solid var(--border-color);
+   height: 30px;
    display: flex;
    align-items: center;
    justify-content: space-between;
-   padding: 0 16px;
-   font-size: 11px;
-   color: var(--text-secondary);
-   backdrop-filter: blur(10px);
+   padding: 0 18px 0 calc(var(--rail) + 18px);
+   background: rgba(13, 12, 11, 0.72);
+   border-top: 1px solid var(--line);
+   -webkit-backdrop-filter: blur(14px);
+   backdrop-filter: blur(14px);
+   font-size: 10.5px;
+   letter-spacing: 0.02em;
+   color: var(--paper-4);
    z-index: 1000;
 }
 
+.bb-left,
 .bb-right {
    display: flex;
    align-items: center;
-   gap: 12px;
+   gap: 14px;
 }
 
 .bb-right span {
@@ -355,6 +345,142 @@ body {
    gap: 6px;
 }
 
+.bb-right i {
+   font-size: 9px;
+   color: var(--paper-4);
+}
+
 .dim {
-   opacity: 0.5;
+   color: var(--paper-4);
+   opacity: 0.7;
+}
+
+/* ── Page transition ──────────────────────────────────────────────
+   Leaving a page, a ghost rises into frame and the screen closes
+   behind it. Arriving, the same ghost keeps rising and takes the
+   veil with it, so the two halves read as one continuous move.
+
+   The arrival half is drawn with pseudo-elements on <html> and armed
+   by a class set in the document head — a real element appended on
+   DOMContentLoaded would let a frame of the new page show first.
+   ═══ */
+
+.gh-veil,
+html.gh-in::before,
+html.gh-in::after {
+   pointer-events: none;
+}
+
+/* ── Arrival ── */
+
+html.gh-in::before {
+   content: "";
+   position: fixed;
+   inset: 0;
+   z-index: 99990;
+   background: radial-gradient(72% 56% at 50% 46%, #191510 0%, var(--ink-900) 64%);
+   animation: gh-veil-out 0.6s var(--ease) 0.16s forwards;
+}
+
+html.gh-in::after {
+   content: "";
+   position: fixed;
+   left: 50%;
+   top: 50%;
+   z-index: 99991;
+   width: 64px;
+   height: 80px;
+   margin: -40px 0 0 -32px;
+   background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2080'%3E%3Cpath%20fill='%23d2a35d'%20d='M6%2068V28a26%2026%200%200%201%2052%200V68a6.5%206.5%200%200%201-13%200%206.5%206.5%200%200%201-13%200%206.5%206.5%200%200%201-13%200%206.5%206.5%200%200%201-13%200Z'/%3E%3Cellipse%20cx='24'%20cy='31'%20rx='3.4'%20ry='4.4'%20fill='%230d0c0b'/%3E%3Cellipse%20cx='40'%20cy='31'%20rx='3.4'%20ry='4.4'%20fill='%230d0c0b'/%3E%3C/svg%3E") center / contain no-repeat;
+   animation: gh-ghost-out 0.68s var(--ease) forwards;
+}
+
+@keyframes gh-veil-out {
+   from { opacity: 1; }
+   to { opacity: 0; visibility: hidden; }
+}
+
+@keyframes gh-ghost-out {
+   0% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+   100% { opacity: 0; transform: translateY(-58px) scale(1.18) rotate(-4deg); }
+}
+
+/* ── Departure ── */
+
+.gh-veil {
+   position: fixed;
+   inset: 0;
+   z-index: 99990;
+   opacity: 0;
+   background: radial-gradient(72% 56% at 50% 46%, #191510 0%, var(--ink-900) 64%);
+   animation: gh-veil-in 0.32s var(--ease) forwards;
+}
+
+.gh-mark {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   width: 64px;
+   height: 80px;
+   margin: -40px 0 0 -32px;
+   opacity: 0;
+   background: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2064%2080'%3E%3Cpath%20fill='%23d2a35d'%20d='M6%2068V28a26%2026%200%200%201%2052%200V68a6.5%206.5%200%200%201-13%200%206.5%206.5%200%200%201-13%200%206.5%206.5%200%200%201-13%200%206.5%206.5%200%200%201-13%200Z'/%3E%3Cellipse%20cx='24'%20cy='31'%20rx='3.4'%20ry='4.4'%20fill='%230d0c0b'/%3E%3Cellipse%20cx='40'%20cy='31'%20rx='3.4'%20ry='4.4'%20fill='%230d0c0b'/%3E%3C/svg%3E") center / contain no-repeat;
+   animation: gh-ghost-in 0.44s var(--ease) forwards;
+}
+
+@keyframes gh-veil-in {
+   from { opacity: 0; }
+   to { opacity: 1; }
+}
+
+@keyframes gh-ghost-in {
+   0% { opacity: 0; transform: translateY(34px) scale(0.7) rotate(5deg); }
+   65% { opacity: 1; }
+   100% { opacity: 1; transform: translateY(0) scale(1) rotate(0deg); }
+}
+
+/* ── Scrollbars ───────────────────────────────────────────────── */
+
+* {
+   scrollbar-width: thin;
+   scrollbar-color: var(--ink-650) transparent;
+}
+
+*::-webkit-scrollbar {
+   width: 10px;
+   height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+   background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+   background: var(--ink-650);
+   border: 3px solid transparent;
+   background-clip: content-box;
+   border-radius: 10px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+   background: var(--ink-700);
+   background-clip: content-box;
+}
+
+/* ── Focus ────────────────────────────────────────────────────── */
+
+:focus-visible {
+   outline: 2px solid var(--brass);
+   outline-offset: 2px;
+   border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+   *,
+   *::before,
+   *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+   }
 }

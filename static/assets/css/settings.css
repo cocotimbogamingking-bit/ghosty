@@ -1,104 +1,131 @@
+/* ═════════════════════════════════════════════════════════════
+   Settings.
+   Cards in a masonry-ish flow, serif headings, one accent.
+   Every bare `input` / `button` / `select` rule is scoped to
+   .settings-container — they used to leak into the command
+   palette and the library search box.
+   ═════════════════════════════════════════════════════════════ */
+
 body {
-   background-color: var(--background-image);
-   font-family: "Inter", sans-serif;
-   color: var(--text-primary);
+   font-family: var(--sans);
+   color: var(--paper);
    margin: 0;
    padding: 0;
-   letter-spacing: 0px;
    overflow-x: hidden;
 }
 
+.settings-head {
+   margin-left: var(--rail);
+   padding: 84px 44px 0;
+}
+
+.settings-head h1 {
+   font-family: var(--serif);
+   font-size: 38px;
+   font-weight: 300;
+   font-variation-settings: "SOFT" 20, "WONK" 1;
+   letter-spacing: -0.03em;
+   line-height: 1;
+   color: var(--paper);
+}
+
+.settings-head p {
+   margin-top: 7px;
+   font-size: 13px;
+   color: var(--paper-3);
+}
+
+/* Columns, not a wrapping flex row. The cards are wildly different heights —
+   flex-wrap left a hole under every short one. */
 .settings-container {
-   display: flex;
-   flex-wrap: wrap;
-   justify-content: center;
-   gap: 24px;
-   padding: 40px;
-   margin-left: 56px;
-   margin-top: 52px;
-   perspective: 2000px;
-   transform-style: preserve-3d;
-   animation: popIn3D 0.8s var(--transition-premium) forwards;
+   columns: 3 380px;
+   column-gap: 18px;
+   padding: 28px 40px 80px;
+   margin-left: var(--rail);
 }
 
 .settings-title {
    display: block;
-   font-size: 50px;
-   font-weight: 800;
-   letter-spacing: -1px;
+   font-family: var(--serif);
+   font-size: 44px;
+   font-weight: 300;
+   letter-spacing: -0.03em;
 }
+
+/* ── Card ─────────────────────────────────────────────────────── */
 
 .settings-card {
-   background-color: var(--glass);
-   border-radius: 20px;
-   padding: 28px;
-   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-   border: 1px solid var(--border-color);
-   width: 420px;
-   transition: var(--transition-premium);
    position: relative;
+   width: 100%;
+   break-inside: avoid;
+   -webkit-column-break-inside: avoid;
+   margin-bottom: 18px;
+   padding: 26px;
+   background: rgba(244, 239, 230, 0.022);
+   border: 1px solid var(--line);
+   border-radius: var(--radius-lg);
+   box-shadow: var(--lift-2);
    overflow: hidden;
-   transform-style: preserve-3d;
-   backdrop-filter: blur(16px);
+   opacity: 0;
+   animation: rise 0.55s var(--ease) forwards;
+   transition: background var(--mid), border-color var(--mid), transform var(--mid), box-shadow var(--mid);
 }
 
+.settings-card:nth-child(-n+3) { animation-delay: 0.04s; }
+.settings-card:nth-child(n+4):nth-child(-n+6) { animation-delay: 0.09s; }
+.settings-card:nth-child(n+7) { animation-delay: 0.14s; }
+
+/* A brass hairline across the top edge, revealed on hover. No tilt: the old
+   rotateX made the text on a hovered card go soft. */
 .settings-card::after {
    content: "";
    position: absolute;
    top: 0;
    left: 0;
    right: 0;
-   bottom: 0;
-   background: linear-gradient(135deg, var(--glass) 0%, transparent 100%);
+   height: 1px;
+   background: linear-gradient(90deg, transparent, var(--brass), transparent);
    opacity: 0;
-   transition: var(--transition-premium);
+   transition: opacity var(--mid);
    pointer-events: none;
 }
 
 .settings-card:hover {
-   transform: perspective(1000px) translateZ(25px) translateY(-5px) rotateX(2deg) rotateY(-1deg);
-   border-color: rgba(255, 255, 255, 0.15);
-   box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5), 0 0 20px rgba(255, 255, 255, 0.03);
-   z-index: 10;
+   background: rgba(244, 239, 230, 0.04);
+   border-color: var(--line-2);
+   transform: translateY(-3px);
+   box-shadow: var(--lift-3);
+   z-index: 5;
 }
 
 .settings-card:hover::after {
-   opacity: 1;
+   opacity: 0.5;
 }
 
 .settings-card h3 {
    margin-top: 0;
-   color: var(--text-primary);
-   position: relative;
+   font-family: var(--serif);
    font-size: 20px;
-   font-weight: 700;
-   letter-spacing: -0.5px;
-   margin-bottom: 8px;
-   transition: var(--transition-premium);
-}
-
-.settings-card:hover h3 {
-   transform: translateZ(15px);
+   font-weight: 400;
+   letter-spacing: -0.02em;
+   line-height: 1.2;
+   color: var(--paper);
+   margin-bottom: 9px;
 }
 
 .settings-card p {
-   color: var(--text-secondary);
-   position: relative;
-   font-size: 13.5px;
-   line-height: 1.5;
-   margin-bottom: 24px;
-   transition: var(--transition-premium);
-}
-
-.settings-card:hover p {
-   transform: translateZ(10px);
+   color: var(--paper-3);
+   font-size: 13px;
+   line-height: 1.62;
+   margin-bottom: 20px;
 }
 
 a {
-   color: var(--text-primary);
+   color: var(--paper);
 }
 
-/* Blocking card: switch on the left, the running total on the right. */
+/* ── Blocking card ────────────────────────────────────────────── */
+
 #block-row {
    display: flex;
    align-items: center;
@@ -108,41 +135,46 @@ a {
 .stat-block {
    display: flex;
    flex-direction: column;
-   line-height: 1.15;
+   line-height: 1.1;
 }
 
 .stat-number {
-   font-size: 26px;
-   font-weight: 700;
-   color: #fff;
+   font-family: var(--serif);
+   font-size: 27px;
+   font-weight: 400;
+   letter-spacing: -0.02em;
+   color: var(--paper);
    font-variant-numeric: tabular-nums;
 }
 
-.stat-label {
-   font-size: 11px;
+.stat-block .stat-label {
+   font-size: 9px;
    font-weight: 600;
-   letter-spacing: 1px;
+   letter-spacing: 0.15em;
    text-transform: uppercase;
-   color: rgba(255, 255, 255, 0.3);
+   color: var(--paper-4);
+   margin-top: 3px;
 }
 
 .block-detail {
    margin-top: 14px;
    font-size: 11.5px;
-   font-weight: 500;
-   letter-spacing: 0.3px;
-   color: rgba(255, 255, 255, 0.3);
+   font-weight: 400;
+   letter-spacing: 0.01em;
+   color: var(--paper-4);
 }
+
+/* ── Pills ────────────────────────────────────────────────────── */
 
 .pill-list {
    display: flex;
    flex-wrap: wrap;
-   gap: 8px;
+   gap: 7px;
    margin-bottom: 14px;
-   min-height: 30px;
+   min-height: 28px;
 }
 
-/* The bare `button` rule in this sheet makes every button full width and 44px tall,
+/* The bare `button` rule below makes every button full width and 44px tall,
    which turns a pill into a bar. These win by coming later and being explicit. */
 .pill {
    display: flex;
@@ -151,69 +183,81 @@ a {
    height: auto;
    margin-top: 0;
    gap: 8px;
-   padding: 6px 12px;
+   padding: 5px 12px;
    border-radius: 100px;
-   background: rgba(255, 255, 255, 0.04);
-   border: 1px solid rgba(255, 255, 255, 0.08);
-   color: rgba(255, 255, 255, 0.7);
-   font-family: inherit;
-   font-size: 12px;
+   background: rgba(244, 239, 230, 0.03);
+   border: 1px solid var(--line);
+   color: var(--paper-2);
+   font-family: var(--sans);
+   font-size: 11.5px;
    font-weight: 500;
    cursor: pointer;
-   transition: var(--transition-premium);
+   transition: background var(--fast), color var(--fast), border-color var(--fast);
 }
 
 .pill i {
-   font-size: 10px;
-   opacity: 0.5;
+   font-size: 9px;
+   color: var(--paper-4);
 }
 
 .pill:hover {
-   background: rgba(255, 255, 255, 0.09);
-   color: #fff;
+   background: rgba(244, 239, 230, 0.06);
+   border-color: var(--line-2);
+   color: var(--paper);
+   transform: none;
+   box-shadow: none;
 }
 
 .pill-empty {
-   font-size: 13px;
-   color: rgba(255, 255, 255, 0.28);
+   font-family: var(--serif);
+   font-style: italic;
+   font-size: 13.5px;
+   color: var(--paper-4);
 }
+
+/* ── Shortcut table ───────────────────────────────────────────── */
 
 .shortcut-table {
    display: flex;
    flex-direction: column;
-   gap: 10px;
+   gap: 9px;
 }
 
-.shortcut-table>div {
+.shortcut-table > div {
    display: flex;
    align-items: center;
-   gap: 6px;
-   font-size: 13px;
-   color: rgba(255, 255, 255, 0.55);
+   gap: 5px;
+   font-size: 12.5px;
+   color: var(--paper-3);
 }
 
 .shortcut-table span {
    margin-left: 10px;
 }
 
-.shortcut-table kbd {
-   font-family: inherit;
-   font-size: 10.5px;
+.shortcut-table kbd,
+.settings-card kbd {
+   font-family: var(--sans);
+   font-size: 10px;
    font-weight: 600;
-   min-width: 24px;
+   letter-spacing: 0.03em;
+   min-width: 22px;
    text-align: center;
-   background: rgba(255, 255, 255, 0.06);
-   border: 1px solid rgba(255, 255, 255, 0.09);
+   background: rgba(244, 239, 230, 0.05);
+   border: 1px solid var(--line-2);
    border-radius: 6px;
    padding: 4px 7px;
-   color: rgba(255, 255, 255, 0.8);
+   color: var(--paper-2);
 }
+
+/* ── Switch ───────────────────────────────────────────────────── */
 
 .switch {
    position: relative;
    display: inline-block;
-   width: 60px;
-   height: 32px;
+   width: 52px;
+   height: 29px;
+   flex-shrink: 0;
 }
 
 .switch input {
@@ -225,154 +269,146 @@ a {
 .slider-round {
    position: absolute;
    cursor: pointer;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
+   inset: 0;
    background-color: var(--slider-inactive-background);
-   transition: var(--transition-premium);
+   border: 1px solid var(--line-2);
+   transition: background-color var(--mid), border-color var(--mid);
    border-radius: 34px;
 }
 
 .slider-round:before {
    position: absolute;
    content: "";
-   height: 24px;
-   width: 24px;
-   left: 4px;
-   bottom: 4px;
-   background-color: var(--text-primary);
-   transition: var(--transition-premium);
+   height: 21px;
+   width: 21px;
+   left: 3px;
+   bottom: 3px;
+   background-color: var(--paper-2);
+   transition: transform var(--mid), background-color var(--mid);
    border-radius: 50%;
-   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+   box-shadow: var(--lift-1);
 }
 
-input:checked+.slider-round {
+/* Sage, not a blue glow. On means good, and good is green everywhere else here. */
+input:checked + .slider-round {
    background-color: var(--slider-active-background);
-   box-shadow: 0 0 16px rgba(59, 130, 246, 0.3);
+   border-color: rgba(134, 161, 115, 0.4);
+   box-shadow: none;
 }
 
-input:checked+.slider-round:before {
-   transform: translateX(28px);
+input:checked + .slider-round:before {
+   transform: translateX(23px);
+   background-color: var(--ink-900);
 }
 
-input {
-   padding: 0 16px;
-   height: 48px;
-   border-radius: 12px;
-   background: var(--glass);
+/* ── Fields ───────────────────────────────────────────────────── */
+
+.settings-container input[type="text"],
+.settings-container input:not([type]),
+.key-form {
+   padding: 0 15px;
+   height: 46px;
+   border-radius: var(--radius);
+   background: var(--ink-850);
    text-align: left;
-   font-size: 15px;
-   border: 1px solid var(--border-color);
+   font-family: var(--sans);
+   font-size: 14px;
+   border: 1px solid var(--line-2);
    outline: none;
-   color: var(--text-primary);
-   transition: var(--transition-premium);
+   color: var(--paper);
+   transition: border-color var(--mid), background var(--mid);
    width: 100%;
    box-sizing: border-box;
+   margin-bottom: 10px;
 }
 
-input:focus {
-   border-color: rgba(165, 180, 252, 0.4);
-   background: var(--border-color);
-   box-shadow: 0 0 20px rgba(165, 180, 252, 0.1);
+.settings-container input::placeholder {
+   color: var(--paper-4);
 }
 
-.key-form {
-   margin-bottom: 12px;
+.settings-container input[type="text"]:focus,
+.settings-container input:not([type]):focus,
+.key-form:focus {
+   border-color: var(--brass-dim);
+   background: var(--ink-800);
+   box-shadow: none;
 }
+
+/* ── Buttons ──────────────────────────────────────────────────── */
 
 .key-button,
-button {
+.settings-container button {
    cursor: pointer;
-   border: 1px solid var(--border-color);
-   transition: var(--transition-premium);
-   margin-top: 12px;
-   background-color: var(--glass);
-   border-radius: 12px;
-   color: var(--text-primary);
+   border: 1px solid var(--line-2);
+   transition: background var(--mid), border-color var(--mid), color var(--mid), transform var(--mid);
+   margin-top: 10px;
+   background: rgba(244, 239, 230, 0.03);
+   border-radius: var(--radius);
+   color: var(--paper-2);
    height: 44px;
    width: 100%;
-   font-size: 14px;
-   font-weight: 600;
+   font-family: var(--sans);
+   font-size: 13.5px;
+   font-weight: 500;
    padding: 0 16px;
    text-align: center;
-   backdrop-filter: blur(10px);
 }
 
 .key-button:hover,
-button:hover {
-   background: var(--border-color);
-   border-color: rgba(255, 255, 255, 0.2);
+.settings-container button:hover {
+   background: var(--brass-wash);
+   border-color: rgba(210, 163, 93, 0.3);
+   color: var(--brass);
    transform: translateY(-2px);
-   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .key-button:active,
-button:active {
-   transform: translateY(0) scale(0.97);
+.settings-container button:active {
+   transform: translateY(0);
 }
 
-select {
-   padding: 0 16px;
+.settings-container select {
+   padding: 0 15px;
    width: 100%;
-   height: 48px;
-   border-radius: 12px;
-   background: var(--glass);
-   color: var(--text-primary);
-   font-size: 15px;
-   border: 1px solid var(--border-color);
+   height: 46px;
+   border-radius: var(--radius);
+   background: var(--ink-850);
+   color: var(--paper);
+   font-family: var(--sans);
+   font-size: 14px;
+   border: 1px solid var(--line-2);
    outline: none;
-   transition: var(--transition-premium);
+   cursor: pointer;
+   transition: border-color var(--mid), background var(--mid);
 }
 
-select:hover {
-   border-color: rgba(255, 255, 255, 0.2);
-   background: var(--border-color);
+.settings-container select:hover {
+   border-color: var(--line-3);
+   background: var(--ink-800);
+}
+
+.settings-container option {
+   background: var(--ink-800);
+   color: var(--paper);
 }
 
 #buttonLayer {
    display: flex;
    justify-content: space-between;
-   gap: 12px;
+   gap: 10px;
    width: 100%;
 }
 
-#buttonLayer>.key-button {
+#buttonLayer > .key-button {
    flex: 1;
-   margin-top: 12px;
-}
-
-@media screen and (max-width: 768px) {
-   .settings-container {
-      padding: 20px;
-   }
-
-   .settings-card {
-      width: 100%;
-      max-width: 400px;
-   }
-
-   .settings-title {
-      font-size: 40px;
-   }
-}
-
-@media screen and (max-width: 500px) {
-   .settings-container {
-      padding-top: 20px;
-   }
-}
-
-@media screen and (min-width: 1000px) {
-   .settings-container {
-      padding-top: 40px;
-   }
+   margin-top: 10px;
 }
 
 #ab-settings {
    display: flex;
    align-items: center;
    justify-content: space-between;
+   gap: 14px;
    width: 100%;
 }
 
@@ -381,8 +417,41 @@ select:hover {
    align-items: center;
 }
 
+/* Terracotta. A warning should read as a warning, not as a highlighter. */
 #warning {
-   color: #f472b6;
-   font-weight: 500;
+   display: flex;
+   align-items: flex-start;
+   gap: 9px;
+   padding: 11px 13px;
+   background: rgba(184, 96, 74, 0.06);
+   border: 1px solid rgba(184, 96, 74, 0.16);
+   border-radius: var(--radius-sm);
+   color: var(--paper-2);
+   font-size: 12px;
+   line-height: 1.5;
+   font-weight: 400;
    margin-bottom: 12px;
+}
+
+#warning i {
+   color: var(--clay);
+   font-size: 12px;
+   margin-top: 2px;
+}
+
+/* ── Narrow ───────────────────────────────────────────────────── */
+
+@media screen and (max-width: 768px) {
+   .settings-head {
+      padding: 70px 20px 0;
+   }
+
+   .settings-container {
+      columns: 1;
+      padding: 24px 20px 80px;
+   }
+
+   .settings-head h1 {
+      font-size: 32px;
+   }
 }

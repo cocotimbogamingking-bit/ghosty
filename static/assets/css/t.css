@@ -1,11 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+/* ═════════════════════════════════════════════════════════════
+   Tabs shell.
+   A browser chrome, so it stays out of the way: no indigo tint,
+   no glowing underline — the active tab is the one that is lit.
+   ═════════════════════════════════════════════════════════════ */
 
 body {
-   font-family: "Inter", sans-serif;
+   font-family: var(--sans);
    margin: 0;
    overflow: hidden;
-   background: var(--background);
-   color: var(--foreground);
+   background: var(--ink-900);
+   color: var(--paper);
    height: 100vh;
 }
 
@@ -16,14 +20,16 @@ body {
    width: 100vw;
 }
 
-/* Tab Header Strip */
+/* ── Tab strip ────────────────────────────────────────────────── */
+
 .tabs-header {
    display: flex;
-   align-items: center;
-   background: rgba(10, 15, 25, 0.4);
-   border-bottom: 1px solid var(--border-color);
-   height: 44px;
-   padding: 0 12px;
+   align-items: flex-end;
+   background: rgba(19, 18, 17, 0.66);
+   border-bottom: 1px solid var(--line);
+   height: 42px;
+   padding: 0 10px;
+   -webkit-backdrop-filter: blur(20px);
    backdrop-filter: blur(20px);
    z-index: 101;
    overflow-x: auto;
@@ -41,111 +47,118 @@ body {
    margin: 0;
    height: 100%;
    align-items: flex-end;
-   gap: 4px;
+   gap: 3px;
 }
 
 #tab-list li {
    display: flex;
    align-items: center;
    justify-content: space-between;
-   min-width: 140px;
-   max-width: 220px;
-   height: 34px;
-   padding: 0 12px;
-   background: rgba(255, 255, 255, 0.03);
-   border: 1px solid var(--border-color);
+   min-width: 148px;
+   max-width: 226px;
+   height: 33px;
+   padding: 0 11px;
+   background: transparent;
+   border: 1px solid transparent;
    border-bottom: none;
    border-radius: 10px 10px 0 0;
    cursor: pointer;
-   transition: var(--transition-premium);
    position: relative;
-   font-size: 13px;
-   font-weight: 500;
-   color: var(--text-secondary);
+   font-size: 12.5px;
+   font-weight: 450;
+   letter-spacing: 0.005em;
+   color: var(--paper-3);
    user-select: none;
-   animation: slideIn 0.3s var(--transition-premium);
+   transition: background var(--fast), color var(--fast), border-color var(--fast);
+   animation: slideIn 0.28s var(--ease);
 }
 
 @keyframes slideIn {
-   from { opacity: 0; transform: translateY(10px); }
+   from { opacity: 0; transform: translateY(8px); }
    to { opacity: 1; transform: translateY(0); }
 }
 
 #tab-list li:hover {
-   background: rgba(255, 255, 255, 0.08);
-   color: #fff;
+   background: rgba(244, 239, 230, 0.045);
+   color: var(--paper-2);
 }
 
+/* The active tab is the one that looks like paper. Everything else recedes
+   into the strip, which is how a real tab bar reads. */
 #tab-list li.active {
-   background: rgba(99, 102, 241, 0.15);
-   border-color: rgba(99, 102, 241, 0.3);
-   color: #fff;
+   background: var(--ink-800);
+   border-color: var(--line);
+   color: var(--paper);
    z-index: 10;
 }
 
 #tab-list li.active::after {
    content: '';
    position: absolute;
-   bottom: 0;
-   left: 0;
-   right: 0;
+   top: 0;
+   left: 11px;
+   right: 11px;
    height: 2px;
-   background: var(--primary);
-   box-shadow: 0 0 10px var(--primary-glow);
+   border-radius: 0 0 2px 2px;
+   background: var(--brass);
 }
 
 .close-tab {
    background: transparent;
    border: none;
    color: inherit;
-   font-size: 14px;
+   font-size: 12px;
    margin-left: 8px;
-   opacity: 0.5;
-   transition: 0.2s;
+   opacity: 0.45;
    display: flex;
    align-items: center;
    justify-content: center;
-   width: 20px;
-   height: 20px;
-   border-radius: 4px;
+   width: 19px;
+   height: 19px;
+   border-radius: 5px;
+   cursor: pointer;
+   transition: opacity var(--fast), background var(--fast), color var(--fast);
 }
 
 .close-tab:hover {
    opacity: 1;
-   background: rgba(255, 255, 255, 0.1);
-   color: #ff4b4b;
+   background: rgba(184, 96, 74, 0.16);
+   color: var(--clay);
 }
 
 .add-tab-btn {
    background: transparent;
    border: none;
-   color: var(--text-secondary);
-   font-size: 16px;
-   width: 32px;
-   height: 32px;
+   color: var(--paper-3);
+   font-size: 14px;
+   width: 30px;
+   height: 30px;
    display: flex;
    align-items: center;
    justify-content: center;
    border-radius: 8px;
    cursor: pointer;
-   transition: 0.2s;
-   margin-left: 8px;
+   margin: 0 0 2px 6px;
+   flex-shrink: 0;
+   transition: background var(--fast), color var(--fast), transform var(--mid);
 }
 
 .add-tab-btn:hover {
-   background: rgba(255, 255, 255, 0.08);
-   color: #fff;
+   background: rgba(244, 239, 230, 0.06);
+   color: var(--brass);
    transform: rotate(90deg);
 }
 
-/* Navigation Bar */
+/* ── Nav bar ──────────────────────────────────────────────────── */
+
 .nav-bar {
-   background: rgba(5, 8, 15, 0.6);
-   height: 52px;
+   background: rgba(13, 12, 11, 0.7);
+   height: 50px;
    display: flex;
    align-items: center;
-   padding: 0 16px;
-   border-bottom: 1px solid var(--border-color);
+   padding: 0 14px;
+   border-bottom: 1px solid var(--line);
+   -webkit-backdrop-filter: blur(24px);
    backdrop-filter: blur(24px);
    z-index: 100;
 }
@@ -154,107 +167,112 @@ body {
    display: flex;
    align-items: center;
    width: 100%;
-   gap: 20px;
+   gap: 18px;
 }
 
 .nav-controls {
    display: flex;
    align-items: center;
-   gap: 12px;
+   gap: 10px;
 }
 
 .nav-arrows {
    display: flex;
-   gap: 4px;
+   gap: 2px;
 }
 
 .nav-icon-btn {
    background: transparent;
    border: none;
-   color: var(--text-secondary);
-   font-size: 16px;
-   width: 36px;
-   height: 36px;
-   border-radius: 10px;
+   color: var(--paper-3);
+   font-size: 14px;
+   width: 33px;
+   height: 33px;
+   border-radius: 9px;
    display: flex;
    align-items: center;
    justify-content: center;
    cursor: pointer;
-   transition: var(--transition-premium);
+   transition: background var(--fast), color var(--fast);
 }
 
 .nav-icon-btn:hover {
-   background: rgba(255, 255, 255, 0.08);
-   color: #fff;
-   transform: translateY(-2px);
+   background: rgba(244, 239, 230, 0.06);
+   color: var(--paper);
 }
 
 .nav-icon-btn:active {
-   transform: scale(0.95);
+   transform: scale(0.94);
 }
 
 .nav-icon-btn:disabled {
-   opacity: 0.3;
+   opacity: 0.28;
    pointer-events: none;
 }
 
 .nav-icon-btn.marked {
-   color: #f5c542;
+   color: var(--brass);
 }
 
 /* The shield carries its own count, so it is wider than the plain icon buttons. */
 .shield-btn {
    width: auto;
-   min-width: 36px;
+   min-width: 33px;
    padding: 0 10px;
    gap: 6px;
-   font-family: inherit;
-   font-size: 12px;
-   font-weight: 700;
+   font-family: var(--sans);
+   font-size: 11.5px;
+   font-weight: 600;
+   font-variant-numeric: tabular-nums;
+   color: var(--paper-2);
 }
 
 .shield-btn i {
-   font-size: 14px;
-   color: #10b981;
-   transition: color 0.2s ease;
+   font-size: 13px;
+   color: var(--sage);
+   transition: color var(--fast);
 }
 
 .shield-btn.off i {
-   color: rgba(255, 255, 255, 0.28);
+   color: var(--paper-4);
 }
 
 .shield-btn.off span {
    opacity: 0.35;
 }
 
-/* URL Bar */
+/* ── URL bar ──────────────────────────────────────────────────── */
+
 .url-bar-wrapper {
    flex: 1;
-   max-width: 800px;
+   max-width: 780px;
 }
 
 .url-form {
    display: flex;
    align-items: center;
-   background: rgba(0, 0, 0, 0.3);
-   border: 1px solid var(--border-color);
-   border-radius: 14px;
-   height: 36px;
-   padding: 0 14px;
-   transition: var(--transition-premium);
+   background: rgba(244, 239, 230, 0.03);
+   border: 1px solid var(--line);
+   border-radius: var(--radius);
+   height: 34px;
+   padding: 0 13px;
+   transition: background var(--mid), border-color var(--mid);
+}
+
+.url-form:hover {
+   border-color: var(--line-2);
 }
 
 .url-form:focus-within {
-   background: rgba(0, 0, 0, 0.5);
-   border-color: var(--primary);
-   box-shadow: 0 0 15px rgba(99, 102, 241, 0.15);
+   background: var(--ink-800);
+   border-color: var(--brass-dim);
+   box-shadow: none;
 }
 
 .url-status-icon {
-   font-size: 12px;
-   color: #22c55e;
+   font-size: 10.5px;
+   color: var(--sage);
    margin-right: 10px;
-   opacity: 0.7;
 }
 
 .url-input {
@@ -262,21 +280,27 @@ body {
    background: transparent;
    border: none;
    outline: none;
-   color: var(--foreground);
-   font-size: 13px;
-   font-family: inherit;
+   color: var(--paper);
+   font-size: 12.5px;
+   font-family: var(--sans);
+   letter-spacing: 0.005em;
+}
+
+.url-input::placeholder {
+   color: var(--paper-4);
 }
 
 .nav-actions-right {
    display: flex;
-   gap: 8px;
+   gap: 2px;
 }
 
-/* Frame Container */
+/* ── Frame ────────────────────────────────────────────────────── */
+
 .frame-container {
    flex: 1;
    position: relative;
-   background: #000;
+   background: var(--ink-900);
 }
 
 iframe {
@@ -287,12 +311,12 @@ iframe {
    height: 100%;
    border: none;
    display: none;
-   background: var(--background);
+   background: var(--ink-900);
 }
 
 iframe.active {
    display: block;
-   animation: fadeIn 0.4s var(--transition-premium);
+   animation: fadeIn 0.34s var(--ease);
 }
 
 @keyframes fadeIn {

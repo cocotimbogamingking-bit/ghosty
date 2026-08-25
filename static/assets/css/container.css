@@ -1,125 +1,201 @@
-.column {
-   width: 140px;
-   cursor: pointer;
-   background: rgba(20, 25, 35, 0.4);
-   border-radius: 18px;
-   padding: 16px;
-   margin: 0;
-   border: 1px solid rgba(255, 255, 255, 0.06);
+/* ═════════════════════════════════════════════════════════════
+   Library — games and apps.
+   The most-looked-at screen in the app, so it gets the quietest
+   treatment: the artwork is the colour, everything else recedes.
+   ═════════════════════════════════════════════════════════════ */
+
+/* ── Head ─────────────────────────────────────────────────────── */
+
+.library-head {
+   margin-left: var(--rail);
+   width: calc(100% - var(--rail));
+   padding-top: 84px;
+}
+
+.lib-title {
+   padding: 0 44px;
+   margin-bottom: 20px;
+}
+
+.lib-title h1 {
+   font-family: var(--serif);
+   font-size: 38px;
+   font-weight: 300;
+   font-variation-settings: "SOFT" 20, "WONK" 1;
+   letter-spacing: -0.03em;
+   line-height: 1;
+   color: var(--paper);
+}
+
+.lib-title p {
+   margin-top: 7px;
+   font-size: 13px;
+   color: var(--paper-3);
+}
+
+.input-c {
    position: relative;
-   overflow: hidden;
-   transition: var(--transition-premium);
+   padding: 0 44px;
    display: flex;
-   flex-direction: column;
+   flex-wrap: wrap;
    align-items: center;
-   justify-content: center;
-   aspect-ratio: 1.15;
-   transform-style: preserve-3d;
-   backdrop-filter: blur(12px);
+   gap: 10px;
 }
 
-.column::before {
-   content: '';
+.lib-search-icon {
    position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   bottom: 0;
-   background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, transparent 100%);
-   opacity: 0;
-   transition: var(--transition-premium);
-   z-index: 0;
+   left: 62px;
+   font-size: 13.5px;
+   color: var(--paper-4);
    pointer-events: none;
-}
-
-.column img {
-   width: 60px;
-   height: 60px;
-   border-radius: 14px;
-   transition: var(--transition-premium);
    z-index: 1;
-   object-fit: contain;
-   pointer-events: none;
-   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+   transition: color var(--mid);
 }
 
-/* Stand-in for a game with no icon. Same box as .column img so the grid does not
-   shift between cards that have artwork and cards that do not. */
-.tile-fallback {
-   width: 60px;
-   height: 60px;
-   border-radius: 14px;
+.input-c:focus-within .lib-search-icon {
+   color: var(--brass);
+}
+
+/* Scoped to this row. A bare `input` rule here used to reach the settings
+   page and the command palette through the shared stylesheet. */
+.input-c input {
+   flex: 1;
+   min-width: 220px;
+   height: 50px;
+   padding: 0 18px 0 42px;
+   background: var(--ink-800);
+   border: 1px solid var(--line-2);
+   border-radius: var(--radius-lg);
+   outline: none;
+   color: var(--paper);
+   font-family: var(--sans);
+   font-size: 14.5px;
+   transition: border-color var(--mid), background var(--mid), box-shadow var(--mid);
+}
+
+.input-c input::placeholder {
+   color: var(--paper-4);
+}
+
+.input-c input:hover {
+   border-color: var(--line-3);
+}
+
+.input-c input:focus {
+   background: var(--ink-750);
+   border-color: var(--brass-dim);
+   box-shadow: var(--lift-2);
+}
+
+.lib-random {
    display: flex;
    align-items: center;
-   justify-content: center;
-   font-size: 21px;
-   font-weight: 700;
-   letter-spacing: 0.5px;
-   color: rgba(255, 255, 255, 0.92);
-   background: linear-gradient(140deg, var(--tile-a, #2a2a34), var(--tile-b, #14141a));
-   border: 1px solid rgba(255, 255, 255, 0.09);
-   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-   transition: var(--transition-premium);
-   z-index: 1;
-   pointer-events: none;
-   user-select: none;
+   gap: 9px;
+   height: 50px;
+   padding: 0 19px;
+   border-radius: var(--radius-lg);
+   background: rgba(244, 239, 230, 0.03);
+   border: 1px solid var(--line);
+   color: var(--paper-2);
+   font-family: var(--sans);
+   font-size: 13px;
+   font-weight: 500;
+   cursor: pointer;
+   white-space: nowrap;
+   transition: background var(--mid), border-color var(--mid), color var(--mid), transform var(--mid);
 }
 
-.column:hover .tile-fallback {
-   transform: translateZ(15px) scale(1.08);
+.lib-random i {
+   font-size: 12px;
+   color: var(--paper-4);
+   transition: color var(--mid);
 }
 
-.column p {
+.lib-random:hover {
+   background: rgba(244, 239, 230, 0.06);
+   border-color: var(--line-2);
+   color: var(--paper);
+   transform: translateY(-2px);
+}
+
+.lib-random:hover i {
+   color: var(--brass);
+}
+
+.lib-random:active {
+   transform: translateY(0);
+}
+
+/* ── Filters ──────────────────────────────────────────────────── */
+
+.lib-filters {
+   display: flex;
+   align-items: center;
+   gap: 16px;
+   padding: 18px 44px 0;
+}
+
+.chip-row {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 7px;
+   flex: 1;
+}
+
+.chip {
+   padding: 6px 14px;
+   border-radius: 100px;
+   background: transparent;
+   border: 1px solid var(--line);
+   color: var(--paper-3);
+   font-family: var(--sans);
+   font-size: 12px;
+   font-weight: 500;
+   letter-spacing: 0.01em;
+   cursor: pointer;
+   transition: background var(--fast), color var(--fast), border-color var(--fast);
+}
+
+.chip:hover {
+   background: rgba(244, 239, 230, 0.05);
+   border-color: var(--line-2);
+   color: var(--paper);
+}
+
+/* Brass wash, not a white slab. The active filter should read as selected,
+   not as the brightest thing on the page. */
+.chip.active {
+   background: var(--brass-wash);
+   border-color: rgba(210, 163, 93, 0.34);
+   color: var(--brass);
+}
+
+.lib-count {
+   font-size: 10px;
    font-weight: 600;
-   font-size: 11.5px;
-   line-height: normal;
-   text-align: center;
-   color: #fff;
-   position: absolute;
-   bottom: 10px;
-   left: 10px;
-   right: 10px;
-   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
-   z-index: 1;
-   margin: 0;
-   pointer-events: none;
-   transition: var(--transition-premium);
+   letter-spacing: 0.16em;
+   text-transform: uppercase;
+   color: var(--paper-4);
+   white-space: nowrap;
 }
 
-.column:hover {
-   background: rgba(255, 255, 255, 0.05);
-   border-color: rgba(255, 255, 255, 0.25);
-   transform: perspective(1000px) translateZ(30px) translateY(-6px) rotateX(8deg);
-   box-shadow: 0 25px 45px rgba(0, 0, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.05);
-   z-index: 10;
-}
-
-.column:hover::before {
-   opacity: 1;
-}
-
-.column:hover img {
-   transform: translateZ(15px) scale(1.08);
-}
-
-.column:hover p {
-   transform: translateZ(10px);
-   color: #fff;
-}
+/* ── Grid ─────────────────────────────────────────────────────── */
 
 .apps,
 .pinned {
    display: grid;
-   grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-   gap: 20px;
-   width: calc(100% - 56px);
-   margin-left: 56px;
-   padding: 0 48px;
+   grid-template-columns: repeat(auto-fill, minmax(132px, 1fr));
+   gap: 14px;
+   width: calc(100% - var(--rail));
+   margin-left: var(--rail);
+   padding: 0 44px;
    margin-top: 22px;
-   padding-bottom: 110px;
-   perspective: 1500px;
-   transform-style: preserve-3d;
-   animation: popIn3D 0.8s var(--transition-premium) forwards;
+   padding-bottom: 96px;
+}
+
+.pinned {
+   padding-bottom: 0;
+   margin-bottom: 26px;
 }
 
 /* With nothing pinned the grid still claimed its margin and padding, leaving a
@@ -128,139 +204,207 @@
    display: none;
 }
 
-.library-head {
-   margin-top: 76px;
-   margin-left: 56px;
-   width: calc(100% - 56px);
-}
-
-.input-c {
+.column {
    position: relative;
-   padding: 0 48px;
-   display: flex;
-   flex-wrap: wrap;
-   align-items: center;
-   gap: 12px;
-   perspective: 1000px;
+   display: block;
+   aspect-ratio: 1 / 1.04;
+   background: rgba(244, 239, 230, 0.022);
+   border: 1px solid var(--line);
+   border-radius: var(--radius-lg);
+   cursor: pointer;
+   overflow: hidden;
+   transition: background var(--mid), border-color var(--mid), transform var(--mid), box-shadow var(--mid);
 }
 
-.lib-search-icon {
+/* The brass hairline that marks the card you are on. Same gesture as the
+   shortcut cards on the home page, so the two screens rhyme. */
+.column::after {
+   content: "";
    position: absolute;
-   left: 68px;
-   font-size: 14px;
-   color: rgba(255, 255, 255, 0.3);
-   pointer-events: none;
-   z-index: 1;
+   left: 0;
+   right: 0;
+   bottom: 0;
+   height: 1px;
+   background: linear-gradient(90deg, transparent, var(--brass), transparent);
+   opacity: 0;
+   transition: opacity var(--mid);
 }
 
-input {
-   flex: 1;
-   padding: 0 20px;
-   height: 52px;
-   border-radius: 16px;
-   background: rgba(20, 25, 35, 0.5);
-   text-align: left;
-   font-size: 15px;
-   border: 1px solid var(--border-color);
-   outline: none;
-   color: var(--text-primary);
-   transition: var(--transition-premium);
-   backdrop-filter: blur(12px);
+.column:hover {
+   background: rgba(244, 239, 230, 0.055);
+   border-color: var(--line-2);
+   transform: translateY(-4px);
+   box-shadow: var(--lift-3);
+   z-index: 5;
 }
 
-#search {
-   padding-left: 46px;
+.column:hover::after {
+   opacity: 0.55;
 }
 
-input:focus {
-   border-color: rgba(255, 255, 255, 0.28);
-   background: rgba(30, 35, 50, 0.7);
-   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.04), 0 15px 30px rgba(0, 0, 0, 0.35);
-}
-
-.lib-random {
-   display: flex;
-   align-items: center;
-   gap: 9px;
-   height: 52px;
-   padding: 0 20px;
-   border-radius: 16px;
-   background: rgba(255, 255, 255, 0.04);
-   border: 1px solid var(--border-color);
-   color: rgba(255, 255, 255, 0.72);
-   font-family: inherit;
-   font-size: 13.5px;
-   font-weight: 600;
-   cursor: pointer;
-   white-space: nowrap;
-   transition: var(--transition-premium);
-   backdrop-filter: blur(12px);
-}
-
-.lib-random:hover {
-   background: rgba(255, 255, 255, 0.09);
-   border-color: rgba(255, 255, 255, 0.2);
-   color: #fff;
-   transform: translateY(-2px);
-}
-
-.lib-random:active {
-   transform: scale(0.97);
-}
-
-.lib-filters {
-   display: flex;
-   align-items: center;
-   gap: 16px;
-   padding: 16px 48px 0;
-}
-
-.chip-row {
-   display: flex;
-   flex-wrap: wrap;
-   gap: 8px;
-   flex: 1;
-}
-
-.chip {
-   padding: 7px 15px;
-   border-radius: 100px;
-   background: rgba(255, 255, 255, 0.03);
-   border: 1px solid rgba(255, 255, 255, 0.07);
-   color: rgba(255, 255, 255, 0.55);
-   font-family: inherit;
-   font-size: 12.5px;
-   font-weight: 600;
-   cursor: pointer;
-   transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
-}
-
-.chip:hover {
-   background: rgba(255, 255, 255, 0.07);
-   color: #fff;
+.column:active {
    transform: translateY(-1px);
 }
 
-.chip.active {
-   background: #fff;
-   border-color: #fff;
-   color: #08080c;
+/* The anchor is what carries the click handler, so it has to be a real box that
+   fills the card. As `display: contents` it had no box of its own, the icon and
+   the label are both pointer-events: none, and the whole tile was dead to the
+   mouse: no game and no app would open. */
+.column a {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+   gap: 13px;
+   width: 100%;
+   height: 100%;
+   padding: 16px 11px;
+   text-decoration: none;
+   color: inherit;
 }
 
-.lib-count {
-   font-size: 11.5px;
-   font-weight: 600;
-   letter-spacing: 1px;
-   text-transform: uppercase;
-   color: rgba(255, 255, 255, 0.28);
-   white-space: nowrap;
+.column img {
+   width: 56px;
+   height: 56px;
+   border-radius: 13px;
+   object-fit: contain;
+   pointer-events: none;
+   box-shadow: var(--lift-1);
+   transition: transform var(--mid);
 }
+
+.column:hover img,
+.column:hover .tile-fallback {
+   transform: scale(1.06);
+}
+
+/* Stand-in for a game with no icon. Same box as .column img so the grid does not
+   shift between cards that have artwork and cards that do not. */
+.tile-fallback {
+   width: 56px;
+   height: 56px;
+   border-radius: 13px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: var(--serif);
+   font-size: 21px;
+   font-weight: 400;
+   letter-spacing: 0.01em;
+   color: var(--paper-2);
+   background: linear-gradient(150deg, var(--tile-a, #272320), var(--tile-b, #131211));
+   border: 1px solid var(--line-2);
+   box-shadow: var(--lift-1);
+   transition: transform var(--mid);
+   pointer-events: none;
+   user-select: none;
+}
+
+/* Sits in the flow now instead of floating over the artwork with a drop shadow
+   behind it. Two lines maximum, then it clips. */
+.column p {
+   font-size: 11.5px;
+   font-weight: 450;
+   line-height: 1.32;
+   letter-spacing: 0.005em;
+   text-align: center;
+   color: var(--paper-2);
+   margin: 0;
+   pointer-events: none;
+   display: -webkit-box;
+   -webkit-line-clamp: 2;
+   -webkit-box-orient: vertical;
+   overflow: hidden;
+   transition: color var(--mid);
+}
+
+.column:hover p {
+   color: var(--paper);
+}
+
+/* Tiles the catalogue flags as down or flaky. A tinted label and a matching
+   dot in the corner, so the state is legible without a coloured card. */
+.column.is-broken p { color: var(--clay); }
+.column.is-slow p { color: var(--amber); }
+
+.column.is-broken::before,
+.column.is-slow::before {
+   content: "";
+   position: absolute;
+   top: 11px;
+   left: 11px;
+   width: 5px;
+   height: 5px;
+   border-radius: 50%;
+   background: var(--clay);
+   opacity: 0.85;
+}
+
+.column.is-slow::before {
+   background: var(--amber);
+}
+
+/* ── Pin ──────────────────────────────────────────────────────── */
+
+/* It used to be a grey circle shoved 200px up the page with inline styles.
+   Now it is a corner button that only appears when the card is under the
+   cursor, which is the only time it can be clicked anyway. */
+.pin-btn {
+   position: absolute;
+   top: 7px;
+   right: 7px;
+   width: 24px;
+   height: 24px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   padding: 0;
+   background: rgba(13, 12, 11, 0.72);
+   border: 1px solid var(--line-2);
+   border-radius: 8px;
+   color: var(--paper-3);
+   font-size: 10px;
+   cursor: pointer;
+   opacity: 0;
+   -webkit-backdrop-filter: blur(8px);
+   backdrop-filter: blur(8px);
+   transition: opacity var(--fast), color var(--fast), background var(--fast);
+   z-index: 3;
+}
+
+.column:hover .pin-btn,
+.pin-btn:focus-visible {
+   opacity: 1;
+}
+
+.pin-btn:hover {
+   background: var(--ink-700);
+   color: var(--brass);
+}
+
+/* ── Entrance ─────────────────────────────────────────────────── */
+
+/* The grid holds hundreds of cards, so only the first few rows are staggered.
+   Everything below the fold arrives in one beat — nobody is watching it. */
+.apps .column,
+.pinned .column {
+   opacity: 0;
+   animation: rise 0.5s var(--ease) forwards;
+}
+
+.apps .column:nth-child(-n+8) { animation-delay: 0.02s; }
+.apps .column:nth-child(n+9):nth-child(-n+16) { animation-delay: 0.07s; }
+.apps .column:nth-child(n+17):nth-child(-n+24) { animation-delay: 0.12s; }
+.apps .column:nth-child(n+25):nth-child(-n+32) { animation-delay: 0.17s; }
+.apps .column:nth-child(n+33) { animation-delay: 0.22s; }
+
+/* ── Empty ────────────────────────────────────────────────────── */
 
 .lib-empty {
-   margin-left: 56px;
-   padding: 60px 0 120px;
+   margin-left: var(--rail);
+   padding: 70px 0 120px;
    text-align: center;
-   color: rgba(255, 255, 255, 0.3);
+   color: var(--paper-4);
 }
 
 .lib-empty[hidden] {
@@ -268,31 +412,59 @@ input:focus {
 }
 
 .lib-empty i {
-   font-size: 34px;
-   opacity: 0.35;
+   font-size: 30px;
+   color: var(--paper-4);
+   opacity: 0.6;
 }
 
 .lib-empty p {
-   margin-top: 14px;
-   font-size: 14px;
+   margin-top: 15px;
+   font-family: var(--serif);
+   font-size: 16px;
+   font-style: italic;
+   color: var(--paper-3);
 }
 
-select {
-   padding: 0 20px;
-   height: 52px;
-   border-radius: 16px;
-   background: rgba(20, 25, 35, 0.5);
-   color: var(--text-primary);
+/* ── Select ───────────────────────────────────────────────────── */
+
+.library-head select {
+   padding: 0 18px;
+   height: 50px;
+   border-radius: var(--radius-lg);
+   background: var(--ink-800);
+   color: var(--paper);
+   font-family: var(--sans);
    font-size: 14px;
-   font-weight: 500;
-   border: 1px solid var(--border-color);
+   border: 1px solid var(--line-2);
    outline: none;
    cursor: pointer;
-   transition: var(--transition-premium);
-   backdrop-filter: blur(12px);
+   transition: border-color var(--mid), background var(--mid);
 }
 
-select:hover {
-   border-color: rgba(255, 255, 255, 0.2);
-   background: rgba(255, 255, 255, 0.05);
+.library-head select:hover {
+   border-color: var(--line-3);
+   background: var(--ink-750);
+}
+
+/* ── Narrow ───────────────────────────────────────────────────── */
+
+@media (max-width: 700px) {
+   .input-c,
+   .lib-filters,
+   .apps,
+   .pinned,
+   .lib-title {
+      padding-left: 20px;
+      padding-right: 20px;
+   }
+
+   .lib-search-icon {
+      left: 38px;
+   }
+
+   .apps,
+   .pinned {
+      grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+      gap: 10px;
+   }
 }

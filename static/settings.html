@@ -9,18 +9,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
   <title id="t">Home</title>
-  <link rel="stylesheet" id="global" href="/assets/css/global.css?v=sj3" />
-  <link rel="stylesheet" href="/assets/css/container.css?v=sj4" />
-  <link rel="stylesheet" href="/assets/css/nav.css?v=sj4" />
-  <link rel="stylesheet" href="/assets/css/settings.css?v=sj6" />
-  <link rel="stylesheet" href="/assets/css/credits.css?v=2" />
-  <link rel="stylesheet" href="/assets/css/palette.css?v=sj4" />
+  <link rel="stylesheet" id="global" href="/assets/css/global.css?v=ember2" />
+  <link rel="stylesheet" href="/assets/css/nav.css?v=ember2" />
+  <link rel="stylesheet" href="/assets/css/settings.css?v=ember2" />
+  <link rel="stylesheet" href="/assets/css/credits.css?v=ember2" />
+  <link rel="stylesheet" href="/assets/css/palette.css?v=ember2" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script>try{if(sessionStorage.getItem("gh:in")){sessionStorage.removeItem("gh:in");document.documentElement.className+=" gh-in";}}catch(e){}</script>
 </head>
 
 <body>
   <div class="f-nav"></div>
   <div class="main">
+    <div class="settings-head">
+      <h1>Settings</h1>
+      <p>Cloaking, escape keys, engines and everything else Ghosty remembers.</p>
+    </div>
     <div class="settings-container">
 
       <!-- Stealth Cloak -->
@@ -190,46 +194,7 @@
           current state.</p>
         <div id="buttonLayer">
           <button class="key-button" value="Export" onclick="exportSaveData();">Export Vault</button>
-          <button class="key-button" value="Import" onclick="importSaveData();"
-            style="border-color:rgba(255,255,255,0.4); color:var(--text-secondary);">Import Vault</button>
-        </div>
-      </div>
-
-      <!-- Premium Credits -->
-      <div class="settings-card credits-card-premium">
-        <div class="credits-header">
-          <div class="credits-header-icon" style="margin-bottom:12px;">
-            <i class="fa-solid fa-ghost" style="font-size:24px; color:var(--foreground);"></i>
-          </div>
-          <div class="credits-header-text">
-            <h3>Ghosty Platform</h3>
-            <div class="credits-subtitle" style="color:var(--text-secondary); font-size:12px;">Architectural Overview &
-              Credits</div>
-          </div>
-        </div>
-
-        <div class="credits-body" style="margin-top:16px;">
-          <div class="credits-creator-block" style="display:flex; gap:12px; align-items:center; margin-bottom:16px;">
-            <div class="creator-avatar" style="font-size:32px;">👻</div>
-            <div class="creator-info">
-              <div class="name" style="font-weight:700; font-size:16px;">Marlon 😛</div>
-              <span class="title-tag"
-                style="background:rgba(255,255,255,0.1); padding:4px 8px; border-radius:6px; font-size:11px; font-weight:600;">
-                <i class="fa-solid fa-crown" style="color:var(--foreground);"></i> the Hispanic GOAT 🐐
-              </span>
-            </div>
-          </div>
-
-          <p style="font-size:13px; line-height:1.6; margin-bottom:16px;">
-            <strong>Ghosty</strong> is a high-performance web proxy platform built from the ground up to deliver
-            unrestricted access to the internet. Featuring tab cloaking, custom themes, panic keys, and a
-            lightning-fast proxy engine.
-          </p>
-
-          <div
-            style="font-size:12px; color:var(--text-secondary); border-top:1px solid rgba(255,255,255,0.1); padding-top:16px;">
-            <i class="fa-solid fa-code-commit"></i> Version 5.2.6 (Premium UI Mod)
-          </div>
+          <button class="key-button" value="Import" onclick="importSaveData();">Import Vault</button>
         </div>
       </div>
 
@@ -240,10 +205,11 @@
   <script src="./assets/mathematics/config.js?v=sj1"></script>
   <script src="/baremux/index.js?v=sj1"></script>
   <script src="/scram/scramjet.all.js"></script>
-  <script src="/assets/js/engine.js?v=sj15"></script>
-  <script src="/assets/js/palette.js?v=sj4"></script>
-  <script src="/assets/js/m1.js?v=sj4"></script>
-  <script src="/assets/js/s1.js?v=sj6"></script>
+  <script src="/assets/js/engine.js?v=sj17"></script>
+  <script src="/assets/js/ghost.js?v=ember2"></script>
+  <script src="/assets/js/palette.js?v=ember2"></script>
+  <script src="/assets/js/m1.js?v=ember2"></script>
+  <script src="/assets/js/s1.js?v=ember2"></script>
 </body>
 
 </html>

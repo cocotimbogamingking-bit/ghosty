@@ -1,129 +1,143 @@
-/* ═══════════════════════════════════════
-   CREDITS - Clean & Minimal
-   ═══════════════════════════════════════ */
+/* ═════════════════════════════════════════════════════════════
+   Credits — footer strip and the card on the settings page.
+   Everything here used to be purple, orange, green and pink at
+   once. One accent now, and it is the same brass as the rest.
+   ═════════════════════════════════════════════════════════════ */
 
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
+/* ── Footer strip ─────────────────────────────────────────────── */
 
-/* ── Credits Footer ── */
 .credits-footer {
     position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
     z-index: 200;
-    padding: 12px 28px;
+    height: 34px;
+    padding: 0 20px 0 calc(var(--rail) + 20px);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: rgba(10, 10, 20, 0.7);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    backdrop-filter: blur(20px) saturate(150%);
-    border-top: 1px solid rgba(255, 255, 255, 0.04);
-    font-family: 'Outfit', 'Inter', sans-serif;
-    transition: all 0.3s ease;
+    background: rgba(13, 12, 11, 0.76);
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid var(--line);
+    font-family: var(--sans);
+    transition: background var(--mid), border-color var(--mid);
 }
 
 .credits-footer:hover {
-    background: rgba(10, 10, 20, 0.85);
-    border-top-color: rgba(168, 85, 247, 0.1);
+    background: rgba(13, 12, 11, 0.9);
+    border-top-color: var(--line-2);
 }
 
 .credits-left {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 11px;
+    min-width: 0;
 }
 
+/* No gradient pill. A hairline tag reads as a byline instead of a badge. */
 .credits-badge {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    background: linear-gradient(135deg, #6c3ce0, #a855f7);
-    padding: 4px 12px;
-    border-radius: 50px;
-    font-size: 10px;
-    font-weight: 700;
+    padding: 3px 9px;
+    border: 1px solid var(--line-2);
+    border-radius: 100px;
+    font-size: 9px;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    color: #fff;
+    letter-spacing: 0.14em;
+    color: var(--paper-3);
+    white-space: nowrap;
 }
 
 .credits-badge .badge-icon {
-    font-size: 10px;
+    font-size: 9px;
+    color: var(--brass);
 }
 
 .credits-creator {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.7);
+    font-size: 12px;
+    color: var(--paper-3);
     font-weight: 400;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .credits-creator .creator-name {
-    font-weight: 700;
-    color: #c084fc;
+    font-family: var(--serif);
+    font-size: 13.5px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--paper);
 }
 
 .credits-creator .creator-emoji {
     -webkit-text-fill-color: initial;
-    font-size: 15px;
-    margin-left: 2px;
+    font-size: 13px;
+    margin-left: 3px;
 }
 
 .credits-creator .creator-title {
-    color: rgba(255, 255, 255, 0.35);
-    font-size: 11px;
+    color: var(--paper-4);
+    font-size: 10px;
     margin-left: 8px;
     font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.08em;
 }
 
 .credits-right {
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: 14px;
 }
 
 .credits-year {
     display: flex;
     align-items: center;
     gap: 8px;
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.35);
+    font-size: 10.5px;
+    color: var(--paper-4);
     font-weight: 500;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
 }
 
 .credits-year .year-dot {
-    width: 6px;
-    height: 6px;
-    background: #4ade80;
+    width: 5px;
+    height: 5px;
+    background: var(--sage);
     border-radius: 50%;
-    animation: pulseDot 2.5s ease-in-out infinite;
+    box-shadow: 0 0 0 3px rgba(134, 161, 115, 0.14);
+    animation: pulseDot 3.4s ease-in-out infinite;
 }
 
 .credits-divider {
     width: 1px;
-    height: 20px;
-    background: rgba(255, 255, 255, 0.08);
+    height: 14px;
+    background: var(--line);
 }
 
 .credits-version {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.25);
-    font-weight: 400;
+    font-size: 10.5px;
+    color: var(--paper-4);
+    font-variant-numeric: tabular-nums;
 }
 
-/* ── Credits Card in Settings ── */
+/* ── Credits card on the settings page ────────────────────────── */
+
 .credits-card-premium {
-    background: rgba(255, 255, 255, 0.02) !important;
-    border: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-radius: 16px !important;
+    background: rgba(244, 239, 230, 0.022) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: var(--radius-lg) !important;
     padding: 0 !important;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: var(--lift-2) !important;
 }
 
 .credits-card-premium::before {
@@ -133,13 +147,14 @@
     left: 0;
     right: 0;
     height: 1px;
-    background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
+    background: linear-gradient(90deg, transparent, var(--brass), transparent);
+    opacity: 0.4;
 }
 
 .credits-card-premium:hover {
-    border-color: rgba(255, 255, 255, 0.2) !important;
-    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4), 0 0 40px rgba(255, 255, 255, 0.05) !important;
-    transform: translateY(-4px) !important;
+    border-color: var(--line-2) !important;
+    box-shadow: var(--lift-3) !important;
+    transform: translateY(-3px) !important;
 }
 
 .credits-header {
@@ -152,31 +167,41 @@
 .credits-header-icon {
     width: 44px;
     height: 44px;
-    border-radius: 12px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--radius);
+    background: var(--brass-wash);
+    border: 1px solid var(--line-2);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 20px;
+    font-size: 19px;
+    color: var(--brass);
+    flex-shrink: 0;
+}
+
+/* The inline style on the icon in settings.html forces --foreground; this wins
+   because it is more specific than the element's own colour would be. */
+.credits-header-icon i {
+    color: var(--brass) !important;
 }
 
 .credits-header-text h3 {
     margin: 0 !important;
-    font-family: 'Outfit', 'Inter', sans-serif !important;
-    font-size: 20px !important;
-    font-weight: 700 !important;
-    color: var(--text-primary) !important;
+    font-family: var(--serif) !important;
+    font-size: 22px !important;
+    font-weight: 300 !important;
+    font-variation-settings: "SOFT" 20, "WONK" 1;
+    letter-spacing: -0.025em !important;
+    color: var(--paper) !important;
     -webkit-text-fill-color: initial !important;
 }
 
 .credits-header-text .credits-subtitle {
-    font-size: 11px;
-    color: var(--text-secondary);
-    font-weight: 500;
-    letter-spacing: 2px;
+    font-size: 9.5px;
+    color: var(--paper-4);
+    font-weight: 600;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
-    margin-top: 2px;
+    margin-top: 4px;
 }
 
 .credits-body {
@@ -187,96 +212,104 @@
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 16px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 12px;
+    padding: 15px;
+    background: rgba(244, 239, 230, 0.025);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     margin-bottom: 16px;
-    transition: all 0.3s ease;
+    transition: background var(--mid), border-color var(--mid);
 }
 
 .credits-creator-block:hover {
-    background: rgba(255, 255, 255, 0.06);
-    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(244, 239, 230, 0.05);
+    border-color: var(--line-2);
 }
 
 .creator-avatar {
-    width: 48px;
-    height: 48px;
+    width: 46px;
+    height: 46px;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(244, 239, 230, 0.05);
+    border: 1px solid var(--line-2);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 22px;
-    font-weight: 800;
-    color: var(--text-primary);
+    color: var(--paper);
     flex-shrink: 0;
-    font-family: 'Outfit', sans-serif;
 }
 
 .creator-info {
     flex: 1;
+    min-width: 0;
 }
 
 .creator-info .name {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--text-primary);
-    font-family: 'Outfit', sans-serif;
-    margin-bottom: 2px;
+    font-family: var(--serif) !important;
+    font-size: 17px !important;
+    font-weight: 400 !important;
+    letter-spacing: -0.015em;
+    color: var(--paper);
+    margin-bottom: 5px;
 }
 
 .creator-info .title-tag {
     display: inline-flex;
     align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    font-weight: 600;
-    color: #fb923c;
-    background: rgba(251, 146, 60, 0.08);
-    padding: 3px 10px;
-    border-radius: 50px;
-    border: 1px solid rgba(251, 146, 60, 0.15);
+    gap: 6px;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: var(--brass) !important;
+    background: var(--brass-wash) !important;
+    padding: 3px 10px !important;
+    border-radius: 100px !important;
+    border: 1px solid rgba(210, 163, 93, 0.22);
+}
+
+.creator-info .title-tag i {
+    color: var(--brass) !important;
+    font-size: 9px;
 }
 
 .credits-description {
     font-size: 13px;
     line-height: 1.7;
-    color: var(--text-secondary);
+    color: var(--paper-2);
     margin-bottom: 16px;
 }
 
-.credits-description strong {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 600;
+.credits-description strong,
+.credits-body strong {
+    color: var(--paper);
+    font-weight: 550;
 }
 
 .credits-timeline {
     display: flex;
     align-items: center;
     gap: 12px;
-    padding: 12px 16px;
-    background: rgba(74, 222, 128, 0.04);
-    border: 1px solid rgba(74, 222, 128, 0.08);
-    border-radius: 10px;
+    padding: 12px 15px;
+    background: rgba(134, 161, 115, 0.05);
+    border: 1px solid rgba(134, 161, 115, 0.12);
+    border-radius: var(--radius-sm);
     margin-bottom: 14px;
 }
 
 .timeline-icon {
-    font-size: 16px;
-    color: #4ade80;
+    font-size: 14px;
+    color: var(--sage);
 }
 
 .timeline-text {
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.5);
+    color: var(--paper-3);
     font-weight: 500;
 }
 
 .timeline-text .highlight {
-    color: #4ade80;
-    font-weight: 700;
+    color: var(--sage);
+    font-weight: 600;
 }
 
 .credits-stats {
@@ -289,77 +322,77 @@
 .stat-item {
     text-align: center;
     padding: 12px 8px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 10px;
-    transition: all 0.3s ease;
+    background: rgba(244, 239, 230, 0.02);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    transition: background var(--mid), border-color var(--mid), transform var(--mid);
 }
 
 .stat-item:hover {
-    background: rgba(255, 255, 255, 0.05);
-    border-color: rgba(168, 85, 247, 0.1);
+    background: rgba(244, 239, 230, 0.05);
+    border-color: var(--line-2);
     transform: translateY(-2px);
 }
 
-.stat-value {
-    font-size: 18px;
-    font-weight: 800;
-    font-family: 'Outfit', sans-serif;
-    color: #a855f7;
+/* Scoped. An unscoped .stat-value here was also repainting the figures on the
+   home page and the blocked counter in settings. */
+.credits-card-premium .stat-value,
+.stat-item .stat-value {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    color: var(--paper);
+    font-variant-numeric: tabular-nums;
 }
 
-.stat-label {
-    font-size: 10px;
-    color: rgba(255, 255, 255, 0.3);
+.credits-card-premium .stat-label,
+.stat-item .stat-label {
+    font-size: 9px;
+    color: var(--paper-4);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.14em;
     margin-top: 4px;
     font-weight: 600;
 }
 
 .credits-footer-card {
     padding: 14px 24px;
-    background: rgba(0, 0, 0, 0.15);
-    border-top: 1px solid rgba(255, 255, 255, 0.03);
+    background: rgba(0, 0, 0, 0.16);
+    border-top: 1px solid var(--line);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .credits-footer-card .version-tag {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.25);
+    font-size: 10.5px;
+    color: var(--paper-4);
     font-weight: 500;
 }
 
 .credits-footer-card .made-with {
-    font-size: 11px;
-    color: rgba(255, 255, 255, 0.2);
+    font-size: 10.5px;
+    color: var(--paper-4);
 }
 
 .credits-footer-card .made-with .heart {
-    color: #f472b6;
+    color: var(--clay);
 }
 
-/* ── Animations (minimal) ── */
 @keyframes pulseDot {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.35; }
 }
 
-/* ── Responsive ── */
+/* ── Narrow ───────────────────────────────────────────────────── */
+
 @media (max-width: 768px) {
     .credits-footer {
+        height: auto;
         flex-direction: column;
-        gap: 6px;
-        padding: 10px 20px;
+        gap: 4px;
+        padding: 8px 16px;
         text-align: center;
     }
 
@@ -370,11 +403,6 @@
 
     .credits-creator .creator-title {
         display: none;
-    }
-
-    .credits-stats {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 6px;
     }
 
     .credits-creator-block {
@@ -390,15 +418,11 @@
 
 @media (max-width: 480px) {
     .credits-badge {
-        font-size: 9px;
-        padding: 3px 10px;
+        font-size: 8.5px;
+        padding: 3px 8px;
     }
 
     .credits-creator {
-        font-size: 12px;
-    }
-
-    .stat-value {
-        font-size: 16px;
+        font-size: 11px;
     }
 }

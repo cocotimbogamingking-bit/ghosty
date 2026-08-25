@@ -133,7 +133,20 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    newIframe.src = targetSrc;
+    // A proxied path is served by the transport, so pointing the frame at one before
+    // setTransport has resolved makes Scramjet's worker answer "there are no bare
+    // clients" and paint its own error page. Nothing retries afterwards, so the tab
+    // stays broken — which is what opening an app straight from the library did.
+    if (targetSrc !== "/" && window.__ghosty && window.__ghosty.ready) {
+      const go = () => {
+        newIframe.src = targetSrc;
+      };
+      Promise.resolve(window.__ghosty.ready).then(go).catch(err => {
+        console.error("[tabs] transport failed before the proxied frame opened:", err);
+      });
+    } else {
+      newIframe.src = targetSrc;
+    }
     iframeContainer.appendChild(newIframe);
 
     // Scroll tab into view
@@ -539,7 +552,6 @@ function decodeXor(input) {
       .join("") + (search.length ? `?${search.join("?")}` : "")
   );
 }
-
 
 
 
